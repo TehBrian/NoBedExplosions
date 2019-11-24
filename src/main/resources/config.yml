@@ -1,0 +1,23 @@
+# +-------------------+ +--------------------------------------------------+
+# |                   | |                                                  |
+# |  NoBedExplosions  | |  https://github.com/ItsTehBrian/NoBedExplosions  |
+# |    by TehBrian    | |  https://spigotmc.org/resources/65808            |
+# |                   | |  https://discord.me/tehbrian           /---------+
+# |   Version 1.0.3   | |                               /-------/
+# |                   | |    /-------------------------/
+# +-------------------+ +---/
+
+# Whether or not the plugin's functionality is on. Should usually be set to true, but useful for testing.
+enabled: true
+
+# If set to true, trying to sleep in the nether or end will let you enter the bed and set your home.
+# If set to false, you won't be able to enter the bed at all, and optionally, an error message will be sent.
+allow_sleep: true
+
+# This is the message sent if you try to sleep in the nether or end, but the setting above is set to false.
+# Set to "" to disable the message entirely.
+denied_msg: "&7You can't sleep here.."
+
+# This is the message sent after doing /reloadnbe to reload the plugin.
+# Set to "" to disable the message entirely.
+reload_msg: "&7[&cNBE&7] &fReloaded NoBedExplosions!"

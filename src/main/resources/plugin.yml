@@ -1,0 +1,22 @@
+name: ${name}
+version: ${version}
+description: ${description}
+author: ${author}
+website: ${url}
+main: ${mainClass}
+api-version: 1.13
+commands:
+  reloadnbe:
+    description: Reloads the config of NoBedExplosions.
+    permission: nobedexplosions.reload
+    permission-message: You don't have permission!
+    usage: /<command>
+permissions:
+  nobedexplosions.reload:
+    description: Permission to use /reloadnbe.
+    default: op
+  nobedexplosions.*:
+    description: Complete permission to all of NoBedExplosions.
+    default: op
+    children:
+      nobedexplosions.reload: true
