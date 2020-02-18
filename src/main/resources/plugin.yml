@@ -5,11 +5,13 @@ author: ${author}
 website: ${url}
 main: ${mainClass}
 api-version: 1.13
+permission-message: &permission-message §cI'm sorry, but you do not have permission to perform this command. Please contact the server administrators if you believe that this is in error.
 commands:
-  reloadnbe:
+  reloadnobedexplosions:
     description: Reloads the config of NoBedExplosions.
+    aliases: [reloadnbe]
     permission: nobedexplosions.reload
-    permission-message: You don't have permission!
+    permission-message: *permission-message
     usage: /<command>
 permissions:
   nobedexplosions.reload:
