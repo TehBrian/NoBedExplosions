@@ -6,7 +6,7 @@
     <groupId>xyz.tehbrian</groupId>
     <artifactId>nobedexplosions</artifactId>
     <!-- Version is used in plugin.yml -->
-    <version>1.0.4</version>
+    <version>1.0.3</version>
     <packaging>jar</packaging>
 
     <!-- Name, Description, and URL are used in plugin.yml -->
@@ -68,7 +68,7 @@
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
-            <version>1.15.2-R0.1-SNAPSHOT</version>
+            <version>1.13.2-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
@@ -96,5 +96,15 @@
                 </excludes>
             </resource>
         </resources>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.0</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+        </plugins>
     </build>
 </project>
