@@ -6,7 +6,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerBedEnterEvent;
 import xyz.tehbrian.nobedexplosions.NoBedExplosions;
-import xyz.tehbrian.nobedexplosions.util.MiscUtils;
+import xyz.tehbrian.nobedexplosions.util.MessageUtils;
 
 import java.util.Objects;
 
@@ -31,8 +31,9 @@ public class MiscEvents implements Listener {
         } else {
             event.setCancelled(true);
 
-            if (!Objects.requireNonNull(config.getString("denied_msg")).isEmpty()) {
-                event.getPlayer().sendMessage(MiscUtils.color(config.getString("denied_msg")));
+            String deniedMsg = Objects.requireNonNull(config.getString("denied_msg"));
+            if (!deniedMsg.isEmpty()) {
+                event.getPlayer().sendMessage(MessageUtils.color(deniedMsg));
             }
         }
     }

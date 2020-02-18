@@ -4,7 +4,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import xyz.tehbrian.nobedexplosions.NoBedExplosions;
-import xyz.tehbrian.nobedexplosions.util.MiscUtils;
+import xyz.tehbrian.nobedexplosions.util.MessageUtils;
 
 import java.util.Objects;
 
@@ -20,8 +20,9 @@ public class ReloadCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         main.reloadConfig();
 
-        if (!Objects.requireNonNull(main.getConfig().getString("reload_msg")).isEmpty()) {
-            sender.sendMessage(MiscUtils.color(main.getConfig().getString("reload_msg")));
+        String reloadMsg = Objects.requireNonNull(main.getConfig().getString("reload_msg"));
+        if (!reloadMsg.isEmpty()) {
+            sender.sendMessage(MessageUtils.color(reloadMsg));
         }
 
         return true;
