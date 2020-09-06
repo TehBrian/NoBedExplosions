@@ -6,9 +6,8 @@ website: ${url}
 main: ${mainClass}
 api-version: 1.13
 commands:
-  reloadnobedexplosions:
+  reloadnbe:
     description: Reloads the config of NoBedExplosions.
-    aliases: [reloadnbe]
     permission: nobedexplosions.reload
     usage: /<command>
 permissions:
