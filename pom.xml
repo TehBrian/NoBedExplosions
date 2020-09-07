@@ -12,7 +12,7 @@
     <!-- Name, Description, and URL are used in plugin.yml -->
     <name>NoBedExplosions</name>
     <description>Simple lightweight plugin to prevent bed explosions in the nether and the end.</description>
-    <url>https://github.com/ItsTehBrian/NoBedExplosions</url>
+    <url>https://www.spigotmc.org/resources/65808</url>
 
     <licenses>
         <license>
