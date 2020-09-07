@@ -8,8 +8,6 @@ public final class NoBedExplosions extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        getConfig().options().copyDefaults(true);
-        getConfig().options().copyHeader(true);
         saveDefaultConfig();
 
         getCommand("reloadnbe").setExecutor(new ReloadCommand(this));
