@@ -20,9 +20,9 @@ public class ReloadCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         main.reloadConfig();
 
-        String reloadMsg = Objects.requireNonNull(main.getConfig().getString("reload_msg"));
+        String reloadMsg = Objects.requireNonNull(MessageUtils.color(main.getConfig().getString("reload_msg")));
         if (!reloadMsg.isEmpty()) {
-            sender.sendMessage(MessageUtils.color(reloadMsg));
+            sender.sendMessage(reloadMsg);
         }
 
         return true;

@@ -31,9 +31,9 @@ public class BedListener implements Listener {
         } else {
             event.setCancelled(true);
 
-            String deniedMsg = Objects.requireNonNull(config.getString("denied_msg"));
+            String deniedMsg = main.getMessage("denied_msg");
             if (!deniedMsg.isEmpty()) {
-                event.getPlayer().sendMessage(MessageUtils.color(deniedMsg));
+                event.getPlayer().sendMessage(deniedMsg);
             }
         }
     }
