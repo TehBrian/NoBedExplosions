@@ -14,8 +14,3 @@ permissions:
   nobedexplosions.reload:
     description: Permission to use /reloadnbe.
     default: op
-  nobedexplosions.*:
-    description: Complete permission to all of NoBedExplosions.
-    default: op
-    children:
-      nobedexplosions.reload: true
