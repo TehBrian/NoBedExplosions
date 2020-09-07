@@ -11,11 +11,11 @@ import xyz.tehbrian.nobedexplosions.util.MessageUtils;
 import java.util.Objects;
 
 @SuppressWarnings("unused")
-public class MiscEvents implements Listener {
+public class BedListener implements Listener {
 
     private final NoBedExplosions main;
 
-    public MiscEvents(NoBedExplosions main) {
+    public BedListener(NoBedExplosions main) {
         this.main = main;
     }
 
