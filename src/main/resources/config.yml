@@ -7,17 +7,21 @@
 # |                   | |    /-------------------------/
 # +-------------------+ +---/
 
-# Whether or not the plugin's functionality is on. Should usually be set to true, but useful for testing.
+# Enable/disable all plugin functionality. Useful for testing.
 enabled: true
 
-# If set to true, trying to sleep in the nether or end will let you enter the bed and set your home.
-# If set to false, you won't be able to enter the bed at all, and optionally, an error message will be sent.
-allow_sleep: true
-
-# This is the message sent if you try to sleep in the nether or end, but the setting above is set to false.
-# Set to "" to disable the message entirely.
-denied_msg: "&7You can't sleep here.."
-
-# This is the message sent after doing /reloadnbe to reload the plugin.
-# Set to "" to disable the message entirely.
+# Message sent after doing /reloadnbe.
 reload_msg: "&7[&cNBE&7] &fReloaded NoBedExplosions!"
+
+# Available modes: ALLOW, DENY, DEFAULT
+#   ALLOW will let you sleep, regardless of dimension.
+#   DENY won't let you enter the bed at all.
+#   DEFAULT will do whatever the dimension usually does.
+# Optionally, if mode is set to DENY, a deny_msg can be set.
+# Note, you don't have to specify all worlds here.
+worlds:
+  world_nether:
+    mode: ALLOW
+  world_the_end:
+    mode: DENY
+    deny_msg: "&7You can't sleep here.."
