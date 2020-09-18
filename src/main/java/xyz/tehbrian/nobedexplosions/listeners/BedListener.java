@@ -13,7 +13,6 @@ import xyz.tehbrian.nobedexplosions.util.MessageUtils;
 import java.util.Locale;
 import java.util.Objects;
 
-@SuppressWarnings("unused")
 public class BedListener implements Listener {
 
     private final NoBedExplosions main;
