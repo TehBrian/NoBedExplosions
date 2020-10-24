@@ -24,3 +24,5 @@ worlds:
   world_the_end:
     mode: DENY
     deny_msg: "&7You can't sleep here.."
+    # Disables *all* bed explosions, even those not caused by players.
+    disable_all_explosions: true

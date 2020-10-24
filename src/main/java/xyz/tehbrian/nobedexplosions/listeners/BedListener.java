@@ -1,11 +1,14 @@
 package xyz.tehbrian.nobedexplosions.listeners;
 
+import org.bukkit.Tag;
+import org.bukkit.block.Block;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockExplodeEvent;
 import org.bukkit.event.player.PlayerBedEnterEvent;
 import xyz.tehbrian.nobedexplosions.NoBedExplosions;
 import xyz.tehbrian.nobedexplosions.util.MessageUtils;
@@ -45,6 +48,22 @@ public class BedListener implements Listener {
                     event.getPlayer().sendMessage(denyMsg);
                 }
                 break;
+        }
+    }
+
+    @EventHandler
+    public void onBedExplode(BlockExplodeEvent event) {
+        Block block = event.getBlock();
+        if (!Tag.BEDS.getValues().contains(block.getType())) return;
+
+        FileConfiguration config = main.getConfig();
+        if (!config.getBoolean("enabled")) return;
+
+        ConfigurationSection worldSettings = config.getConfigurationSection("worlds." + block.getWorld().getName());
+        if (worldSettings == null) return;
+
+        if (worldSettings.getBoolean("disable_all_explosions")) {
+            event.setCancelled(true);
         }
     }
 
