@@ -45,15 +45,11 @@ public class BedListener implements Listener {
                     event.getPlayer().sendMessage(denyMsg);
                 }
                 break;
-            case DEFAULT:
-                event.setUseBed(Event.Result.DEFAULT);
-                break;
         }
     }
 
     private enum Mode {
         ALLOW,
         DENY,
-        DEFAULT,
     }
 }

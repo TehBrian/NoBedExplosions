@@ -13,10 +13,9 @@ enabled: true
 # Message sent after doing /reloadnbe.
 reload_msg: "&7[&cNBE&7] &fReloaded NoBedExplosions!"
 
-# Available modes: ALLOW, DENY, DEFAULT
+# Available modes: ALLOW, DENY
 #   ALLOW will let you sleep, regardless of dimension.
 #   DENY won't let you enter the bed at all.
-#   DEFAULT will do whatever the dimension usually does.
 # Optionally, if mode is set to DENY, a deny_msg can be set.
 # Note, you don't have to specify all worlds here.
 worlds:
