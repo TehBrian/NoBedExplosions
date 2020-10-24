@@ -45,7 +45,7 @@ public class BedListener implements Listener {
 
                 String denyMsg = MessageUtils.color(worldSettings.getString("deny_msg"));
                 if (denyMsg != null && !denyMsg.isEmpty()) {
-                    event.getPlayer().sendMessage(denyMsg);
+                    player.sendMessage(denyMsg);
                 }
                 break;
         }
