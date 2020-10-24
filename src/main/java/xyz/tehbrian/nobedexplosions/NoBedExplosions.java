@@ -15,4 +15,3 @@ public final class NoBedExplosions extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new BedListener(this), this);
     }
 }
-
