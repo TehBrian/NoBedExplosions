@@ -1,10 +1,10 @@
-name: ${name}
-version: ${version}
-description: ${description}
-author: ${author}
-website: ${url}
-main: ${mainClass}
-api-version: "1.16"
+name: NoBedExplosions
+version: @version@
+main: xyz.tehbrian.nobedexplosions.NoBedExplosions
+api-version: 1.16
+authors: [ TehBrian ]
+description: Fully control bed and respawn anchor functionality across all worlds, including allowing sleep in the nether or end!
+website: https://www.spigotmc.org/resources/65808
 commands:
   reloadnbe:
     description: Reloads the config of NoBedExplosions.

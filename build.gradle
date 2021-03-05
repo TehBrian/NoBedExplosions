@@ -1,0 +1,44 @@
+import org.apache.tools.ant.filters.ReplaceTokens
+
+plugins {
+    id 'java'
+}
+
+group = 'xyz.tehbrian'
+version = '1.2.0'
+
+sourceCompatibility = '11'
+targetCompatibility = '11'
+
+repositories {
+    mavenCentral()
+    maven {
+        name = 'spigotmc-repo'
+        url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/'
+    }
+    maven {
+        name = 'sonatype'
+        url = 'https://oss.sonatype.org/content/groups/public/'
+    }
+    // for development builds
+    maven {
+        name = "sonatype-oss-snapshots"
+        url = "https://oss.sonatype.org/content/repositories/snapshots/"
+    }
+}
+
+dependencies {
+    compileOnly 'org.spigotmc:spigot-api:1.16.5-R0.1-SNAPSHOT'
+
+    compile 'com.google.inject:guice:5.0.0-BETA-1'
+
+    compile 'cloud.commandframework:cloud-core:1.4.0'
+    implementation "net.kyori:adventure-platform-bukkit:4.0.0-SNAPSHOT"
+    implementation "net.kyori:adventure-text-minimessage:4.0.0-SNAPSHOT"
+}
+
+processResources {
+    from(sourceSets.main.resources.srcDirs) {
+        filter ReplaceTokens, tokens: [version: version]
+    }
+}
