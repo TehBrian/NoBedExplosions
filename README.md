@@ -1,7 +1,7 @@
 # NoBedExplosions
-Allow sleeping in the nether or the end, or just completely disable it, 
-with configurable messages!
+Fully control bed and respawn anchor functionality across all of your worlds,
+including allowing sleep in the nether or end!
 
 For more information, check out the project's 
-[Spigot page](https://www.spigotmc.org/resources/65808/). Alternatively,
-chat with us over at [my Discord](https://tehbrian.xyz/discord)!
+[Spigot page](https://www.spigotmc.org/resources/65808/). Also,
+come and chat over at [my Discord](https://chat.tehbrian.xyz)!
