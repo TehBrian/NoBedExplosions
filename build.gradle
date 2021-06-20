@@ -30,9 +30,10 @@ repositories {
 dependencies {
     compileOnly 'org.spigotmc:spigot-api:1.16.5-R0.1-SNAPSHOT'
 
-    compile 'com.google.inject:guice:5.0.0-BETA-1'
+    compile 'com.google.inject:guice:5.0.1'
 
     compile 'cloud.commandframework:cloud-core:1.4.0'
+
     implementation "net.kyori:adventure-platform-bukkit:4.0.0-SNAPSHOT"
     implementation "net.kyori:adventure-text-minimessage:4.0.0-SNAPSHOT"
 }
