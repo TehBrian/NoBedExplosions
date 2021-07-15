@@ -1,0 +1,16 @@
+# Message formatting syntax is MiniMessage, which you can read up on here:
+# https://docs.adventure.kyori.net/minimessage.html
+
+worlds:
+# EXAMPLE WORLD CONFIGURATION:
+# world_nether:
+#   bed:
+#     mode: allow/deny
+#     deny_msg: "<gray>Nope."
+#     set_spawn: true/false
+#     disable_all_explosions: true/false
+#   anchor:
+#     mode: allow/deny
+#     deny_msg: "<red>Absolutely not."
+#     set_spawn: true/false
+#     disable_all_explosions: true/false

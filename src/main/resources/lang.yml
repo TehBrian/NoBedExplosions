@@ -1,0 +1,10 @@
+# Language configuration for all messages sent by NoBedExplosions.
+# Message formatting syntax is MiniMessage, which you can read up on here:
+# https://docs.adventure.kyori.net/minimessage.html
+
+# /nbe reload
+nbe_reload: "<gray>[<gradient:red:#f05050>NBE</gradient>]</gray> <white>Reloaded <gradient:red:#f05050>NoBedExplosions</gradient><white>!"
+
+# /nbe info
+nbe_info:
+  - "<gray>[<gradient:red:#f05050>NBE</gradient>]</gray> <white>Info for <aqua>{world_name}<white>:"

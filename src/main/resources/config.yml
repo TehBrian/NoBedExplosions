@@ -10,19 +10,5 @@
 # Enable/disable all plugin functionality. Useful for testing.
 enabled: true
 
-# Message sent after doing /reloadnbe.
-reload_msg: "&7[&cNBE&7] &fReloaded NoBedExplosions!"
-
-# Available modes: ALLOW, DENY
-#   ALLOW will let you sleep, regardless of dimension.
-#   DENY won't let you enter the bed at all.
-# Optionally, if mode is set to DENY, a deny_msg can be set.
-# Note, you don't have to specify all worlds here.
-worlds:
-  world_nether:
-    mode: ALLOW
-  world_the_end:
-    mode: DENY
-    deny_msg: "&7You can't sleep here.."
-    # Disables *all* bed explosions, even those not caused by players.
-    disable_all_explosions: true
+# World configuration can be found in worlds.yml
+# Language configuration can be found in lang.yml
