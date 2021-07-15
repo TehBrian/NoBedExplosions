@@ -36,6 +36,8 @@ dependencies {
 
     implementation("net.kyori:adventure-platform-bukkit:4.0.0-SNAPSHOT")
     implementation("net.kyori:adventure-text-minimessage:4.1.0-SNAPSHOT")
+
+    compileOnly("org.slf4j:slf4j-api:2.0.0-alpha1")
 }
 
 tasks.processResources {
