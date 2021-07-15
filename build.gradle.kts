@@ -38,6 +38,8 @@ dependencies {
     implementation("net.kyori:adventure-text-minimessage:4.1.0-SNAPSHOT")
 
     compileOnly("org.slf4j:slf4j-api:2.0.0-alpha1")
+
+    implementation("org.spongepowered:configurate-yaml:4.1.1")
 }
 
 tasks.processResources {
