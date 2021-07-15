@@ -1,7 +1,7 @@
 name: NoBedExplosions
 version: @version@
 main: xyz.tehbrian.nobedexplosions.NoBedExplosions
-api-version: 1.16
+api-version: 1.17
 authors: [ TehBrian ]
 description: Fully control bed and respawn anchor functionality across all worlds, including allowing sleep in the nether or end!
 website: https://www.spigotmc.org/resources/65808
