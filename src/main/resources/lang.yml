@@ -2,9 +2,19 @@
 # Message formatting syntax is MiniMessage, which you can read up on here:
 # https://docs.adventure.kyori.net/minimessage.html
 
+# /nbe
+nbe:
+  - ""
+  - "<gray><gradient:red:#f5a5a5>NoBedExplosions</gradient> version <gradient:#a5a5f5:blue>1.2.1</gradient>"
+  - ""
+  - "<gray>Commands:"
+  - "<dark_gray>- <#f5a5a5>/nbe reload"
+  - "<dark_gray>- <#a5a5f5>/nbe info"
+  - ""
+
 # /nbe reload
-nbe_reload: "<gray>[<gradient:red:#f05050>NBE</gradient>]</gray> <white>Reloaded <gradient:red:#f05050>NoBedExplosions</gradient><white>!"
+nbe_reload: "<red>›</red> <gray>Reloaded <gradient:red:#f5a5a5>NoBedExplosions</gradient>!"
 
 # /nbe info
 nbe_info:
-  - "<gray>[<gradient:red:#f05050>NBE</gradient>]</gray> <white>Info for <aqua>{world_name}<white>:"
+  - "<blue>›</blue> <gray>Info for <aqua><world></aqua>:"
