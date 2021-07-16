@@ -39,7 +39,7 @@ dependencies {
 
     compileOnly("org.slf4j:slf4j-api:2.0.0-alpha1")
 
-    implementation("org.spongepowered:configurate-yaml:4.1.1")
+    implementation("org.spongepowered:configurate-hocon:4.1.1")
 }
 
 tasks.processResources {
