@@ -1,5 +1,6 @@
 plugins {
     id("java")
+    id("com.github.johnrengelman.shadow") version "6.1.0"
 }
 
 group = "xyz.tehbrian"
@@ -12,6 +13,7 @@ java {
 
 repositories {
     mavenCentral()
+
     maven {
         name = "spigotmc-repo"
         url = uri("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
@@ -42,6 +44,12 @@ dependencies {
     implementation("org.spongepowered:configurate-hocon:4.1.1")
 }
 
-tasks.processResources {
-    expand("version" to project.version)
+tasks {
+    processResources {
+        expand("version" to project.version)
+    }
+
+    shadowJar {
+        archiveBaseName.set("NoBedExplosions")
+    }
 }
