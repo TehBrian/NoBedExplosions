@@ -1,14 +1,12 @@
 name: NoBedExplosions
+description: Fully control bed and respawn anchor functionality across all worlds, including allowing sleep in the nether or end!
+authors: [ TehBrian ]
+website: https://www.spigotmc.org/resources/65808
+
 version: @version@
 main: xyz.tehbrian.nobedexplosions.NoBedExplosions
 api-version: 1.17
-authors: [ TehBrian ]
-description: Fully control bed and respawn anchor functionality across all worlds, including allowing sleep in the nether or end!
-website: https://www.spigotmc.org/resources/65808
-commands:
-  nbe:
-    description: All commands for NoBedExplosions.
-    usage: /<command>
+
 permissions:
   nobedexplosions.reload:
     description: Permission to use /nbe reload.
