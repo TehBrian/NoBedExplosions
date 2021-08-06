@@ -8,6 +8,7 @@ import dev.tehbrian.tehlib.core.cloud.AbstractCloudCommand;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bukkit.World;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.spongepowered.configurate.NodePath;
@@ -50,18 +51,20 @@ public final class MainCommand extends AbstractCloudCommand<CommandSender, Bukki
                     this.audiences.sender(c.getSender()).sendMessage(this.lang.c(NodePath.path("nbe_reload")));
                 });
 
+        // TODO: make this available to console if a world name is specified
         final var info = main.literal("info", ArgumentDescription.of("Shows info for a world."))
                 .permission(Constants.Permissions.INFO)
                 .argument(StringArgument.optional("world"))
+                .senderType(Player.class)
                 .handler(c -> {
-                    final CommandSender sender = c.getSender();
+                    final Player sender = (Player) c.getSender();
                     final @NonNull Optional<String> worldName = c.getOptional("world");
 
                     final World world;
                     if (worldName.isPresent()) {
                         world = sender.getServer().getWorld(worldName.get());
                     } else {
-                        world = sender.getServer().getWorld("yay! fix me.");
+                        world = sender.getWorld();
                     }
 
                     this.audiences.sender(sender).sendMessage(this.lang.c(NodePath.path("nbe_info")));
