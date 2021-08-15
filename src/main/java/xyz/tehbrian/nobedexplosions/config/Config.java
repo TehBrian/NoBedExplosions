@@ -11,7 +11,7 @@ import java.nio.file.Path;
 /**
  * Stores values in-memory from {@code config.yml}.
  */
-public class Config extends AbstractConfig<HoconConfigurateWrapper> {
+public class Config extends AbstractConfig<YamlConfigurateWrapper> {
 
     private boolean enabled;
 
@@ -20,7 +20,7 @@ public class Config extends AbstractConfig<HoconConfigurateWrapper> {
      */
     @Inject
     public Config(@NotNull final Logger logger) {
-        super(logger, new HoconConfigurateWrapper(logger, Path.of("config.yml")));
+        super(logger, new YamlConfigurateWrapper(logger, Path.of("config.yml")));
     }
 
     @Override

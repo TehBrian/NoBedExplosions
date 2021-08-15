@@ -11,7 +11,7 @@ import java.nio.file.Path;
 /**
  * Stores values in-memory for {@code worlds.yml}.
  */
-public class Worlds extends AbstractConfig<HoconConfigurateWrapper> {
+public class Worlds extends AbstractConfig<YamlConfigurateWrapper> {
 
     /**
      * @param logger the logger
@@ -20,7 +20,7 @@ public class Worlds extends AbstractConfig<HoconConfigurateWrapper> {
     public Worlds(
             final @NonNull Logger logger
     ) {
-        super(logger, new HoconConfigurateWrapper(logger, Path.of("worlds.conf")));
+        super(logger, new YamlConfigurateWrapper(logger, Path.of("worlds.yaml")));
     }
 
     @Override
@@ -28,7 +28,7 @@ public class Worlds extends AbstractConfig<HoconConfigurateWrapper> {
         this.configurateWrapper.load();
         final CommentedConfigurationNode rootNode = this.configurateWrapper.get();
 
-        this.logger.info("Successfully loaded all values for world.conf!");
+        this.logger.info("Successfully loaded all values for world.yaml!");
     }
 
 }

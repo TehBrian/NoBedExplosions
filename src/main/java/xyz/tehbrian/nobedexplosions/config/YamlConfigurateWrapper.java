@@ -3,17 +3,17 @@ package xyz.tehbrian.nobedexplosions.config;
 import dev.tehbrian.tehlib.core.configurate.ConfigurateWrapper;
 import org.apache.logging.log4j.Logger;
 import org.checkerframework.checker.nullness.qual.NonNull;
-import org.spongepowered.configurate.hocon.HoconConfigurationLoader;
+import org.spongepowered.configurate.yaml.YamlConfigurationLoader;
 
 import java.nio.file.Path;
 
-public class HoconConfigurateWrapper extends ConfigurateWrapper<HoconConfigurationLoader> {
+public class YamlConfigurateWrapper extends ConfigurateWrapper<YamlConfigurationLoader> {
 
-    public HoconConfigurateWrapper(
+    public YamlConfigurateWrapper(
             @NonNull final Logger logger,
             @NonNull final Path filePath
     ) {
-        super(logger, filePath, HoconConfigurationLoader.builder()
+        super(logger, filePath, YamlConfigurationLoader.builder()
                 .path(filePath)
                 .build());
     }

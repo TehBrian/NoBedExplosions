@@ -13,7 +13,7 @@ import org.bukkit.event.block.BlockExplodeEvent;
 import org.bukkit.event.player.PlayerBedEnterEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.checkerframework.checker.nullness.qual.NonNull;
-import xyz.tehbrian.nobedexplosions.config.HoconLang;
+import xyz.tehbrian.nobedexplosions.config.YamlLang;
 
 /**
  * Listens for bed-related events.
@@ -22,7 +22,7 @@ public class BedListener implements Listener {
 
     private final JavaPlugin javaPlugin;
     private final BukkitAudiences audiences;
-    private final HoconLang lang;
+    private final YamlLang lang;
 
     /**
      * @param javaPlugin JavaPlugin reference
@@ -33,7 +33,7 @@ public class BedListener implements Listener {
     public BedListener(
             @NonNull final JavaPlugin javaPlugin,
             @NonNull final BukkitAudiences audiences,
-            @NonNull final HoconLang lang
+            @NonNull final YamlLang lang
     ) {
         this.javaPlugin = javaPlugin;
         this.audiences = audiences;

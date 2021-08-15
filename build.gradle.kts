@@ -40,7 +40,7 @@ dependencies {
     implementation("net.kyori:adventure-platform-bukkit:4.0.0-SNAPSHOT")
     implementation("net.kyori:adventure-text-minimessage:4.1.0-SNAPSHOT")
 
-    implementation("org.spongepowered:configurate-hocon:4.1.1")
+    implementation("org.spongepowered:configurate-yaml:4.1.1")
 
     implementation("dev.tehbrian:tehlib-core:0.1.0-SNAPSHOT")
 }

@@ -7,16 +7,16 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 
 import java.nio.file.Path;
 
-public class HoconLang extends Lang<HoconConfigurateWrapper> {
+public class YamlLang extends Lang<YamlConfigurateWrapper> {
 
     /**
      * @param logger the logger
      */
     @Inject
-    public HoconLang(
+    public YamlLang(
             final @NonNull Logger logger
     ) {
-        super(logger, new HoconConfigurateWrapper(logger, Path.of("lang.conf")));
+        super(logger, new YamlConfigurateWrapper(logger, Path.of("lang.yaml")));
     }
 
 }

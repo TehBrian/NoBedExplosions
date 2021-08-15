@@ -13,7 +13,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.spongepowered.configurate.NodePath;
 import xyz.tehbrian.nobedexplosions.Constants;
-import xyz.tehbrian.nobedexplosions.config.HoconLang;
+import xyz.tehbrian.nobedexplosions.config.YamlLang;
 
 import java.util.Optional;
 
@@ -21,7 +21,7 @@ public final class MainCommand extends AbstractCloudCommand<CommandSender, Bukki
 
     private final JavaPlugin javaPlugin;
     private final BukkitAudiences audiences;
-    private final HoconLang lang;
+    private final YamlLang lang;
 
     /**
      * @param javaPlugin JavaPlugin reference
@@ -32,7 +32,7 @@ public final class MainCommand extends AbstractCloudCommand<CommandSender, Bukki
     public MainCommand(
             @NonNull final JavaPlugin javaPlugin,
             @NonNull final BukkitAudiences audiences,
-            @NonNull final HoconLang lang
+            @NonNull final YamlLang lang
     ) {
         this.javaPlugin = javaPlugin;
         this.audiences = audiences;
