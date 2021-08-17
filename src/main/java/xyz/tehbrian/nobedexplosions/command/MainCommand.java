@@ -13,7 +13,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.spongepowered.configurate.NodePath;
 import xyz.tehbrian.nobedexplosions.Constants;
-import xyz.tehbrian.nobedexplosions.config.YamlLang;
+import xyz.tehbrian.nobedexplosions.config.LangConfig;
 
 import java.util.Optional;
 
@@ -21,7 +21,7 @@ public final class MainCommand extends AbstractCloudCommand<CommandSender, Bukki
 
     private final JavaPlugin javaPlugin;
     private final BukkitAudiences audiences;
-    private final YamlLang lang;
+    private final LangConfig lang;
 
     /**
      * @param javaPlugin JavaPlugin reference
@@ -32,7 +32,7 @@ public final class MainCommand extends AbstractCloudCommand<CommandSender, Bukki
     public MainCommand(
             @NonNull final JavaPlugin javaPlugin,
             @NonNull final BukkitAudiences audiences,
-            @NonNull final YamlLang lang
+            @NonNull final LangConfig lang
     ) {
         this.javaPlugin = javaPlugin;
         this.audiences = audiences;
@@ -51,10 +51,10 @@ public final class MainCommand extends AbstractCloudCommand<CommandSender, Bukki
                     this.audiences.sender(c.getSender()).sendMessage(this.lang.c(NodePath.path("nbe_reload")));
                 });
 
-        // TODO: make this available to console if a world name is specified
         final var info = main.literal("info", ArgumentDescription.of("Shows info for a world."))
                 .permission(Constants.Permissions.INFO)
                 .argument(StringArgument.optional("world"))
+                // TODO: make this available to console if a world name is specified
                 .senderType(Player.class)
                 .handler(c -> {
                     final Player sender = (Player) c.getSender();

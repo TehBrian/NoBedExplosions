@@ -2,11 +2,10 @@ package xyz.tehbrian.nobedexplosions.listeners;
 
 import com.google.inject.Inject;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.type.RespawnAnchor;
-import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -14,33 +13,33 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockExplodeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
-import org.bukkit.plugin.java.JavaPlugin;
 import org.checkerframework.checker.nullness.qual.NonNull;
-import xyz.tehbrian.nobedexplosions.config.YamlLang;
+import xyz.tehbrian.nobedexplosions.config.ConfigConfig;
+import xyz.tehbrian.nobedexplosions.config.WorldsConfig;
 
 /**
  * Listens for anchor-related events.
  */
 public class AnchorListener implements Listener {
 
-    private final JavaPlugin javaPlugin;
     private final BukkitAudiences audiences;
-    private final YamlLang lang;
+    private final ConfigConfig configConfig;
+    private final WorldsConfig worldsConfig;
 
     /**
-     * @param javaPlugin JavaPlugin reference
-     * @param audiences  BukkitAudiences reference
-     * @param lang       Lang reference
+     * @param audiences    BukkitAudiences reference
+     * @param configConfig Config reference
+     * @param worldsConfig Worlds reference
      */
     @Inject
     public AnchorListener(
-            @NonNull final JavaPlugin javaPlugin,
             @NonNull final BukkitAudiences audiences,
-            @NonNull final YamlLang lang
+            @NonNull final ConfigConfig configConfig,
+            @NonNull final WorldsConfig worldsConfig
     ) {
-        this.javaPlugin = javaPlugin;
         this.audiences = audiences;
-        this.lang = lang;
+        this.configConfig = configConfig;
+        this.worldsConfig = worldsConfig;
     }
 
     /**
@@ -50,65 +49,44 @@ public class AnchorListener implements Listener {
      */
     @EventHandler
     public void onAnchorInteract(final PlayerInteractEvent event) {
-        if (event.getAction() != Action.RIGHT_CLICK_BLOCK) {
-            return;
-        }
-        if (event.getHand() != EquipmentSlot.HAND) {
-            return;
-        }
-        final Block block = event.getClickedBlock();
-        if (block == null) {
-            return;
-        }
-        if (block.getType() != Material.RESPAWN_ANCHOR) {
-            return;
-        }
-        final RespawnAnchor anchor = (RespawnAnchor) block.getBlockData();
-
-        if (event.getMaterial() == Material.GLOWSTONE && anchor.getCharges() < anchor.getMaximumCharges()) {
-            return;
-        }
-
-        final FileConfiguration config = javaPlugin.getConfig();
-        if (!config.getBoolean("enabled")) {
+        if (!configConfig.enabled()) {
             return;
         }
 
         final Player player = event.getPlayer();
-        final ConfigurationSection worldSettings = config.getConfigurationSection("worlds." + player.getWorld().getName());
-        if (worldSettings == null) {
+        final WorldsConfig.World worldConfig = worldsConfig.worlds().get(player.getWorld().getName());
+        if (worldConfig == null) {
             return;
         }
 
-        /*
-        final Mode mode = Mode.valueOf(Objects.requireNonNull(worldSettings.getString("mode")).trim().toUpperCase(Locale.ENGLISH));
-        switch (mode) {
-            case ALLOW:
-                javaPlugin.getLogger().severe("ALLOW mode is currently not working, sorry about that. Will fix ASAP.");
-                /*
-                event.setCancelled(true);
+        if (event.getAction() != Action.RIGHT_CLICK_BLOCK
+                || event.getHand() != EquipmentSlot.HAND) {
+            return;
+        }
 
-                // Fake setting the spawn location.
-                Location possibleLoc = block.getLocation();
-                if (anchor.getCharges() > 0
-                        && player.getBedSpawnLocation() != null
-                        && !(player.getBedSpawnLocation().equals(possibleLoc))) {
-                    player.setBedSpawnLocation(possibleLoc, true);
-                    player.sendMessage("Respawn point set");
-                    player.playSound(block.getLocation(), Sound.BLOCK_RESPAWN_ANCHOR_SET_SPAWN, SoundCategory.BLOCKS, 1, 1);
-                }
-                 *//*
-                break;
-            case DENY:
-                event.setCancelled(true);
+        final Block block = event.getClickedBlock();
+        if (block == null
+                || block.getType() != Material.RESPAWN_ANCHOR) {
+            return;
+        }
 
-                final String denyMsg = MessageUtils.color(worldSettings.getString("deny_msg"));
-                if (denyMsg != null && !denyMsg.isEmpty()) {
-                    player.sendMessage(denyMsg);
-                }
-                break
-                ;
-                */
+        final RespawnAnchor anchor = (RespawnAnchor) block.getBlockData();
+        if (event.getMaterial() == Material.GLOWSTONE
+                && anchor.getCharges() < anchor.getMaximumCharges()) {
+            return;
+        }
+
+        switch (worldConfig.anchor().mode()) {
+            case ALLOW -> {
+                //event.setCancelled(false);
+            }
+            case DENY -> {
+                event.setCancelled(true);
+            }
+        }
+
+        final Component message = worldConfig.bed().message();
+        audiences.player(player).sendMessage(message);
     }
 
     /**
@@ -118,22 +96,21 @@ public class AnchorListener implements Listener {
      */
     @EventHandler
     public void onAnchorExplode(final BlockExplodeEvent event) {
+        if (!configConfig.enabled()) {
+            return;
+        }
+
         final Block block = event.getBlock();
         if (block.getType() != Material.RESPAWN_ANCHOR) {
             return;
         }
 
-        final FileConfiguration config = javaPlugin.getConfig();
-        if (!config.getBoolean("enabled")) {
+        final WorldsConfig.World worldConfig = worldsConfig.worlds().get(block.getWorld().getName());
+        if (worldConfig == null) {
             return;
         }
 
-        final ConfigurationSection worldSettings = config.getConfigurationSection("worlds." + block.getWorld().getName());
-        if (worldSettings == null) {
-            return;
-        }
-
-        if (worldSettings.getBoolean("disable_all_explosions")) {
+        if (worldConfig.bed().disableAllExplosions()) {
             event.setCancelled(true);
         }
     }

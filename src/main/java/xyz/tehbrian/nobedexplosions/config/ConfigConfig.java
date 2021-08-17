@@ -11,7 +11,7 @@ import java.nio.file.Path;
 /**
  * Stores values in-memory from {@code config.yml}.
  */
-public class Config extends AbstractConfig<YamlConfigurateWrapper> {
+public class ConfigConfig extends AbstractConfig<YamlConfigurateWrapper> {
 
     private boolean enabled;
 
@@ -19,7 +19,7 @@ public class Config extends AbstractConfig<YamlConfigurateWrapper> {
      * @param logger the plugin logger
      */
     @Inject
-    public Config(@NotNull final Logger logger) {
+    public ConfigConfig(@NotNull final Logger logger) {
         super(logger, new YamlConfigurateWrapper(logger, Path.of("config.yml")));
     }
 
