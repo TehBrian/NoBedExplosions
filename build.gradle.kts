@@ -12,6 +12,7 @@ java {
 }
 
 repositories {
+    // for tehlib. remove once that is published to maven central
     mavenLocal()
     mavenCentral()
 
@@ -33,9 +34,9 @@ repositories {
 dependencies {
     compileOnly("org.spigotmc:spigot-api:1.17.1-R0.1-SNAPSHOT")
 
-    compileOnly("com.google.inject:guice:5.0.1")
+    implementation("com.google.inject:guice:5.0.1")
 
-    compileOnly("cloud.commandframework:cloud-bukkit:1.5.0")
+    implementation("cloud.commandframework:cloud-bukkit:1.5.0")
 
     implementation("net.kyori:adventure-platform-bukkit:4.0.0-SNAPSHOT")
     implementation("net.kyori:adventure-text-minimessage:4.1.0-SNAPSHOT")
