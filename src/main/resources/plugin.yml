@@ -3,7 +3,7 @@ description: Fully control bed and respawn anchor functionality across all world
 authors: [ TehBrian ]
 website: https://www.spigotmc.org/resources/65808
 
-version: @version@
+version: ${version}
 main: xyz.tehbrian.nobedexplosions.NoBedExplosions
 api-version: 1.17
 
