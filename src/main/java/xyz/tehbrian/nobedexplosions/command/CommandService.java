@@ -1,6 +1,7 @@
 package xyz.tehbrian.nobedexplosions.command;
 
 import cloud.commandframework.bukkit.BukkitCommandManager;
+import cloud.commandframework.bukkit.CloudBukkitCapabilities;
 import cloud.commandframework.execution.CommandExecutionCoordinator;
 import com.google.inject.Inject;
 import dev.tehbrian.tehlib.core.cloud.AbstractCloudService;
@@ -51,6 +52,15 @@ public class CommandService extends AbstractCloudService<CommandSender, BukkitCo
             this.logger.error("Something went very wrong. Get support from the plugin's author.");
             this.logger.error("Disabling plugin.");
             this.javaPlugin.getServer().getPluginManager().disablePlugin(this.javaPlugin);
+        }
+
+        if (this.commandManager.queryCapability(CloudBukkitCapabilities.BRIGADIER)) {
+            try {
+                this.commandManager.registerBrigadier();
+                this.logger.info("Initialized Brigadier support!");
+            } catch (final BukkitCommandManager.BrigadierFailureException e) {
+                this.logger.warn("Failed to initialize Brigadier support: " + e.getMessage());
+            }
         }
     }
 

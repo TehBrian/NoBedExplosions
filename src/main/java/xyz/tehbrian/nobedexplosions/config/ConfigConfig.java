@@ -1,6 +1,7 @@
 package xyz.tehbrian.nobedexplosions.config;
 
 import com.google.inject.Inject;
+import com.google.inject.name.Named;
 import dev.tehbrian.tehlib.core.configurate.AbstractConfig;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
@@ -9,18 +10,22 @@ import org.spongepowered.configurate.CommentedConfigurationNode;
 import java.nio.file.Path;
 
 /**
- * Stores values in-memory from {@code config.yml}.
+ * Loads and holds values for {@code config.yml}.
  */
-public class ConfigConfig extends AbstractConfig<YamlConfigurateWrapper> {
+public final class ConfigConfig extends AbstractConfig<YamlConfigurateWrapper> {
 
     private boolean enabled;
 
     /**
-     * @param logger the plugin logger
+     * @param logger     the logger
+     * @param dataFolder the data folder
      */
     @Inject
-    public ConfigConfig(@NotNull final Logger logger) {
-        super(logger, new YamlConfigurateWrapper(logger, Path.of("config.yml")));
+    public ConfigConfig(
+            final @NotNull Logger logger,
+            final @NotNull @Named("dataFolder") Path dataFolder
+    ) {
+        super(logger, new YamlConfigurateWrapper(logger, dataFolder.resolve("config.yml")));
     }
 
     @Override
@@ -30,7 +35,7 @@ public class ConfigConfig extends AbstractConfig<YamlConfigurateWrapper> {
 
         this.enabled = rootNode.node("enabled").getBoolean();
 
-        this.logger.info("Successfully loaded all values for config.yml!");
+        this.logger.info("Successfully loaded all values for {}!", this.configurateWrapper.filePath().getFileName());
     }
 
     /**

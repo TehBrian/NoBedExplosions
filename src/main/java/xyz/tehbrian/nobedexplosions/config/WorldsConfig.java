@@ -1,15 +1,16 @@
 package xyz.tehbrian.nobedexplosions.config;
 
 import com.google.inject.Inject;
+import com.google.inject.name.Named;
 import dev.tehbrian.tehlib.core.configurate.AbstractConfig;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.apache.logging.log4j.Logger;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
+import org.jetbrains.annotations.NotNull;
 import org.spongepowered.configurate.CommentedConfigurationNode;
-import org.spongepowered.configurate.ConfigurationNode;
+import org.spongepowered.configurate.objectmapping.ConfigSerializable;
 import org.spongepowered.configurate.serialize.SerializationException;
+import org.spongepowered.configurate.yaml.YamlConfigurationLoader;
 
 import java.nio.file.Path;
 import java.util.HashMap;
@@ -17,66 +18,62 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * Stores values in-memory for {@code worlds.yml}.
+ * Loads and holds values for {@code worlds.yml}.
  */
-public class WorldsConfig extends AbstractConfig<YamlConfigurateWrapper> {
+public final class WorldsConfig extends AbstractConfig<YamlConfigurateWrapper> {
 
     private final @NonNull Map<@NonNull String, @NonNull World> worlds = new HashMap<>();
 
     /**
-     * @param logger the logger
+     * @param logger     the logger
+     * @param dataFolder the data folder
      */
     @Inject
     public WorldsConfig(
-            final @NonNull Logger logger
+            final @NotNull Logger logger,
+            final @NotNull @Named("dataFolder") Path dataFolder
     ) {
-        super(logger, new YamlConfigurateWrapper(logger, Path.of("worlds.yaml")));
+        super(logger, new YamlConfigurateWrapper(logger, dataFolder.resolve("worlds.yml"), YamlConfigurationLoader.builder()
+                .path(dataFolder.resolve("worlds.yml"))
+                .defaultOptions(opts -> opts.implicitInitialization(false))
+                .build()));
     }
 
-    // TODO: configurate object mapper thingy
     @Override
     public void load() {
+        this.worlds.clear();
+
         this.configurateWrapper.load();
         final CommentedConfigurationNode rootNode = this.configurateWrapper.get();
 
-        for (final ConfigurationNode worldNode : rootNode.node("worlds").childrenList()) {
-            final var name = Objects.requireNonNull(worldNode.key()).toString();
+        for (final Map.Entry<Object, CommentedConfigurationNode> child : rootNode.node("worlds").childrenMap().entrySet()) {
+            final Object worldName = child.getKey();
+            this.logger.info("Loading configuration for world {}..", worldName);
+            final CommentedConfigurationNode worldNode = child.getValue();
 
-            final var bedNode = worldNode.node("bed");
-            final World.Mode bedMode;
+            final World world;
             try {
-                bedMode = bedNode.node("mode").get(World.Mode.class);
+                world = Objects.requireNonNull(worldNode.get(World.class));
             } catch (final SerializationException e) {
-                e.printStackTrace();
-                return;
+                this.logger.error("Exception caught during loading world " + worldName + ".", e);
+                continue;
             }
 
-            final var anchorNode = worldNode.node("anchor");
-            final World.Mode anchorMode;
-            try {
-                anchorMode = anchorNode.node("mode").get(World.Mode.class);
-            } catch (final SerializationException e) {
-                e.printStackTrace();
-                return;
+            if (world.anchor() != null && world.anchor().mode() == null) {
+                this.logger.error("For world {}, anchor section exists but mode is null. Aborting world.", worldName);
+                continue;
             }
 
-            this.worlds.put(name, new World(
-                    new World.Bed(
-                            bedMode,
-                            miniMessageElseNull(bedNode.node("message").getString()),
-                            bedNode.node("set_spawn").getBoolean(),
-                            bedNode.node("disable_all_explosions").getBoolean()
-                    ),
-                    new World.Anchor(
-                            anchorMode,
-                            miniMessageElseNull(anchorNode.node("message").getString()),
-                            anchorNode.node("set_spawn").getBoolean(),
-                            anchorNode.node("disable_all_explosions").getBoolean()
-                    )
-            ));
+            if (world.bed() != null && world.bed().mode() == null) {
+                this.logger.error("For world {}, bed section exists but mode is null. Aborting world.", worldName);
+                continue;
+            }
+
+            this.worlds.put(worldName.toString(), world);
+            this.logger.info("Successfully added configuration for world {}!", worldName);
         }
 
-        this.logger.info("Successfully loaded all values for world.yaml!");
+        this.logger.info("Successfully loaded all values for {}!", this.configurateWrapper.filePath().getFileName());
     }
 
     /**
@@ -85,42 +82,33 @@ public class WorldsConfig extends AbstractConfig<YamlConfigurateWrapper> {
      * @return the worlds
      */
     public @NonNull Map<@NonNull String, @NonNull World> worlds() {
-        return worlds;
+        return this.worlds;
     }
 
-    /**
-     * A small helper function that parses a string using MiniMessage or, if
-     * the string is blank or null, returns null.
-     *
-     * @param string the message to parse
-     * @return the component parsed by MiniMessage
-     */
-    private @Nullable Component miniMessageElseNull(final @Nullable String string) {
-        if (string == null || string.isBlank()) {
-            return null;
-        }
-        return MiniMessage.get().parse(string);
-    }
+    @ConfigSerializable
+    public static record World(@Nullable Bed bed,
+                               @Nullable Anchor anchor) {
 
-    public static record World(Bed bed,
-                               Anchor anchor) {
+        @ConfigSerializable
+        public static record Anchor(@NonNull Mode mode,
+                                    @Nullable String message) {
 
-        public enum Mode {
-            ALLOW,
-            DENY,
-        }
-
-        public static record Anchor(Mode mode,
-                                    Component message,
-                                    boolean setSpawn,
-                                    boolean disableAllExplosions) {
+            public enum Mode {
+                DENY,
+                DEFAULT,
+            }
 
         }
 
-        public static record Bed(Mode mode,
-                                 Component message,
-                                 boolean setSpawn,
-                                 boolean disableAllExplosions) {
+        @ConfigSerializable
+        public static record Bed(@NonNull Mode mode,
+                                 @Nullable String message) {
+
+            public enum Mode {
+                ALLOW,
+                DENY,
+                DEFAULT,
+            }
 
         }
 

@@ -9,6 +9,10 @@ import java.nio.file.Path;
 
 public class YamlConfigurateWrapper extends ConfigurateWrapper<YamlConfigurationLoader> {
 
+    /**
+     * @param logger   the logger
+     * @param filePath the file path for the config
+     */
     public YamlConfigurateWrapper(
             @NonNull final Logger logger,
             @NonNull final Path filePath
@@ -16,6 +20,19 @@ public class YamlConfigurateWrapper extends ConfigurateWrapper<YamlConfiguration
         super(logger, filePath, YamlConfigurationLoader.builder()
                 .path(filePath)
                 .build());
+    }
+
+    /**
+     * @param logger   the logger
+     * @param filePath the file path for the config
+     * @param loader   the loader
+     */
+    public YamlConfigurateWrapper(
+            @NonNull final Logger logger,
+            @NonNull final Path filePath,
+            @NonNull final YamlConfigurationLoader loader
+    ) {
+        super(logger, filePath, loader);
     }
 
 }

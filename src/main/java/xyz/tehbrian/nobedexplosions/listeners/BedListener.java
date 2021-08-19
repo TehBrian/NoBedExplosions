@@ -2,16 +2,13 @@ package xyz.tehbrian.nobedexplosions.listeners;
 
 import com.google.inject.Inject;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
-import net.kyori.adventure.text.Component;
-import org.bukkit.Tag;
-import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.BlockExplodeEvent;
 import org.bukkit.event.player.PlayerBedEnterEvent;
 import org.checkerframework.checker.nullness.qual.NonNull;
+import xyz.tehbrian.nobedexplosions.Util;
 import xyz.tehbrian.nobedexplosions.config.ConfigConfig;
 import xyz.tehbrian.nobedexplosions.config.WorldsConfig;
 
@@ -47,53 +44,34 @@ public class BedListener implements Listener {
      */
     @EventHandler
     public void onBedEnter(final PlayerBedEnterEvent event) {
-        if (!configConfig.enabled()) {
+        if (!this.configConfig.enabled()) {
             return;
         }
 
         final Player player = event.getPlayer();
-        final WorldsConfig.World worldConfig = worldsConfig.worlds().get(player.getWorld().getName());
+        final WorldsConfig.World worldConfig = this.worldsConfig.worlds().get(player.getWorld().getName());
         if (worldConfig == null) {
             return;
         }
 
-        switch (worldConfig.bed().mode()) {
-            case ALLOW -> {
-                if (event.getBedEnterResult() == PlayerBedEnterEvent.BedEnterResult.NOT_POSSIBLE_HERE) {
-                    event.setUseBed(Event.Result.ALLOW);
-                }
+        final WorldsConfig.World.Bed bedConfig = worldConfig.bed();
+        if (bedConfig == null) {
+            return;
+        }
+
+        switch (bedConfig.mode()) {
+            case ALLOW -> event.setUseBed(Event.Result.ALLOW);
+            case DENY -> {
+                event.setUseBed(Event.Result.DENY);
+                // We also have to cancel else the spawn will be set.
+                event.setCancelled(true);
             }
-            case DENY -> event.setUseBed(Event.Result.DENY);
+            case DEFAULT -> event.setUseBed(Event.Result.DEFAULT);
+            default -> {
+            }
         }
 
-        final Component message = worldConfig.bed().message();
-        audiences.player(player).sendMessage(message);
-    }
-
-    /**
-     * When a bed explodes.
-     *
-     * @param event the event
-     */
-    @EventHandler
-    public void onBedExplode(final BlockExplodeEvent event) {
-        if (!configConfig.enabled()) {
-            return;
-        }
-
-        final Block block = event.getBlock();
-        if (!Tag.BEDS.getValues().contains(block.getType())) {
-            return;
-        }
-
-        final WorldsConfig.World worldConfig = worldsConfig.worlds().get(block.getWorld().getName());
-        if (worldConfig == null) {
-            return;
-        }
-
-        if (worldConfig.bed().disableAllExplosions()) {
-            event.setCancelled(true);
-        }
+        Util.sendMessageOrIgnore(this.audiences.player(player), bedConfig.message());
     }
 
 }

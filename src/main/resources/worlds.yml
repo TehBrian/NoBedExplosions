@@ -2,25 +2,17 @@
 # https://docs.adventure.kyori.net/minimessage.html
 
 worlds:
-  # Disable bed explosions in the nether and end by default.
+  # Disable bed explosions in the nether and the end by default.
   world_nether:
     bed:
       mode: allow
-      set_spawn: true
-      disable_all_explosions: true
   world_the_end:
     bed:
       mode: allow
-      set_spawn: true
-      disable_all_explosions: true
-# example_world:
+# example-world:
 #   bed:
-#     mode: allow/deny/explode
+#     mode: allow/deny/default
 #     message: "<gray>Nope."
-#     set_spawn: true/false
-#     disable_all_explosions: true/false
 #   anchor:
-#     mode: allow/deny
-#     message: "<red>Absolutely not."
-#     set_spawn: true/false
-#     disable_all_explosions: true/false
+#     mode: deny/default
+#     message: "<blue>No, sorry."

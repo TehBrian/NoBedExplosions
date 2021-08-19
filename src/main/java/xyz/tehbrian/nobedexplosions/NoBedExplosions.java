@@ -12,7 +12,11 @@ import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import xyz.tehbrian.nobedexplosions.command.CommandService;
 import xyz.tehbrian.nobedexplosions.command.MainCommand;
+import xyz.tehbrian.nobedexplosions.config.ConfigConfig;
+import xyz.tehbrian.nobedexplosions.config.LangConfig;
+import xyz.tehbrian.nobedexplosions.config.WorldsConfig;
 import xyz.tehbrian.nobedexplosions.inject.CommandModule;
+import xyz.tehbrian.nobedexplosions.inject.ConfigModule;
 import xyz.tehbrian.nobedexplosions.inject.PluginModule;
 import xyz.tehbrian.nobedexplosions.listeners.AnchorListener;
 import xyz.tehbrian.nobedexplosions.listeners.BedListener;
@@ -34,19 +38,35 @@ public final class NoBedExplosions extends JavaPlugin {
      */
     @Override
     public void onEnable() {
+        /* Guice */
         this.injector = Guice.createInjector(
                 new PluginModule(this),
-                new CommandModule()
+                new CommandModule(),
+                new ConfigModule()
         );
 
+        /* Config */
+        this.saveResource("config.yml", false);
+        this.saveResource("lang.yml", false);
+        this.saveResource("worlds.yml", false);
+
+        this.injector.getInstance(ConfigConfig.class).load();
+        this.injector.getInstance(LangConfig.class).load();
+        this.injector.getInstance(WorldsConfig.class).load();
+
+        /* Listeners */
         registerListeners(
                 this.injector.getInstance(BedListener.class),
                 this.injector.getInstance(AnchorListener.class)
         );
 
-        final var commandService = this.injector.getInstance(CommandService.class);
+        /* Commands */
+        final @NonNull CommandService commandService = this.injector.getInstance(CommandService.class);
         commandService.init();
-        final @NonNull BukkitCommandManager<CommandSender> commandManager = Objects.requireNonNull(commandService.get());
+        final @NonNull BukkitCommandManager<CommandSender> commandManager = Objects.requireNonNull(
+                commandService.get(),
+                "The CommandService was null! This should never happen."
+        );
 
         this.injector.getInstance(MainCommand.class).register(commandManager);
     }

@@ -37,6 +37,7 @@ dependencies {
     implementation("com.google.inject:guice:5.0.1")
 
     implementation("cloud.commandframework:cloud-bukkit:1.5.0")
+    implementation("me.lucko:commodore:1.10")
 
     implementation("net.kyori:adventure-platform-bukkit:4.0.0-SNAPSHOT")
     implementation("net.kyori:adventure-text-minimessage:4.1.0-SNAPSHOT")
@@ -53,5 +54,7 @@ tasks {
 
     shadowJar {
         archiveBaseName.set("NoBedExplosions")
+
+        relocate("me.lucko.commodore", "xyz.tehbrian.nobedexplosions.commodore")
     }
 }
