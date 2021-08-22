@@ -1,6 +1,6 @@
 # NoBedExplosions
-Fully control bed and respawn anchor functionality across all of your worlds,
-including allowing sleep in the nether or end!
+Control bed and respawn anchor functionality across all of your worlds,
+such as allowing sleep in the nether or the end!
 
 # Links
 [Spigot Resources](https://www.spigotmc.org/resources/65808/)
