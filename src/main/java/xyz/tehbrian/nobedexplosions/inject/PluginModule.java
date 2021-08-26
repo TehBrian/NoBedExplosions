@@ -36,7 +36,7 @@ public final class PluginModule extends AbstractModule {
     /**
      * Provides the plugin's logger.
      *
-     * @return the plugin's logger.
+     * @return the plugin's logger
      */
     @Provides
     public @NonNull Logger provideSLF4JLogger() {
