@@ -16,22 +16,23 @@ public final class Util {
     }
 
     /**
-     * Send a list of components to an audience.
+     * Send a list of {@code Component}s to an {@code Audience}.
      *
-     * @param audience      the audience
-     * @param componentList the list of components
+     * @param audience   the audience
+     * @param components the list of components
      */
-    public static void sendMessages(final @NonNull Audience audience, final @NonNull List<@NonNull Component> componentList) {
-        for (final Component c : componentList) {
+    public static void sendMessages(final @NonNull Audience audience, final @NonNull List<@NonNull Component> components) {
+        for (final Component c : components) {
             audience.sendMessage(c);
         }
     }
 
     /**
-     * Parses a string using MiniMessage or, if the string is blank or null, returns null.
+     * If {@code string} is blank or null, returns null. Else, parses a string
+     * using MiniMessage and returns it.
      *
      * @param string the message to parse
-     * @return the component parsed by MiniMessage
+     * @return {@code null}, or the component parsed by MiniMessage
      */
     public static @Nullable Component miniMessageElseNull(final @Nullable String string) {
         if (string == null || string.isBlank()) {
@@ -41,8 +42,8 @@ public final class Util {
     }
 
     /**
-     * Parses a string using MiniMessage or, if the string is blank or null, returns null, and sends it
-     * if it isn't null.
+     * If {@code string} is blank or null, returns null. Else, parses a string
+     * using MiniMessage and sends it to {@code audience}.
      *
      * @param audience who to send the message to
      * @param string   the message to parse and send

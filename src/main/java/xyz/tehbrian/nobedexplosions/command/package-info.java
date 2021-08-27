@@ -1,4 +1,4 @@
 /**
- * Bukkit commands.
+ * Commands.
  */
 package xyz.tehbrian.nobedexplosions.command;

@@ -39,9 +39,7 @@ public final class ConfigConfig extends AbstractConfig<YamlConfigurateWrapper> {
     }
 
     /**
-     * Gets whether the plugin is enabled.
-     *
-     * @return whether the plugin is enabled
+     * @return whether the plugin functionality should be enabled
      */
     public boolean enabled() {
         return this.enabled;

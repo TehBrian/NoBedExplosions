@@ -77,8 +77,6 @@ public final class WorldsConfig extends AbstractConfig<YamlConfigurateWrapper> {
     }
 
     /**
-     * Gets the worlds.
-     *
      * @return the worlds
      */
     public @NonNull Map<@NonNull String, @NonNull World> worlds() {

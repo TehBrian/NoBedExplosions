@@ -38,7 +38,8 @@ public class BedListener implements Listener {
     }
 
     /**
-     * When a player attempts to enter a bed.
+     * Modifies bed functionality according to the plugin configuration
+     * when a player attempts to enter a bed.
      *
      * @param event the event
      */

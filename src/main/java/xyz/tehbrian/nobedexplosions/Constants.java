@@ -1,12 +1,11 @@
 package xyz.tehbrian.nobedexplosions;
 
 /**
- * Holds constant values.
+ * Constant values.
  */
 public final class Constants {
 
     private Constants() {
-
     }
 
     /**
@@ -18,7 +17,6 @@ public final class Constants {
         public static final String INFO = "nobedexplosions.info";
 
         private Permissions() {
-
         }
 
     }

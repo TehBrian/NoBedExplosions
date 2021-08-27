@@ -7,26 +7,26 @@ import com.google.inject.Inject;
 import dev.tehbrian.tehlib.core.cloud.AbstractCloudService;
 import org.apache.logging.log4j.Logger;
 import org.bukkit.command.CommandSender;
-import org.bukkit.plugin.java.JavaPlugin;
 import org.checkerframework.checker.nullness.qual.NonNull;
+import xyz.tehbrian.nobedexplosions.NoBedExplosions;
 
 import java.util.function.Function;
 
 public class CommandService extends AbstractCloudService<CommandSender, BukkitCommandManager<CommandSender>> {
 
-    private final JavaPlugin javaPlugin;
+    private final NoBedExplosions noBedExplosions;
     private final Logger logger;
 
     /**
-     * @param javaPlugin JavaPlugin reference
-     * @param logger     Logger reference
+     * @param noBedExplosions NoBedExplosions reference
+     * @param logger          Logger reference
      */
     @Inject
     public CommandService(
-            final @NonNull JavaPlugin javaPlugin,
+            final @NonNull NoBedExplosions noBedExplosions,
             final @NonNull Logger logger
     ) {
-        this.javaPlugin = javaPlugin;
+        this.noBedExplosions = noBedExplosions;
         this.logger = logger;
     }
 
@@ -37,29 +37,33 @@ public class CommandService extends AbstractCloudService<CommandSender, BukkitCo
      */
     public void init() throws IllegalStateException {
         if (this.commandManager != null) {
-            throw new IllegalStateException("The CommandManager is already instantiated!");
+            throw new IllegalStateException("The CommandManager is already instantiated.");
         }
 
         try {
             this.commandManager = new BukkitCommandManager<>(
-                    this.javaPlugin,
+                    this.noBedExplosions,
                     CommandExecutionCoordinator.simpleCoordinator(),
                     Function.identity(),
                     Function.identity()
             );
         } catch (final Exception e) {
             this.logger.error("Failed to create the BukkitCommandManager.");
-            this.logger.error("Something went very wrong. Get support from the plugin's author.");
             this.logger.error("Disabling plugin.");
-            this.javaPlugin.getServer().getPluginManager().disablePlugin(this.javaPlugin);
+            this.logger.error("Printing stack trace, please send this to the developers:");
+            this.logger.error(e.getMessage(), e);
+            this.noBedExplosions.disableSelf();
+            return;
         }
 
         if (this.commandManager.queryCapability(CloudBukkitCapabilities.BRIGADIER)) {
             try {
                 this.commandManager.registerBrigadier();
-                this.logger.info("Initialized Brigadier support!");
+                this.logger.info("Successfully initialized Brigadier support!");
             } catch (final BukkitCommandManager.BrigadierFailureException e) {
-                this.logger.warn("Failed to initialize Brigadier support: " + e.getMessage());
+                this.logger.warn("Failed to initialize Brigadier support.");
+                this.logger.warn("Printing stack trace, please send this to the developers:");
+                this.logger.warn(e.getMessage(), e);
             }
         }
     }

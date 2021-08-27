@@ -42,7 +42,8 @@ public class AnchorListener implements Listener {
     }
 
     /**
-     * Fired when a player interacts with an anchor.
+     * Modifies anchor functionality according to the plugin configuration
+     * when a player interacts with an anchor.
      *
      * @param event the event
      */
