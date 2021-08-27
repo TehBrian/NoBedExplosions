@@ -15,7 +15,6 @@ import org.spongepowered.configurate.yaml.YamlConfigurationLoader;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * Loads and holds values for {@code worlds.yml}.
@@ -47,30 +46,39 @@ public final class WorldsConfig extends AbstractConfig<YamlConfigurateWrapper> {
         final CommentedConfigurationNode rootNode = this.configurateWrapper.get();
 
         for (final Map.Entry<Object, CommentedConfigurationNode> child : rootNode.node("worlds").childrenMap().entrySet()) {
-            final Object worldName = child.getKey();
-            this.logger.info("Loading configuration for world {}..", worldName);
+            final @NonNull String worldName = child.getKey().toString();
+            this.logger.info("Loading world configuration for {}..", worldName);
             final CommentedConfigurationNode worldNode = child.getValue();
 
-            final World world;
+            final @Nullable World world;
             try {
-                world = Objects.requireNonNull(worldNode.get(World.class));
+                world = worldNode.get(World.class);
             } catch (final SerializationException e) {
-                this.logger.error("Exception caught during loading world " + worldName + ".", e);
+                this.logger.warn("Exception caught during world configuration deserialization for {}.", worldName);
+                this.logger.warn("Skipping this world. Please check your worlds.yml config file.");
+                this.logger.warn("Printing stack trace.");
+                this.logger.warn(e.getMessage(), e);
                 continue;
             }
 
+            // Mode is annotated with @NonNull for API ease-of-use purposes,
+            // however we must still validate it.
+            //noinspection ConstantConditions
             if (world.anchor() != null && world.anchor().mode() == null) {
-                this.logger.error("For world {}, anchor section exists but mode is null. Aborting world.", worldName);
+                this.logger.error("For world {}, anchor section exists but mode is null.", worldName);
+                this.logger.warn("Skipping this world. Please check your worlds.yml config file.");
                 continue;
             }
 
+            //noinspection ConstantConditions
             if (world.bed() != null && world.bed().mode() == null) {
-                this.logger.error("For world {}, bed section exists but mode is null. Aborting world.", worldName);
+                this.logger.error("For world {}, bed section exists but mode is null.", worldName);
+                this.logger.warn("Skipping this world. Please check your worlds.yml config file.");
                 continue;
             }
 
-            this.worlds.put(worldName.toString(), world);
-            this.logger.info("Successfully added configuration for world {}!", worldName);
+            this.worlds.put(worldName, world);
+            this.logger.info("Successfully added world configuration for {}!", worldName);
         }
 
         this.logger.info("Successfully loaded all values for {}!", this.configurateWrapper.filePath().getFileName());
