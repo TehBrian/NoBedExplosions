@@ -1,6 +1,6 @@
 plugins {
     id("java")
-    id("com.github.johnrengelman.shadow") version "6.1.0"
+    id("com.github.johnrengelman.shadow") version "7.0.0"
 }
 
 group = "xyz.tehbrian"
@@ -12,7 +12,7 @@ java {
 }
 
 repositories {
-    // for tehlib. remove once that is published to maven central
+    // FIXME for tehlib - remove once that is published to maven central
     mavenLocal()
     mavenCentral()
 
