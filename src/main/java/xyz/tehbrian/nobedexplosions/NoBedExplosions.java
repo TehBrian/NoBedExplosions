@@ -3,6 +3,7 @@ package xyz.tehbrian.nobedexplosions;
 import cloud.commandframework.bukkit.BukkitCommandManager;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import io.papermc.lib.PaperLib;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bukkit.command.CommandSender;
 import org.bukkit.event.Listener;
@@ -38,6 +39,8 @@ public final class NoBedExplosions extends JavaPlugin {
      */
     @Override
     public void onEnable() {
+        PaperLib.suggestPaper(this);
+
         /* Guice */
         this.injector = Guice.createInjector(
                 new PluginModule(this),
