@@ -17,8 +17,8 @@ nbe-reload: "<gray><red>›</red> Reloaded <gradient:red:#f5a5a5>NoBedExplosions
 
 # /nbe info
 nbe-info:
-  no-world-config: "<gray><red>›</red> No configuration for world <blue><world></blue> found."
-  header: "<gray><red>›</red> Configuration for world <blue><world></blue>:"
+  no-world-config: "<gray><red>›</red> No world configuration for <blue><world></blue> found."
+  header: "<gray><red>›</red> World configuration for <blue><world></blue>:"
   bed:
     - "<gray><dark_gray>|</dark_gray>    bed:"
     - "<gray><dark_gray>|</dark_gray>      mode: <bed_mode>"
