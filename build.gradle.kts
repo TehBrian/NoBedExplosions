@@ -29,6 +29,10 @@ repositories {
         name = "sonatype-oss-snapshots"
         url = uri("https://oss.sonatype.org/content/repositories/snapshots/")
     }
+    maven {
+        name = "papermc"
+        url = uri("https://papermc.io/repo/repository/maven-public/")
+    }
 }
 
 dependencies {
@@ -45,6 +49,8 @@ dependencies {
     implementation("org.spongepowered:configurate-yaml:4.1.1")
 
     implementation("dev.tehbrian:tehlib-core:0.1.0-SNAPSHOT")
+
+    implementation("io.papermc:paperlib:1.0.6")
 }
 
 tasks {
@@ -56,5 +62,6 @@ tasks {
         archiveBaseName.set("NoBedExplosions")
 
         relocate("me.lucko.commodore", "xyz.tehbrian.nobedexplosions.commodore")
+        relocate("io.papermc.lib", "xyz.tehbrian.nobedexplosions.paperlib")
     }
 }
