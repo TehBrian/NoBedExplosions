@@ -29,17 +29,17 @@ public final class PluginModule extends AbstractModule {
 
     @Override
     protected void configure() {
-        bind(NoBedExplosions.class).toInstance(this.noBedExplosions);
-        bind(JavaPlugin.class).toInstance(this.noBedExplosions);
+        this.bind(NoBedExplosions.class).toInstance(this.noBedExplosions);
+        this.bind(JavaPlugin.class).toInstance(this.noBedExplosions);
     }
 
     /**
-     * Provides the plugin's logger.
+     * Provides the plugin's Log4J logger.
      *
-     * @return the plugin's logger
+     * @return the plugin's Log4J logger
      */
     @Provides
-    public @NonNull Logger provideSLF4JLogger() {
+    public @NonNull Logger provideLog4JLogger() {
         return LogManager.getLogger(this.noBedExplosions.getLogger().getName());
     }
 
