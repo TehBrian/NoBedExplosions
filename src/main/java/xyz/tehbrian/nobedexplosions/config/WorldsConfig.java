@@ -61,6 +61,12 @@ public final class WorldsConfig extends AbstractConfig<YamlConfigurateWrapper> {
                 continue;
             }
 
+            if (world == null) {
+                this.logger.warn("Deserialized world configuration for {} was null!", worldName);
+                this.logger.warn("Skipping this world. Please check your worlds.yml config file.");
+                continue;
+            }
+
             // Mode is annotated with @NonNull for API ease-of-use purposes,
             // however we must still validate it.
             //noinspection ConstantConditions
