@@ -48,7 +48,7 @@ public class CommandService extends AbstractCloudService<CommandSender, BukkitCo
                     Function.identity()
             );
         } catch (final Exception e) {
-            this.logger.error("Failed to create the BukkitCommandManager.");
+            this.logger.error("Failed to create the CommandManager.");
             this.logger.error("Disabling plugin.");
             this.logger.error("Printing stack trace, please send this to the developers:");
             this.logger.error(e.getMessage(), e);
