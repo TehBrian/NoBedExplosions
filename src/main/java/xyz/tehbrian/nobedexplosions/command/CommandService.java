@@ -50,8 +50,7 @@ public class CommandService extends AbstractCloudService<CommandSender, BukkitCo
         } catch (final Exception e) {
             this.logger.error("Failed to create the CommandManager.");
             this.logger.error("Disabling plugin.");
-            this.logger.error("Printing stack trace, please send this to the developers:");
-            this.logger.error(e.getMessage(), e);
+            this.logger.error("Printing stack trace, please send this to the developers:", e);
             this.noBedExplosions.disableSelf();
             return;
         }
@@ -62,8 +61,7 @@ public class CommandService extends AbstractCloudService<CommandSender, BukkitCo
                 this.logger.info("Successfully initialized Brigadier support!");
             } catch (final BukkitCommandManager.BrigadierFailureException e) {
                 this.logger.warn("Failed to initialize Brigadier support.");
-                this.logger.warn("Printing stack trace, please send this to the developers:");
-                this.logger.warn(e.getMessage(), e);
+                this.logger.warn("Printing stack trace, please send this to the developers:", e);
             }
         }
     }

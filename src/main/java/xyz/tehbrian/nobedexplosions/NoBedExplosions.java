@@ -26,7 +26,7 @@ import xyz.tehbrian.nobedexplosions.listeners.BedListener;
 import java.util.logging.Level;
 
 /**
- * The main class for NoBedExplosions.
+ * The main class for the NoBedExplosions plugin.
  */
 public final class NoBedExplosions extends JavaPlugin {
 
@@ -42,7 +42,6 @@ public final class NoBedExplosions extends JavaPlugin {
     public void onEnable() {
         PaperLib.suggestPaper(this);
 
-        /* Guice */
         try {
             this.injector = Guice.createInjector(
                     new PluginModule(this),
@@ -52,40 +51,14 @@ public final class NoBedExplosions extends JavaPlugin {
         } catch (final Exception e) {
             this.getLogger().severe("Something went wrong while creating the Guice injector.");
             this.getLogger().severe("Disabling plugin.");
-            this.getLogger().severe("Printing stack trace, please send this to the developers:");
-            this.getLogger().log(Level.SEVERE, e.getMessage(), e);
+            this.getLogger().log(Level.SEVERE, "Printing stack trace, please send this to the developers:", e);
             this.disableSelf();
             return;
         }
 
-        /* Config */
-        this.saveResource("config.yml", false);
-        this.saveResource("lang.yml", false);
-        this.saveResource("worlds.yml", false);
-
-        this.injector.getInstance(ConfigConfig.class).load();
-        this.injector.getInstance(LangConfig.class).load();
-        this.injector.getInstance(WorldsConfig.class).load();
-
-        /* Listeners */
-        registerListeners(
-                this.injector.getInstance(AnchorListener.class),
-                this.injector.getInstance(BedListener.class)
-        );
-
-        /* Commands */
-        final @NonNull CommandService commandService = this.injector.getInstance(CommandService.class);
-        commandService.init();
-
-        final @Nullable BukkitCommandManager<CommandSender> commandManager = commandService.get();
-        if (commandManager == null) {
-            this.getLogger().severe("The CommandService was null after initialization!");
-            this.getLogger().severe("Disabling plugin.");
-            this.disableSelf();
-            return;
-        }
-
-        this.injector.getInstance(MainCommand.class).register(commandManager);
+        this.loadConfigs();
+        this.setupListeners();
+        this.setupCommands();
     }
 
     /**
@@ -94,6 +67,26 @@ public final class NoBedExplosions extends JavaPlugin {
     @Override
     public void onDisable() {
         this.injector.getInstance(BukkitAudiences.class).close();
+    }
+
+    /**
+     * Loads the various plugin config files.
+     */
+    public void loadConfigs() {
+        this.saveResource("config.yml", false);
+        this.saveResource("lang.yml", false);
+        this.saveResource("worlds.yml", false);
+
+        this.injector.getInstance(ConfigConfig.class).load();
+        this.injector.getInstance(LangConfig.class).load();
+        this.injector.getInstance(WorldsConfig.class).load();
+    }
+
+    private void setupListeners() {
+        registerListeners(
+                this.injector.getInstance(AnchorListener.class),
+                this.injector.getInstance(BedListener.class)
+        );
     }
 
     /**
@@ -106,6 +99,21 @@ public final class NoBedExplosions extends JavaPlugin {
         for (final Listener listener : listeners) {
             manager.registerEvents(listener, this);
         }
+    }
+
+    private void setupCommands() {
+        final @NonNull CommandService commandService = this.injector.getInstance(CommandService.class);
+        commandService.init();
+
+        final @Nullable BukkitCommandManager<CommandSender> commandManager = commandService.get();
+        if (commandManager == null) {
+            this.getLogger().severe("The CommandService was null after initialization!");
+            this.getLogger().severe("Disabling plugin.");
+            this.disableSelf();
+            return;
+        }
+
+        this.injector.getInstance(MainCommand.class).register(commandManager);
     }
 
     /**

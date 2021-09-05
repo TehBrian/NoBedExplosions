@@ -69,14 +69,7 @@ public final class MainCommand extends AbstractCloudCommand<CommandSender, Bukki
         final var reload = main.literal("reload", ArgumentDescription.of("Reloads the plugin's config."))
                 .permission(Constants.Permissions.RELOAD)
                 .handler(c -> {
-                    this.noBedExplosions.saveResource("config.yml", false);
-                    this.noBedExplosions.saveResource("lang.yml", false);
-                    this.noBedExplosions.saveResource("worlds.yml", false);
-
-                    this.configConfig.load();
-                    this.langConfig.load();
-                    this.worldsConfig.load();
-
+                    this.noBedExplosions.loadConfigs();
                     this.audiences.sender(c.getSender()).sendMessage(this.langConfig.c(NodePath.path("nbe-reload")));
                 });
 
