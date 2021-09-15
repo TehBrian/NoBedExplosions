@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "xyz.tehbrian"
-version = "2.0.0"
+version = "2.0.0-SNAPSHOT"
 
 java {
     sourceCompatibility = JavaVersion.VERSION_16
@@ -12,9 +12,8 @@ java {
 }
 
 repositories {
-    // FIXME for tehlib - remove once that is published to maven central
-    mavenLocal()
     mavenCentral()
+    mavenLocal() // FIXME: for tehlib, remove once that's on central
 
     maven {
         name = "spigotmc-repo"
@@ -48,7 +47,7 @@ dependencies {
 
     implementation("org.spongepowered:configurate-yaml:4.1.1")
 
-    implementation("dev.tehbrian:tehlib-core:0.1.0-SNAPSHOT")
+    implementation("dev.tehbrian:tehlib-paper:0.1.0-SNAPSHOT")
 
     implementation("io.papermc:paperlib:1.0.6")
 }
