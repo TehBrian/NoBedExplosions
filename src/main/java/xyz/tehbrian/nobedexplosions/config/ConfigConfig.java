@@ -35,7 +35,7 @@ public final class ConfigConfig extends AbstractConfig<YamlConfigurateWrapper> {
 
         this.enabled = rootNode.node("enabled").getBoolean();
 
-        this.logger.info("Successfully loaded all values for {}!", this.configurateWrapper.filePath().getFileName());
+        this.logger.info("Successfully loaded configuration file {}.", this.configurateWrapper.filePath().getFileName().toString());
     }
 
     /**

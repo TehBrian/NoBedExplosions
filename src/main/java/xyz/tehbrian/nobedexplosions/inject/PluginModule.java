@@ -21,7 +21,7 @@ public final class PluginModule extends AbstractModule {
     private final NoBedExplosions noBedExplosions;
 
     /**
-     * @param noBedExplosions NoBedExplosions reference
+     * @param noBedExplosions injected
      */
     public PluginModule(final @NonNull NoBedExplosions noBedExplosions) {
         this.noBedExplosions = noBedExplosions;

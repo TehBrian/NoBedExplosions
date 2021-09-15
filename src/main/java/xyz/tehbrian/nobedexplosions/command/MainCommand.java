@@ -32,11 +32,11 @@ public final class MainCommand extends AbstractCloudCommand<CommandSender, Bukki
     private final ConfigConfig configConfig;
 
     /**
-     * @param noBedExplosions NoBedExplosions reference
-     * @param audiences       BukkitAudiences reference
-     * @param langConfig      LangConfig reference
-     * @param worldsConfig    WorldsConfig reference
-     * @param configConfig    ConfigConfig reference
+     * @param noBedExplosions injected
+     * @param audiences       injected
+     * @param langConfig      injected
+     * @param worldsConfig    injected
+     * @param configConfig    injected
      */
     @Inject
     public MainCommand(

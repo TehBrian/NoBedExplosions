@@ -18,8 +18,8 @@ public class CommandService extends AbstractCloudService<CommandSender, BukkitCo
     private final Logger logger;
 
     /**
-     * @param noBedExplosions NoBedExplosions reference
-     * @param logger          Logger reference
+     * @param noBedExplosions injected
+     * @param logger          injected
      */
     @Inject
     public CommandService(

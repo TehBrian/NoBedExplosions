@@ -22,9 +22,9 @@ public class BedListener implements Listener {
     private final WorldsConfig worldsConfig;
 
     /**
-     * @param audiences    BukkitAudiences reference
-     * @param configConfig Config reference
-     * @param worldsConfig Worlds reference
+     * @param audiences    injected
+     * @param configConfig injected
+     * @param worldsConfig injected
      */
     @Inject
     public BedListener(
@@ -64,7 +64,7 @@ public class BedListener implements Listener {
             case ALLOW -> event.setUseBed(Event.Result.ALLOW);
             case DENY -> {
                 event.setUseBed(Event.Result.DENY);
-                // We also have to cancel else the spawn will be set.
+                // we also have to cancel else the spawn will be set
                 event.setCancelled(true);
             }
             case DEFAULT -> event.setUseBed(Event.Result.DEFAULT);

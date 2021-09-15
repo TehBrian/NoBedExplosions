@@ -26,9 +26,9 @@ public class AnchorListener implements Listener {
     private final WorldsConfig worldsConfig;
 
     /**
-     * @param audiences    BukkitAudiences reference
-     * @param configConfig Config reference
-     * @param worldsConfig Worlds reference
+     * @param audiences    injected
+     * @param configConfig injected
+     * @param worldsConfig injected
      */
     @Inject
     public AnchorListener(
@@ -74,8 +74,8 @@ public class AnchorListener implements Listener {
 
         final RespawnAnchor anchor = (RespawnAnchor) block.getBlockData();
 
-        // If the held block is glowstone and at anchor is at max charge
-        // OR if the held block is not glowstone and there is any charge at all.
+        // if the held block is glowstone and at anchor is at max charge
+        // OR if the held block is not glowstone and there is any charge at all
         if ((event.getMaterial() == Material.GLOWSTONE && anchor.getCharges() >= anchor.getMaximumCharges())
                 || (event.getMaterial() != Material.GLOWSTONE && anchor.getCharges() > 0)) {
             switch (anchorConfig.mode()) {

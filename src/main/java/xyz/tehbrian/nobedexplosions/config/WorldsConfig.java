@@ -11,6 +11,7 @@ import org.spongepowered.configurate.CommentedConfigurationNode;
 import org.spongepowered.configurate.objectmapping.ConfigSerializable;
 import org.spongepowered.configurate.serialize.SerializationException;
 import org.spongepowered.configurate.yaml.YamlConfigurationLoader;
+import xyz.tehbrian.nobedexplosions.NoBedExplosions;
 
 import java.nio.file.Path;
 import java.util.HashMap;
@@ -21,21 +22,26 @@ import java.util.Map;
  */
 public final class WorldsConfig extends AbstractConfig<YamlConfigurateWrapper> {
 
+    private final NoBedExplosions noBedExplosions;
+
     private final @NonNull Map<@NonNull String, @NonNull World> worlds = new HashMap<>();
 
     /**
-     * @param logger     the logger
-     * @param dataFolder the data folder
+     * @param noBedExplosions injected
+     * @param logger          injected
+     * @param dataFolder      injected
      */
     @Inject
     public WorldsConfig(
             final @NotNull Logger logger,
-            final @NotNull @Named("dataFolder") Path dataFolder
+            final @NotNull @Named("dataFolder") Path dataFolder,
+            final @NotNull NoBedExplosions noBedExplosions
     ) {
         super(logger, new YamlConfigurateWrapper(logger, dataFolder.resolve("worlds.yml"), YamlConfigurationLoader.builder()
                 .path(dataFolder.resolve("worlds.yml"))
                 .defaultOptions(opts -> opts.implicitInitialization(false))
                 .build()));
+        this.noBedExplosions = noBedExplosions;
     }
 
     @Override
@@ -44,6 +50,7 @@ public final class WorldsConfig extends AbstractConfig<YamlConfigurateWrapper> {
 
         this.configurateWrapper.load();
         final CommentedConfigurationNode rootNode = this.configurateWrapper.get();
+        final String fileName = this.configurateWrapper.filePath().getFileName().toString();
 
         for (final Map.Entry<Object, CommentedConfigurationNode> child : rootNode.node("worlds").childrenMap().entrySet()) {
             final @NonNull String worldName = child.getKey().toString();
@@ -54,15 +61,15 @@ public final class WorldsConfig extends AbstractConfig<YamlConfigurateWrapper> {
             try {
                 world = worldNode.get(World.class);
             } catch (final SerializationException e) {
-                this.logger.warn("Exception caught during world configuration deserialization for {}.", worldName);
-                this.logger.warn("Skipping this world. Please check your worlds.yml config file.");
+                this.logger.warn("Exception caught during configuration deserialization for world {}.", worldName);
+                this.logger.warn("Skipping this world. Please check your {}.", fileName);
                 this.logger.warn("Printing stack trace:", e);
                 continue;
             }
 
             if (world == null) {
                 this.logger.warn("Deserialized world configuration for {} was null!", worldName);
-                this.logger.warn("Skipping this world. Please check your worlds.yml config file.");
+                this.logger.warn("Skipping this world. Please check your {} config file.", fileName);
                 continue;
             }
 
@@ -71,22 +78,22 @@ public final class WorldsConfig extends AbstractConfig<YamlConfigurateWrapper> {
             //noinspection ConstantConditions
             if (world.anchor() != null && world.anchor().mode() == null) {
                 this.logger.error("For world {}, anchor section exists but mode is null.", worldName);
-                this.logger.warn("Skipping this world. Please check your worlds.yml config file.");
+                this.logger.warn("Skipping this world. Please check your {} config file.", fileName);
                 continue;
             }
 
             //noinspection ConstantConditions
             if (world.bed() != null && world.bed().mode() == null) {
                 this.logger.error("For world {}, bed section exists but mode is null.", worldName);
-                this.logger.warn("Skipping this world. Please check your worlds.yml config file.");
+                this.logger.warn("Skipping this world. Please check your {} config file.", fileName);
                 continue;
             }
 
             this.worlds.put(worldName, world);
-            this.logger.info("Successfully added world configuration for {}!", worldName);
+            this.logger.info("Successfully added world configuration for {}.", worldName);
         }
 
-        this.logger.info("Successfully loaded all values for {}!", this.configurateWrapper.filePath().getFileName());
+        this.logger.info("Successfully loaded configuration file {}.", fileName);
     }
 
     /**
