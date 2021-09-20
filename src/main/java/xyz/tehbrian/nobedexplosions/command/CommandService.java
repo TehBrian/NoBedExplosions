@@ -58,7 +58,7 @@ public class CommandService extends AbstractCloudService<CommandSender, BukkitCo
         if (this.commandManager.queryCapability(CloudBukkitCapabilities.BRIGADIER)) {
             try {
                 this.commandManager.registerBrigadier();
-                this.logger.info("Successfully initialized Brigadier support!");
+                this.logger.info("Successfully initialized Brigadier support.");
             } catch (final BukkitCommandManager.BrigadierFailureException e) {
                 this.logger.warn("Failed to initialize Brigadier support.");
                 this.logger.warn("Printing stack trace, please send this to the developers:", e);

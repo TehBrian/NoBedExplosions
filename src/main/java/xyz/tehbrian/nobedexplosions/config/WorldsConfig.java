@@ -54,22 +54,22 @@ public final class WorldsConfig extends AbstractConfig<YamlConfigurateWrapper> {
 
         for (final Map.Entry<Object, CommentedConfigurationNode> child : rootNode.node("worlds").childrenMap().entrySet()) {
             final @NonNull String worldName = child.getKey().toString();
-            this.logger.info("Loading world configuration for {}..", worldName);
+            this.logger.info("Loading world configuration for {}", worldName);
             final CommentedConfigurationNode worldNode = child.getValue();
 
             final @Nullable World world;
             try {
                 world = worldNode.get(World.class);
             } catch (final SerializationException e) {
-                this.logger.warn("Exception caught during configuration deserialization for world {}.", worldName);
-                this.logger.warn("Skipping this world. Please check your {}.", fileName);
+                this.logger.warn("Exception caught during configuration deserialization for world {}", worldName);
+                this.logger.warn("Skipping this world. Please check your {}", fileName);
                 this.logger.warn("Printing stack trace:", e);
                 continue;
             }
 
             if (world == null) {
-                this.logger.warn("Deserialized world configuration for {} was null!", worldName);
-                this.logger.warn("Skipping this world. Please check your {} config file.", fileName);
+                this.logger.warn("Deserialized world configuration for {} was null.", worldName);
+                this.logger.warn("Skipping this world. Please check your {}", fileName);
                 continue;
             }
 
@@ -78,22 +78,22 @@ public final class WorldsConfig extends AbstractConfig<YamlConfigurateWrapper> {
             //noinspection ConstantConditions
             if (world.anchor() != null && world.anchor().mode() == null) {
                 this.logger.error("For world {}, anchor section exists but mode is null.", worldName);
-                this.logger.warn("Skipping this world. Please check your {} config file.", fileName);
+                this.logger.warn("Skipping this world. Please check your {}", fileName);
                 continue;
             }
 
             //noinspection ConstantConditions
             if (world.bed() != null && world.bed().mode() == null) {
                 this.logger.error("For world {}, bed section exists but mode is null.", worldName);
-                this.logger.warn("Skipping this world. Please check your {} config file.", fileName);
+                this.logger.warn("Skipping this world. Please check your {}", fileName);
                 continue;
             }
 
             this.worlds.put(worldName, world);
-            this.logger.info("Successfully added world configuration for {}.", worldName);
+            this.logger.info("Successfully added world configuration for {}", worldName);
         }
 
-        this.logger.info("Successfully loaded configuration file {}.", fileName);
+        this.logger.info("Successfully loaded configuration file {}", fileName);
     }
 
     /**

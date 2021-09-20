@@ -79,6 +79,7 @@ public final class MainCommand extends AbstractCloudCommand<CommandSender, Bukki
                         .<CommandSender>newBuilder("world")
                         .single()
                         .withSuggestionsProvider((c, in) -> List.copyOf(this.worldsConfig.worlds().keySet()))
+                        .asOptional()
                         .build())
                 // TODO: make this available to console if a world name is specified
                 .senderType(Player.class)
