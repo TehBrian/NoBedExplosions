@@ -6,10 +6,13 @@ import com.google.inject.Injector;
 import dev.tehbrian.tehlib.paper.TehPlugin;
 import io.papermc.lib.PaperLib;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.bukkit.command.CommandSender;
 import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
+import org.jetbrains.annotations.NotNull;
 import xyz.tehbrian.nobedexplosions.command.CommandService;
 import xyz.tehbrian.nobedexplosions.command.MainCommand;
 import xyz.tehbrian.nobedexplosions.config.ConfigConfig;
@@ -20,8 +23,6 @@ import xyz.tehbrian.nobedexplosions.inject.ConfigModule;
 import xyz.tehbrian.nobedexplosions.inject.PluginModule;
 import xyz.tehbrian.nobedexplosions.listeners.AnchorListener;
 import xyz.tehbrian.nobedexplosions.listeners.BedListener;
-
-import java.util.logging.Level;
 
 /**
  * The main class for the NoBedExplosions plugin.
@@ -47,10 +48,10 @@ public final class NoBedExplosions extends TehPlugin {
                     new CommandModule()
             );
         } catch (final Exception e) {
-            this.getLogger().severe("Something went wrong while creating the Guice injector.");
-            this.getLogger().severe("Disabling plugin.");
+            this.getLog4JLogger().error("Something went wrong while creating the Guice injector.");
+            this.getLog4JLogger().error("Disabling plugin.");
             this.disableSelf();
-            this.getLogger().log(Level.SEVERE, "Printing stack trace, please send this to the developers:", e);
+            this.getLog4JLogger().error("Printing stack trace, please send this to the developers:", e);
             return;
         }
 
@@ -93,13 +94,22 @@ public final class NoBedExplosions extends TehPlugin {
 
         final @Nullable BukkitCommandManager<CommandSender> commandManager = commandService.get();
         if (commandManager == null) {
-            this.getLogger().severe("The CommandService was null after initialization!");
-            this.getLogger().severe("Disabling plugin.");
+            this.getLog4JLogger().error("The CommandService was null after initialization!");
+            this.getLog4JLogger().error("Disabling plugin.");
             this.disableSelf();
             return;
         }
 
         this.injector.getInstance(MainCommand.class).register(commandManager);
+    }
+
+    /**
+     * Copied from Paper.
+     *
+     * @return the log4j logger
+     */
+    public @NotNull Logger getLog4JLogger() {
+        return LogManager.getLogger(this.getLogger().getName());
     }
 
 }

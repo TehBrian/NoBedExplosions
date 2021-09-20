@@ -40,7 +40,7 @@ public final class PluginModule extends AbstractModule {
      */
     @Provides
     public @NonNull Logger provideLog4JLogger() {
-        return LogManager.getLogger(this.noBedExplosions.getLogger().getName());
+        return this.noBedExplosions.getLog4JLogger();
     }
 
     /**
