@@ -1,7 +1,7 @@
 name: NoBedExplosions
 description: Control bed and respawn anchor functionality across all of your worlds, such as allowing sleep in the nether or the end!
 authors: [ TehBrian ]
-website: https://www.spigotmc.org/resources/65808
+website: https://spigotmc.org/resources/65808
 
 version: ${version}
 main: xyz.tehbrian.nobedexplosions.NoBedExplosions
