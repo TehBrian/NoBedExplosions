@@ -15,22 +15,17 @@ repositories {
     mavenCentral()
     mavenLocal() // FIXME: for tehlib, remove once that's on central
 
-    maven {
-        name = "spigotmc-repo"
-        url = uri("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
+    maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots/") {
+        name = "spigotmc"
     }
-    maven {
+    maven("https://oss.sonatype.org/content/groups/public/") {
         name = "sonatype"
-        url = uri("https://oss.sonatype.org/content/groups/public/")
     }
-    // for development builds
-    maven {
-        name = "sonatype-oss-snapshots"
-        url = uri("https://oss.sonatype.org/content/repositories/snapshots/")
+    maven("https://oss.sonatype.org/content/repositories/snapshots/") {
+        name = "sonatype-snapshots"
     }
-    maven {
+    maven("https://papermc.io/repo/repository/maven-public/") {
         name = "papermc"
-        url = uri("https://papermc.io/repo/repository/maven-public/")
     }
 }
 
