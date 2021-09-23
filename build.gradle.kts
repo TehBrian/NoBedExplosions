@@ -13,7 +13,6 @@ java {
 
 repositories {
     mavenCentral()
-    mavenLocal() // FIXME: for tehlib, remove once that's on central
 
     maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots/") {
         name = "spigotmc"
@@ -27,6 +26,9 @@ repositories {
     maven("https://papermc.io/repo/repository/maven-public/") {
         name = "papermc"
     }
+    maven("https://repo.thbn.me/snapshots/") {
+        name = "thbn-snapshots"
+    }
 }
 
 dependencies {
@@ -37,7 +39,7 @@ dependencies {
     implementation("cloud.commandframework:cloud-bukkit:1.5.0")
     implementation("me.lucko:commodore:1.10")
 
-    implementation("net.kyori:adventure-platform-bukkit:4.0.0-SNAPSHOT")
+    implementation("net.kyori:adventure-platform-bukkit:4.0.0")
     implementation("net.kyori:adventure-text-minimessage:4.1.0-SNAPSHOT")
 
     implementation("org.spongepowered:configurate-yaml:4.1.1")
@@ -55,7 +57,8 @@ tasks {
     shadowJar {
         archiveBaseName.set("NoBedExplosions")
 
-        relocate("me.lucko.commodore", "xyz.tehbrian.nobedexplosions.commodore")
-        relocate("io.papermc.lib", "xyz.tehbrian.nobedexplosions.paperlib")
+        relocate("me.lucko.commodore", "xyz.tehbrian.nobedexplosions.lib.commodore")
+        relocate("io.papermc.lib", "xyz.tehbrian.nobedexplosions.lib.paperlib")
+        relocate("net.kyori.adventure", "xyz.tehbrian.nobedexplosions.lib.adventure")
     }
 }
