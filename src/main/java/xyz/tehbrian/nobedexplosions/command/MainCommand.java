@@ -3,6 +3,7 @@ package xyz.tehbrian.nobedexplosions.command;
 import cloud.commandframework.ArgumentDescription;
 import cloud.commandframework.arguments.standard.StringArgument;
 import cloud.commandframework.bukkit.BukkitCommandManager;
+import cloud.commandframework.meta.CommandMeta;
 import com.google.inject.Inject;
 import dev.tehbrian.tehlib.core.cloud.AbstractCloudCommand;
 import net.kyori.adventure.audience.Audience;
@@ -60,7 +61,8 @@ public final class MainCommand extends AbstractCloudCommand<CommandSender, Bukki
      */
     @Override
     public void register(final @NonNull BukkitCommandManager<CommandSender> commandManager) {
-        final var main = commandManager.commandBuilder("nbe", ArgumentDescription.of("The main command for NBE."))
+        final var main = commandManager.commandBuilder("nbe")
+                .meta(CommandMeta.DESCRIPTION, "The main command for NBE.")
                 .handler(c -> Util.sendMessages(
                         this.audiences.sender(c.getSender()),
                         this.langConfig.cl(NodePath.path("nbe"), Map.of("version", this.noBedExplosions.getDescription().getVersion()))
