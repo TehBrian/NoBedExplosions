@@ -38,7 +38,7 @@ public final class Util {
         if (string == null || string.isBlank()) {
             return null;
         }
-        return MiniMessage.get().parse(string);
+        return MiniMessage.miniMessage().parse(string);
     }
 
     /**

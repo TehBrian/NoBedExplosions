@@ -40,9 +40,9 @@ dependencies {
     implementation("me.lucko:commodore:1.10")
 
     implementation("net.kyori:adventure-platform-bukkit:4.0.0")
-    implementation("net.kyori:adventure-text-minimessage:4.1.0-SNAPSHOT")
+    implementation("net.kyori:adventure-text-minimessage:4.2.0-SNAPSHOT")
 
-    implementation("org.spongepowered:configurate-yaml:4.1.1")
+    implementation("org.spongepowered:configurate-yaml:4.1.2")
 
     implementation("dev.tehbrian:tehlib-paper:0.1.0-SNAPSHOT")
 
