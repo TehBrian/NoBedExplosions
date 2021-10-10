@@ -28,9 +28,9 @@ public class BedListener implements Listener {
      */
     @Inject
     public BedListener(
-            @NonNull final BukkitAudiences audiences,
-            @NonNull final ConfigConfig configConfig,
-            @NonNull final WorldsConfig worldsConfig
+            final @NonNull BukkitAudiences audiences,
+            final @NonNull ConfigConfig configConfig,
+            final @NonNull WorldsConfig worldsConfig
     ) {
         this.audiences = audiences;
         this.configConfig = configConfig;

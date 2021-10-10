@@ -3,6 +3,7 @@ package xyz.tehbrian.nobedexplosions;
 import cloud.commandframework.bukkit.BukkitCommandManager;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import dev.tehbrian.tehlib.core.configurate.Config;
 import dev.tehbrian.tehlib.paper.TehPlugin;
 import io.papermc.lib.PaperLib;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
@@ -12,7 +13,7 @@ import org.bukkit.command.CommandSender;
 import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
-import org.jetbrains.annotations.NotNull;
+import org.spongepowered.configurate.ConfigurateException;
 import xyz.tehbrian.nobedexplosions.command.CommandService;
 import xyz.tehbrian.nobedexplosions.command.MainCommand;
 import xyz.tehbrian.nobedexplosions.config.ConfigConfig;
@@ -23,6 +24,8 @@ import xyz.tehbrian.nobedexplosions.inject.ConfigModule;
 import xyz.tehbrian.nobedexplosions.inject.PluginModule;
 import xyz.tehbrian.nobedexplosions.listeners.AnchorListener;
 import xyz.tehbrian.nobedexplosions.listeners.BedListener;
+
+import java.util.List;
 
 /**
  * The main class for the NoBedExplosions plugin.
@@ -55,7 +58,9 @@ public final class NoBedExplosions extends TehPlugin {
             return;
         }
 
-        this.loadConfigs();
+        if (!this.loadConfiguration()) {
+            return;
+        }
         this.setupListeners();
         this.setupCommands();
     }
@@ -69,16 +74,36 @@ public final class NoBedExplosions extends TehPlugin {
     }
 
     /**
-     * Loads the various plugin config files.
+     * Loads the plugin's configuration. If an exception is caught, logs the
+     * error and returns false.
+     *
+     * @return whether or not the loading was successful
      */
-    public void loadConfigs() {
-        this.saveResourceSilently("config.yml");
+    public boolean loadConfiguration() {
         this.saveResourceSilently("lang.yml");
+        this.saveResourceSilently("config.yml");
         this.saveResourceSilently("worlds.yml");
 
-        this.injector.getInstance(ConfigConfig.class).load();
-        this.injector.getInstance(LangConfig.class).load();
-        this.injector.getInstance(WorldsConfig.class).load();
+        final List<Config> configsToLoad = List.of(
+                this.injector.getInstance(LangConfig.class),
+                this.injector.getInstance(ConfigConfig.class),
+                this.injector.getInstance(WorldsConfig.class)
+        );
+
+        for (final Config config : configsToLoad) {
+            try {
+                config.load();
+            } catch (final ConfigurateException e) {
+                this.getLog4JLogger().error("Exception caught during config load for {}", config.configurateWrapper().filePath());
+                this.getLog4JLogger().error(/*"Disabling plugin. */"Please check your config.");
+                //this.disableSelf(); disabling plugin closes audiences which prevents us from sending a message that it dun broke
+                this.getLog4JLogger().error("Printing stack trace:", e);
+                return false;
+            }
+        }
+
+        this.getLog4JLogger().info("Successfully loaded configuration.");
+        return true;
     }
 
     private void setupListeners() {
@@ -108,7 +133,7 @@ public final class NoBedExplosions extends TehPlugin {
      *
      * @return the log4j logger
      */
-    public @NotNull Logger getLog4JLogger() {
+    public @NonNull Logger getLog4JLogger() {
         return LogManager.getLogger(this.getLogger().getName());
     }
 

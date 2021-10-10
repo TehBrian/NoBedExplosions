@@ -13,7 +13,9 @@ nbe:
   - ""
 
 # /nbe reload
-nbe-reload: "<gray><red>›</red> Reloaded <gradient:red:#f5a5a5>NoBedExplosions</gradient>!"
+nbe-reload:
+  successful: "<red>›<gray> The configuration has been successfully reloaded."
+  unsuccessful: "<red>›<gray> <#f5a5a5>Failed to load configuration</#f5a5a5>, please check the console."
 
 # /nbe info
 nbe-info:

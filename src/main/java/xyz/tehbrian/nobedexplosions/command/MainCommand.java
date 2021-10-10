@@ -41,11 +41,11 @@ public final class MainCommand extends AbstractCloudCommand<CommandSender, Bukki
      */
     @Inject
     public MainCommand(
-            @NonNull final NoBedExplosions noBedExplosions,
-            @NonNull final BukkitAudiences audiences,
-            @NonNull final LangConfig langConfig,
-            @NonNull final WorldsConfig worldsConfig,
-            @NonNull final ConfigConfig configConfig
+            final @NonNull NoBedExplosions noBedExplosions,
+            final @NonNull BukkitAudiences audiences,
+            final @NonNull LangConfig langConfig,
+            final @NonNull WorldsConfig worldsConfig,
+            final @NonNull ConfigConfig configConfig
     ) {
         this.noBedExplosions = noBedExplosions;
         this.audiences = audiences;
@@ -71,8 +71,11 @@ public final class MainCommand extends AbstractCloudCommand<CommandSender, Bukki
         final var reload = main.literal("reload", ArgumentDescription.of("Reloads the plugin's config."))
                 .permission(Constants.Permissions.RELOAD)
                 .handler(c -> {
-                    this.noBedExplosions.loadConfigs();
-                    this.audiences.sender(c.getSender()).sendMessage(this.langConfig.c(NodePath.path("nbe-reload")));
+                    if (this.noBedExplosions.loadConfiguration()) {
+                        this.audiences.sender(c.getSender()).sendMessage(this.langConfig.c(NodePath.path("nbe-reload", "successful")));
+                    } else {
+                        this.audiences.sender(c.getSender()).sendMessage(this.langConfig.c(NodePath.path("nbe-reload", "unsuccessful")));
+                    }
                 });
 
         final var info = main.literal("info", ArgumentDescription.of("Shows info for a world."))
