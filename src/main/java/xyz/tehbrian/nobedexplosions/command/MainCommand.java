@@ -86,13 +86,18 @@ public final class MainCommand extends AbstractCloudCommand<CommandSender, Bukki
                         .withSuggestionsProvider((c, in) -> List.copyOf(this.worldsConfig.worlds().keySet()))
                         .asOptional()
                         .build())
-                // TODO: make this available to console if a world name is specified
-                .senderType(Player.class)
                 .handler(c -> {
-                    final @NonNull Player sender = (Player) c.getSender();
+                    final @NonNull CommandSender sender = c.getSender();
                     final @NonNull Audience senderAudience = this.audiences.sender(sender);
 
-                    final @NonNull String worldName = c.<String>getOptional("world").orElse(sender.getWorld().getName());
+                    final @NonNull String worldName;
+                    if (sender instanceof Player player) {
+                        worldName = c.<String>getOptional("world").orElse(player.getWorld().getName());
+                    } else {
+                        // I am aware that there's a chance of NPE here, but let's just hope to heck that people have at least *one* world.
+                        worldName = c.<String>getOptional("world").orElse(sender.getServer().getWorlds().get(0).getName());
+                    }
+
                     final WorldsConfig.@Nullable World worldConfig = this.worldsConfig.worlds().get(worldName);
 
                     if (worldConfig == null) {
