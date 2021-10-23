@@ -56,6 +56,7 @@ tasks {
 
     shadowJar {
         archiveBaseName.set("NoBedExplosions")
+        archiveClassifier.set("")
 
         relocate("me.lucko.commodore", "xyz.tehbrian.nobedexplosions.lib.commodore")
         relocate("io.papermc.lib", "xyz.tehbrian.nobedexplosions.lib.paperlib")
