@@ -58,8 +58,14 @@ tasks {
         archiveBaseName.set("NoBedExplosions")
         archiveClassifier.set("")
 
-        relocate("me.lucko.commodore", "xyz.tehbrian.nobedexplosions.lib.commodore")
-        relocate("io.papermc.lib", "xyz.tehbrian.nobedexplosions.lib.paperlib")
-        relocate("net.kyori.adventure", "xyz.tehbrian.nobedexplosions.lib.adventure")
+        val libsPackage = "xyz.tehbrian.nobedexplosions.libs"
+        relocate("io.papermc.lib", "$libsPackage.paperlib")
+        relocate("com.google.inject", "$libsPackage.guice")
+        relocate("cloud.commandframework", "$libsPackage.cloud")
+        relocate("me.lucko.commodore", "$libsPackage.commodore")
+        relocate("net.kyori.adventure", "$libsPackage.adventure")
+        relocate("net.kyori.adventure", "$libsPackage.adventure")
+        relocate("org.spongepowered.configurate.yaml", "$libsPackage.configurate.yaml")
+        relocate("dev.tehbrian.tehlib", "$libsPackage.tehlib")
     }
 }
