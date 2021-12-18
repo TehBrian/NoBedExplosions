@@ -36,7 +36,7 @@ dependencies {
 
     implementation("com.google.inject:guice:5.0.1")
 
-    implementation("cloud.commandframework:cloud-bukkit:1.5.0")
+    implementation("cloud.commandframework:cloud-bukkit:1.6.0")
     implementation("me.lucko:commodore:1.10")
 
     implementation("net.kyori:adventure-platform-bukkit:4.0.1")
