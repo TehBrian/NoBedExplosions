@@ -3,14 +3,14 @@
 # https://docs.adventure.kyori.net/minimessage.html
 
 # /nbe
-nbe:
-  - ""
-  - "<gray>-= Running <gradient:red:#f5a5a5>NoBedExplosions</gradient> <gradient:#a5a5f5:blue><version></gradient> =-"
-  - ""
-  - "<gray>Commands:"
-  - "<dark_gray>- <#f5a5a5>/nbe reload"
-  - "<dark_gray>- <#a5a5f5>/nbe info"
-  - ""
+nbe: |-
+
+  <gray>-= Running <gradient:red:#f5a5a5>NoBedExplosions</gradient> <gradient:#a5a5f5:blue><version></gradient> =-
+
+  <gray>Commands:
+  <dark_gray>- <#f5a5a5>/nbe reload
+  <dark_gray>- <#a5a5f5>/nbe info
+
 
 # /nbe reload
 nbe-reload:
@@ -21,11 +21,11 @@ nbe-reload:
 nbe-info:
   no-world-config: "<blue>›<gray> No world configuration for <#a5a5f5><world></#a5a5f5> found."
   header: "<blue>›<gray> World configuration for <#a5a5f5><world></#a5a5f5>:"
-  bed:
-    - "<dark_gray>|<gray>    bed:"
-    - "<dark_gray>|<gray>      mode: <bed_mode>"
-    - "<dark_gray>|<gray>      message: <bed_message>"
-  anchor:
-    - "<dark_gray>|<gray>    anchor:"
-    - "<dark_gray>|<gray>      mode: <anchor_mode>"
-    - "<dark_gray>|<gray>      message: <anchor_message>"
+  bed: |-
+    <dark_gray>|<gray>    bed:
+    <dark_gray>|<gray>      mode: <bed_mode>
+    <dark_gray>|<gray>      message: <bed_message>
+  anchor: |-
+    <dark_gray>|<gray>    anchor:
+    <dark_gray>|<gray>      mode: <anchor_mode>
+    <dark_gray>|<gray>      message: <anchor_message>

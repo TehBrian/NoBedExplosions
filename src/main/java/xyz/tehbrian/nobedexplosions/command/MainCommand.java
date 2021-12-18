@@ -16,7 +16,6 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 import org.spongepowered.configurate.NodePath;
 import xyz.tehbrian.nobedexplosions.Constants;
 import xyz.tehbrian.nobedexplosions.NoBedExplosions;
-import xyz.tehbrian.nobedexplosions.Util;
 import xyz.tehbrian.nobedexplosions.config.ConfigConfig;
 import xyz.tehbrian.nobedexplosions.config.LangConfig;
 import xyz.tehbrian.nobedexplosions.config.WorldsConfig;
@@ -64,13 +63,10 @@ public final class MainCommand extends AbstractCloudCommand<CommandSender, Bukki
     public void register(final @NonNull BukkitCommandManager<CommandSender> commandManager) {
         final var main = commandManager.commandBuilder("nbe")
                 .meta(CommandMeta.DESCRIPTION, "The main command for NBE.")
-                .handler(c -> Util.sendMessages(
-                        this.audiences.sender(c.getSender()),
-                        this.langConfig.cl(
-                                NodePath.path("nbe"),
-                                TemplateResolver.pairs(Map.of("version", this.noBedExplosions.getDescription().getVersion()))
-                        )
-                ));
+                .handler(c -> this.audiences.sender(c.getSender()).sendMessage(this.langConfig.c(
+                        NodePath.path("nbe"),
+                        TemplateResolver.pairs(Map.of("version", this.noBedExplosions.getDescription().getVersion()))
+                )));
 
         final var reload = main.literal("reload", ArgumentDescription.of("Reloads the plugin's config."))
                 .permission(Constants.Permissions.RELOAD)
@@ -122,10 +118,10 @@ public final class MainCommand extends AbstractCloudCommand<CommandSender, Bukki
                         final Map<String, String> replacements = new HashMap<>();
                         replacements.put("bed_mode", bed.mode().name());
                         replacements.put("bed_message", bed.message() == null ? "" : bed.message());
-                        Util.sendMessages(
-                                senderAudience,
-                                this.langConfig.cl(NodePath.path("nbe-info", "bed"), TemplateResolver.pairs(replacements))
-                        );
+                        senderAudience.sendMessage(this.langConfig.c(
+                                NodePath.path("nbe-info", "bed"),
+                                TemplateResolver.pairs(replacements)
+                        ));
                     }
 
                     final WorldsConfig.World.Anchor anchor = worldConfig.anchor();
@@ -133,10 +129,10 @@ public final class MainCommand extends AbstractCloudCommand<CommandSender, Bukki
                         final Map<String, String> replacements = new HashMap<>();
                         replacements.put("anchor_mode", anchor.mode().name());
                         replacements.put("anchor_message", anchor.message() == null ? "" : anchor.message());
-                        Util.sendMessages(
-                                senderAudience,
-                                this.langConfig.cl(NodePath.path("nbe-info", "anchor"), TemplateResolver.pairs(replacements))
-                        );
+                        senderAudience.sendMessage(this.langConfig.c(
+                                NodePath.path("nbe-info", "anchor"),
+                                TemplateResolver.pairs(replacements)
+                        ));
                     }
                 });
 

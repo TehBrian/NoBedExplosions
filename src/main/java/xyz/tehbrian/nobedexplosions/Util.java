@@ -6,25 +6,9 @@ import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
-import java.util.List;
-
-
 public final class Util {
 
     private Util() {
-
-    }
-
-    /**
-     * Send a list of {@code Component}s to an {@code Audience}.
-     *
-     * @param audience   the audience
-     * @param components the list of components
-     */
-    public static void sendMessages(final @NonNull Audience audience, final @NonNull List<@NonNull Component> components) {
-        for (final Component c : components) {
-            audience.sendMessage(c);
-        }
     }
 
     /**
