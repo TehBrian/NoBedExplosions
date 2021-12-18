@@ -39,7 +39,7 @@ dependencies {
     implementation("cloud.commandframework:cloud-bukkit:1.5.0")
     implementation("me.lucko:commodore:1.10")
 
-    implementation("net.kyori:adventure-platform-bukkit:4.0.0")
+    implementation("net.kyori:adventure-platform-bukkit:4.0.1")
     implementation("net.kyori:adventure-text-minimessage:4.2.0-SNAPSHOT")
 
     implementation("org.spongepowered:configurate-yaml:4.1.2")
