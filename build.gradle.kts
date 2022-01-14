@@ -26,7 +26,8 @@ repositories {
 }
 
 dependencies {
-    compileOnly("org.spigotmc:spigot-api:1.17.1-R0.1-SNAPSHOT")
+    compileOnly("org.spigotmc:spigot-api:1.18.1-R0.1-SNAPSHOT")
+    implementation("io.papermc:paperlib:1.0.6")
 
     implementation("com.google.inject:guice:5.0.1")
 
@@ -37,8 +38,6 @@ dependencies {
     implementation("net.kyori:adventure-platform-bukkit:4.0.1")
 
     implementation("dev.tehbrian:tehlib-paper:0.1.0-SNAPSHOT")
-
-    implementation("io.papermc:paperlib:1.0.6")
 }
 
 // disable checkstyle in tests
