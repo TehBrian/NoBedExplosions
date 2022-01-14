@@ -17,20 +17,11 @@ repositories {
     maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots/") {
         name = "spigotmc"
     }
-    maven("https://oss.sonatype.org/content/groups/public/") {
-        name = "sonatype"
-    }
-    maven("https://oss.sonatype.org/content/repositories/snapshots/") {
-        name = "sonatype-snapshots"
-    }
     maven("https://papermc.io/repo/repository/maven-public/") {
         name = "papermc"
     }
     maven("https://repo.thbn.me/snapshots/") {
         name = "thbn-snapshots"
-    }
-    maven("https://libraries.minecraft.net") {
-        name = "minecraft"
     }
 }
 
