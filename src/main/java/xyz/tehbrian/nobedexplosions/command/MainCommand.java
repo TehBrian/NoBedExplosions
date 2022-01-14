@@ -15,15 +15,12 @@ import org.bukkit.entity.Player;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.spongepowered.configurate.NodePath;
-import xyz.tehbrian.nobedexplosions.Constants;
 import xyz.tehbrian.nobedexplosions.NoBedExplosions;
-import xyz.tehbrian.nobedexplosions.config.ConfigConfig;
 import xyz.tehbrian.nobedexplosions.config.LangConfig;
 import xyz.tehbrian.nobedexplosions.config.WorldsConfig;
+import xyz.tehbrian.nobedexplosions.util.Permissions;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public final class MainCommand extends AbstractCloudCommand<CommandSender, BukkitCommandManager<CommandSender>> {
 
@@ -31,28 +28,24 @@ public final class MainCommand extends AbstractCloudCommand<CommandSender, Bukki
     private final BukkitAudiences audiences;
     private final LangConfig langConfig;
     private final WorldsConfig worldsConfig;
-    private final ConfigConfig configConfig;
 
     /**
      * @param noBedExplosions injected
      * @param audiences       injected
      * @param langConfig      injected
      * @param worldsConfig    injected
-     * @param configConfig    injected
      */
     @Inject
     public MainCommand(
             final @NonNull NoBedExplosions noBedExplosions,
             final @NonNull BukkitAudiences audiences,
             final @NonNull LangConfig langConfig,
-            final @NonNull WorldsConfig worldsConfig,
-            final @NonNull ConfigConfig configConfig
+            final @NonNull WorldsConfig worldsConfig
     ) {
         this.noBedExplosions = noBedExplosions;
         this.audiences = audiences;
         this.langConfig = langConfig;
         this.worldsConfig = worldsConfig;
-        this.configConfig = configConfig;
     }
 
     /**
@@ -73,7 +66,7 @@ public final class MainCommand extends AbstractCloudCommand<CommandSender, Bukki
                 )));
 
         final var reload = main.literal("reload", ArgumentDescription.of("Reloads the plugin's config."))
-                .permission(Constants.Permissions.RELOAD)
+                .permission(Permissions.RELOAD)
                 .handler(c -> {
                     if (this.noBedExplosions.loadConfiguration()) {
                         this.audiences.sender(c.getSender()).sendMessage(this.langConfig.c(NodePath.path("nbe-reload", "successful")));
@@ -83,7 +76,7 @@ public final class MainCommand extends AbstractCloudCommand<CommandSender, Bukki
                 });
 
         final var info = main.literal("info", ArgumentDescription.of("Shows info for a world."))
-                .permission(Constants.Permissions.INFO)
+                .permission(Permissions.INFO)
                 .argument(StringArgument
                         .<CommandSender>newBuilder("world")
                         .single()

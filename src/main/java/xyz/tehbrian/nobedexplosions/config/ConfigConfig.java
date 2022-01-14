@@ -28,7 +28,8 @@ public final class ConfigConfig extends AbstractConfig<YamlConfigurateWrapper> {
     @Override
     public void load() throws ConfigurateException {
         this.configurateWrapper.load();
-        final @NonNull CommentedConfigurationNode rootNode = Objects.requireNonNull(this.configurateWrapper.get()); // will not be null as we called #load()
+        // will not be null as we called #load()
+        final @NonNull CommentedConfigurationNode rootNode = Objects.requireNonNull(this.configurateWrapper.get());
         this.enabled = rootNode.node("enabled").getBoolean(true);
     }
 

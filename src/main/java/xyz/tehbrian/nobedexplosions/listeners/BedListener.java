@@ -8,9 +8,9 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerBedEnterEvent;
 import org.checkerframework.checker.nullness.qual.NonNull;
-import xyz.tehbrian.nobedexplosions.Util;
 import xyz.tehbrian.nobedexplosions.config.ConfigConfig;
 import xyz.tehbrian.nobedexplosions.config.WorldsConfig;
+import xyz.tehbrian.nobedexplosions.util.Util;
 
 /**
  * Listens for bed-related events.

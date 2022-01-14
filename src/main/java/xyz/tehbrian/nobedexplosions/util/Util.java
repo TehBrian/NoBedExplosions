@@ -1,4 +1,4 @@
-package xyz.tehbrian.nobedexplosions;
+package xyz.tehbrian.nobedexplosions.util;
 
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.Component;
@@ -22,7 +22,7 @@ public final class Util {
         if (string == null || string.isBlank()) {
             return null;
         }
-        return MiniMessage.miniMessage().parse(string);
+        return MiniMessage.miniMessage().deserialize(string);
     }
 
     /**

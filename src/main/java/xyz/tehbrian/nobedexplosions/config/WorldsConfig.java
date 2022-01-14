@@ -42,7 +42,8 @@ public final class WorldsConfig extends AbstractConfig<YamlConfigurateWrapper> {
     @Override
     public void load() throws ConfigurateException {
         this.configurateWrapper.load();
-        final @NonNull CommentedConfigurationNode rootNode = Objects.requireNonNull(this.configurateWrapper.get()); // will not be null as we called #load()
+        // will not be null as we called #load()
+        final @NonNull CommentedConfigurationNode rootNode = Objects.requireNonNull(this.configurateWrapper.get());
         final String fileName = this.configurateWrapper.filePath().getFileName().toString();
 
         this.worlds.clear();
@@ -96,12 +97,12 @@ public final class WorldsConfig extends AbstractConfig<YamlConfigurateWrapper> {
     }
 
     @ConfigSerializable
-    public static record World(@Nullable Bed bed,
-                               @Nullable Anchor anchor) {
+    public record World(@Nullable Bed bed,
+                        @Nullable Anchor anchor) {
 
         @ConfigSerializable
-        public static record Anchor(@NonNull Mode mode,
-                                    @Nullable String message) {
+        public record Anchor(@NonNull Mode mode,
+                             @Nullable String message) {
 
             public enum Mode {
                 DENY,
@@ -111,8 +112,8 @@ public final class WorldsConfig extends AbstractConfig<YamlConfigurateWrapper> {
         }
 
         @ConfigSerializable
-        public static record Bed(@NonNull Mode mode,
-                                 @Nullable String message) {
+        public record Bed(@NonNull Mode mode,
+                          @Nullable String message) {
 
             public enum Mode {
                 ALLOW,
