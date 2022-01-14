@@ -66,7 +66,7 @@ tasks {
         relocate("cloud.commandframework", "$libsPackage.cloud")
         relocate("me.lucko.commodore", "$libsPackage.commodore")
         relocate("net.kyori.adventure", "$libsPackage.adventure")
-        relocate("org.spongepowered.configurate.yaml", "$libsPackage.configurate.yaml")
+        relocate("org.spongepowered.configurate", "$libsPackage.configurate")
         relocate("dev.tehbrian.tehlib", "$libsPackage.tehlib")
     }
 }
