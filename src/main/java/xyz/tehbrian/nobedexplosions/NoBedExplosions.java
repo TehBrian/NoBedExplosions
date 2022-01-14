@@ -32,14 +32,8 @@ import java.util.List;
  */
 public final class NoBedExplosions extends TehPlugin {
 
-    /**
-     * The Guice injector.
-     */
     private @MonotonicNonNull Injector injector;
 
-    /**
-     * Called when the plugin is enabled.
-     */
     @Override
     public void onEnable() {
         PaperLib.suggestPaper(this);
@@ -62,13 +56,14 @@ public final class NoBedExplosions extends TehPlugin {
             this.disableSelf();
             return;
         }
+        if (!this.setupCommands()) {
+            this.disableSelf();
+            return;
+        }
+
         this.setupListeners();
-        this.setupCommands();
     }
 
-    /**
-     * Called when the plugin is disabled.
-     */
     @Override
     public void onDisable() {
         this.injector.getInstance(BukkitAudiences.class).close();
@@ -78,7 +73,7 @@ public final class NoBedExplosions extends TehPlugin {
      * Loads the plugin's configuration. If an exception is caught, logs the
      * error and returns false.
      *
-     * @return whether or not the loading was successful
+     * @return whether it was successful
      */
     public boolean loadConfiguration() {
         this.saveResourceSilently("lang.yml");
@@ -106,26 +101,39 @@ public final class NoBedExplosions extends TehPlugin {
         return true;
     }
 
+    /**
+     * @return whether it was successful
+     */
+    private boolean setupCommands() {
+        final @NonNull CommandService commandService = this.injector.getInstance(CommandService.class);
+        try {
+            commandService.init();
+        } catch (final BukkitCommandManager.BrigadierFailureException e) {
+            this.getLog4JLogger().error("Failed to register Brigadier support.");
+            this.getLog4JLogger().error("Printing stack trace, please send this to the developers:", e);
+            return false;
+        } catch (final Exception e) {
+            this.getLog4JLogger().error("Failed to create the CommandManager.");
+            this.getLog4JLogger().error("Printing stack trace, please send this to the developers:", e);
+            return false;
+        }
+
+        final @Nullable BukkitCommandManager<CommandSender> commandManager = commandService.get();
+        if (commandManager == null) {
+            this.getLog4JLogger().error("The CommandService was null after initialization!");
+            return false;
+        }
+
+        this.injector.getInstance(MainCommand.class).register(commandManager);
+
+        return true;
+    }
+
     private void setupListeners() {
         this.registerListeners(
                 this.injector.getInstance(AnchorListener.class),
                 this.injector.getInstance(BedListener.class)
         );
-    }
-
-    private void setupCommands() {
-        final @NonNull CommandService commandService = this.injector.getInstance(CommandService.class);
-        commandService.init();
-
-        final @Nullable BukkitCommandManager<CommandSender> commandManager = commandService.get();
-        if (commandManager == null) {
-            this.getLog4JLogger().error("The CommandService was null after initialization!");
-            this.getLog4JLogger().error("Disabling plugin.");
-            this.disableSelf();
-            return;
-        }
-
-        this.injector.getInstance(MainCommand.class).register(commandManager);
     }
 
     /**
