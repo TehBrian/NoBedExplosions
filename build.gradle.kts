@@ -7,6 +7,8 @@ plugins {
 
 group = "xyz.tehbrian"
 version = "2.0.1"
+description = "Control bed and respawn anchor functionality across all of" +
+        " your worlds, such as allowing sleep in the nether or the end!"
 
 java {
     toolchain.languageVersion.set(JavaLanguageVersion.of(17))
@@ -45,7 +47,7 @@ project.gradle.startParameter.excludedTaskNames.add("checkstyleTest")
 
 tasks {
     processResources {
-        expand("version" to project.version)
+        expand("version" to project.version, "description" to project.description)
     }
 
     shadowJar {
