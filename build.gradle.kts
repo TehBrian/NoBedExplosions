@@ -31,7 +31,7 @@ dependencies {
     compileOnly("org.spigotmc:spigot-api:1.18.1-R0.1-SNAPSHOT")
     implementation("io.papermc:paperlib:1.0.6")
 
-    implementation("com.google.inject:guice:5.0.1")
+    implementation("com.google.inject:guice:5.1.0")
 
     implementation("cloud.commandframework:cloud-bukkit:1.6.1")
     implementation("me.lucko:commodore:1.11")
