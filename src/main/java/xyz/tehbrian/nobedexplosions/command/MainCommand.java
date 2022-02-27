@@ -8,8 +8,8 @@ import com.google.inject.Inject;
 import dev.tehbrian.tehlib.core.cloud.AbstractCloudCommand;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
-import net.kyori.adventure.text.minimessage.placeholder.Placeholder;
-import net.kyori.adventure.text.minimessage.placeholder.PlaceholderResolver;
+import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
+import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.checkerframework.checker.nullness.qual.NonNull;
@@ -58,12 +58,10 @@ public final class MainCommand extends AbstractCloudCommand<CommandSender, Bukki
         final var main = commandManager.commandBuilder("nbe")
                 .meta(CommandMeta.DESCRIPTION, "The main command for NBE.")
                 .handler(c -> this.audiences.sender(c.getSender()).sendMessage(this.langConfig.c(
-                        NodePath.path("nbe"),
-                        PlaceholderResolver.placeholders(Placeholder.miniMessage(
-                                "version",
-                                this.noBedExplosions.getDescription().getVersion()
+                                NodePath.path("nbe"),
+                                Placeholder.unparsed("version", this.noBedExplosions.getDescription().getVersion())
                         ))
-                )));
+                );
 
         final var reload = main.literal("reload", ArgumentDescription.of("Reloads the plugin's config."))
                 .permission(Permissions.RELOAD)
@@ -100,21 +98,21 @@ public final class MainCommand extends AbstractCloudCommand<CommandSender, Bukki
                     if (worldConfig == null) {
                         senderAudience.sendMessage(this.langConfig.c(
                                 NodePath.path("nbe-info", "no-world-config"),
-                                PlaceholderResolver.placeholders(Placeholder.miniMessage("world", worldName))
+                                Placeholder.unparsed("world", worldName)
                         ));
                         return;
                     }
 
                     senderAudience.sendMessage(this.langConfig.c(
                             NodePath.path("nbe-info", "header"),
-                            PlaceholderResolver.placeholders(Placeholder.miniMessage("world", worldName))
+                            Placeholder.unparsed("world", worldName)
                     ));
 
                     final WorldsConfig.World.Bed bed = worldConfig.bed();
                     if (bed != null) {
-                        final var resolver = PlaceholderResolver.placeholders(
-                                Placeholder.miniMessage("bed_mode", bed.mode().name()),
-                                Placeholder.miniMessage("bed_message", bed.message() == null ? "" : bed.message())
+                        final var resolver = TagResolver.resolver(
+                                Placeholder.unparsed("bed_mode", bed.mode().name()),
+                                Placeholder.unparsed("bed_message", bed.message() == null ? "" : bed.message())
                         );
 
                         senderAudience.sendMessage(this.langConfig.c(
@@ -125,9 +123,9 @@ public final class MainCommand extends AbstractCloudCommand<CommandSender, Bukki
 
                     final WorldsConfig.World.Anchor anchor = worldConfig.anchor();
                     if (anchor != null) {
-                        final var resolver = PlaceholderResolver.placeholders(
-                                Placeholder.miniMessage("anchor_mode", anchor.mode().name()),
-                                Placeholder.miniMessage("anchor_message", anchor.message() == null ? "" : anchor.message())
+                        final var resolver = TagResolver.resolver(
+                                Placeholder.unparsed("anchor_mode", anchor.mode().name()),
+                                Placeholder.unparsed("anchor_message", anchor.message() == null ? "" : anchor.message())
                         );
 
                         senderAudience.sendMessage(this.langConfig.c(
