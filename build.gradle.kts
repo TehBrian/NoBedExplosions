@@ -28,7 +28,7 @@ repositories {
 }
 
 dependencies {
-    compileOnly("org.spigotmc:spigot-api:1.18.1-R0.1-SNAPSHOT")
+    compileOnly("org.spigotmc:spigot-api:1.18.2-R0.1-SNAPSHOT")
     implementation("io.papermc:paperlib:1.0.6")
 
     implementation("com.google.inject:guice:5.1.0")
@@ -38,6 +38,7 @@ dependencies {
 
     implementation("org.spongepowered:configurate-yaml:4.1.2")
     implementation("net.kyori:adventure-platform-bukkit:4.1.0")
+    implementation("net.kyori:adventure-text-minimessage:4.10.1")
 
     implementation("dev.tehbrian:tehlib-paper:0.1.0-SNAPSHOT")
 }
@@ -65,6 +66,6 @@ tasks {
     }
 
     runServer {
-        minecraftVersion("1.18.1")
+        minecraftVersion("1.18.2")
     }
 }
