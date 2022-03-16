@@ -26,7 +26,7 @@ public final class Util {
     }
 
     /**
-     * If {@code string} is blank or null, returns null. Else, parses a string
+     * If {@code string} is blank or null, does nothing. Else, parses a string
      * using MiniMessage and sends it to {@code audience}.
      *
      * @param audience who to send the message to
