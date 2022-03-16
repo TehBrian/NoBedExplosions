@@ -37,7 +37,7 @@ public final class BedListener implements Listener {
 
         switch (bedConfig.mode()) {
             case ALLOW -> event.setUseBed(Event.Result.ALLOW);
-            case DENY -> event.setUseBed(Event.Result.DENY);
+            case DENY, EXPLODE -> event.setUseBed(Event.Result.DENY);
             case DEFAULT -> event.setUseBed(Event.Result.DEFAULT);
             default -> {
             }
@@ -47,14 +47,17 @@ public final class BedListener implements Listener {
     }
 
     @EventHandler
-    public void onFail(final PlayerBedFailEnterEvent event) {
+    public void onBedEnterFail(final PlayerBedFailEnterEvent event) {
         final WorldsConfig.World.@Nullable Bed bedConfig = this.getBedConfig(event.getPlayer());
         if (bedConfig == null) {
             return;
         }
 
-        if (bedConfig.mode() == WorldsConfig.World.Bed.Mode.DENY) {
-            event.setWillExplode(false);
+        switch (bedConfig.mode()) {
+            case DENY -> event.setWillExplode(false);
+            case EXPLODE -> event.setWillExplode(true);
+            default -> {
+            }
         }
     }
 

@@ -115,6 +115,7 @@ public final class WorldsConfig extends AbstractConfig<YamlConfigurateWrapper> {
                 ALLOW,
                 DENY,
                 DEFAULT,
+                EXPLODE,
             }
 
         }
