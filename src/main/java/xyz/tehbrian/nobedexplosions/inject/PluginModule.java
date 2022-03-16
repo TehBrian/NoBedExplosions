@@ -12,16 +12,10 @@ import xyz.tehbrian.nobedexplosions.NoBedExplosions;
 
 import java.nio.file.Path;
 
-/**
- * Guice module which provides bindings for the plugin's instances.
- */
 public final class PluginModule extends AbstractModule {
 
     private final NoBedExplosions noBedExplosions;
 
-    /**
-     * @param noBedExplosions injected
-     */
     public PluginModule(final @NonNull NoBedExplosions noBedExplosions) {
         this.noBedExplosions = noBedExplosions;
     }
@@ -33,8 +27,6 @@ public final class PluginModule extends AbstractModule {
     }
 
     /**
-     * Provides the plugin's Log4J logger.
-     *
      * @return the plugin's Log4J logger
      */
     @Provides
@@ -43,8 +35,6 @@ public final class PluginModule extends AbstractModule {
     }
 
     /**
-     * Provides the instance of {@code BukkitAudiences}.
-     *
      * @return the instance of {@code BukkitAudiences}
      */
     @Provides
@@ -54,9 +44,7 @@ public final class PluginModule extends AbstractModule {
     }
 
     /**
-     * Provides the plugin's data folder.
-     *
-     * @return the data folder
+     * @return the plugin's data folder
      */
     @Provides
     @Named("dataFolder")

@@ -19,9 +19,8 @@ import xyz.tehbrian.nobedexplosions.command.MainCommand;
 import xyz.tehbrian.nobedexplosions.config.ConfigConfig;
 import xyz.tehbrian.nobedexplosions.config.LangConfig;
 import xyz.tehbrian.nobedexplosions.config.WorldsConfig;
-import xyz.tehbrian.nobedexplosions.inject.CommandModule;
-import xyz.tehbrian.nobedexplosions.inject.ConfigModule;
 import xyz.tehbrian.nobedexplosions.inject.PluginModule;
+import xyz.tehbrian.nobedexplosions.inject.SingletonModule;
 import xyz.tehbrian.nobedexplosions.listeners.AnchorListener;
 import xyz.tehbrian.nobedexplosions.listeners.BedListener;
 
@@ -41,8 +40,7 @@ public final class NoBedExplosions extends TehPlugin {
         try {
             this.injector = Guice.createInjector(
                     new PluginModule(this),
-                    new ConfigModule(),
-                    new CommandModule()
+                    new SingletonModule()
             );
         } catch (final Exception e) {
             this.getLog4JLogger().error("Something went wrong while creating the Guice injector.");

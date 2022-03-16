@@ -1,4 +1,4 @@
 /**
- * Guice modules and dependency-injection-related classes.
+ * Guice modules.
  */
 package xyz.tehbrian.nobedexplosions.inject;
