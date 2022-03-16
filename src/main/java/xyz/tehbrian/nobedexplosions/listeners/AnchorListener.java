@@ -42,16 +42,12 @@ public final class AnchorListener implements Listener {
         if (event.getAction() != Action.RIGHT_CLICK_BLOCK
                 || event.getHand() != EquipmentSlot.HAND
                 || block == null
-                || block.getType() != Material.RESPAWN_ANCHOR) {
+                || block.getType() != Material.RESPAWN_ANCHOR
+                || !(block.getBlockData() instanceof RespawnAnchor anchor)) {
             return;
         }
 
-        final RespawnAnchor anchor = (RespawnAnchor) block.getBlockData();
-
-        // if the held block is glowstone and at anchor is at max charge
-        // OR if the held block is not glowstone and there is any charge at all
-        if ((event.getMaterial() == Material.GLOWSTONE && anchor.getCharges() >= anchor.getMaximumCharges())
-                || (event.getMaterial() != Material.GLOWSTONE && anchor.getCharges() > 0)) {
+        if (this.willExplode(anchor, event.getMaterial())) {
             switch (anchorConfig.mode()) {
                 case DENY -> event.setCancelled(true);
                 case DEFAULT -> event.setCancelled(false);
@@ -70,6 +66,14 @@ public final class AnchorListener implements Listener {
         }
 
         return worldConfig.anchor();
+    }
+
+    private boolean willExplode(final @NonNull RespawnAnchor anchor, final @NonNull Material heldMaterial) {
+        // if the held block is glowstone and anchor has max charge
+        // OR
+        // if the held block is not glowstone and anchor has any charge at all
+        return (heldMaterial == Material.GLOWSTONE && anchor.getCharges() >= anchor.getMaximumCharges())
+                || (heldMaterial != Material.GLOWSTONE && anchor.getCharges() > 0);
     }
 
 }
