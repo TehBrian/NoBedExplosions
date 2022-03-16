@@ -2,10 +2,7 @@ package xyz.tehbrian.nobedexplosions.inject;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
-import com.google.inject.Singleton;
 import com.google.inject.name.Named;
-import net.kyori.adventure.platform.bukkit.BukkitAudiences;
-import org.apache.logging.log4j.Logger;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import xyz.tehbrian.nobedexplosions.NoBedExplosions;
@@ -30,17 +27,16 @@ public final class PluginModule extends AbstractModule {
      * @return the plugin's Log4J logger
      */
     @Provides
-    public @NonNull Logger provideLog4JLogger() {
+    public org.apache.logging.log4j.@NonNull Logger provideLog4JLogger() {
         return this.noBedExplosions.getLog4JLogger();
     }
 
     /**
-     * @return the instance of {@code BukkitAudiences}
+     * @return the plugin's SLF4J logger
      */
     @Provides
-    @Singleton
-    public @NonNull BukkitAudiences provideAudiences() {
-        return BukkitAudiences.create(this.noBedExplosions);
+    public org.slf4j.@NonNull Logger provideSLF4JLogger() {
+        return this.noBedExplosions.getSLF4JLogger();
     }
 
     /**

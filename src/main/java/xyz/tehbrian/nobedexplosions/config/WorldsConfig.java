@@ -26,10 +26,6 @@ public final class WorldsConfig extends AbstractConfig<YamlConfigurateWrapper> {
 
     private final @NonNull Map<@NonNull String, @NonNull World> worlds = new HashMap<>();
 
-    /**
-     * @param dataFolder injected
-     * @param logger     injected
-     */
     @Inject
     public WorldsConfig(final @NonNull @Named("dataFolder") Path dataFolder, final @NonNull Logger logger) {
         super(new YamlConfigurateWrapper(dataFolder.resolve("worlds.yml"), YamlConfigurationLoader.builder()

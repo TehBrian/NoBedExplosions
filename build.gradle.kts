@@ -16,9 +16,6 @@ java {
 
 repositories {
     mavenCentral()
-    maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots/") {
-        name = "spigotmc"
-    }
     maven("https://papermc.io/repo/repository/maven-public/") {
         name = "papermc"
     }
@@ -28,18 +25,10 @@ repositories {
 }
 
 dependencies {
-    compileOnly("org.spigotmc:spigot-api:1.18.2-R0.1-SNAPSHOT")
-    implementation("io.papermc:paperlib:1.0.6")
+    compileOnly("io.papermc.paper:paper-api:1.18.2-R0.1-SNAPSHOT")
 
     implementation("com.google.inject:guice:5.1.0")
-
-    implementation("cloud.commandframework:cloud-bukkit:1.6.2")
-    implementation("me.lucko:commodore:1.13")
-
     implementation("org.spongepowered:configurate-yaml:4.1.2")
-    implementation("net.kyori:adventure-platform-bukkit:4.1.0")
-    implementation("net.kyori:adventure-text-minimessage:4.10.1")
-
     implementation("dev.tehbrian:tehlib-paper:0.1.0-SNAPSHOT")
 }
 
@@ -56,11 +45,8 @@ tasks {
         archiveClassifier.set("")
 
         val libsPackage = "xyz.tehbrian.nobedexplosions.libs"
-        relocate("io.papermc.lib", "$libsPackage.paperlib")
         relocate("com.google.inject", "$libsPackage.guice")
         relocate("cloud.commandframework", "$libsPackage.cloud")
-        relocate("me.lucko.commodore", "$libsPackage.commodore")
-        relocate("net.kyori.adventure", "$libsPackage.adventure")
         relocate("org.spongepowered.configurate", "$libsPackage.configurate")
         relocate("dev.tehbrian.tehlib", "$libsPackage.tehlib")
     }

@@ -1,13 +1,14 @@
 package xyz.tehbrian.nobedexplosions.listeners;
 
 import com.google.inject.Inject;
-import net.kyori.adventure.platform.bukkit.BukkitAudiences;
+import io.papermc.paper.event.player.PlayerBedFailEnterEvent;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerBedEnterEvent;
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 import xyz.tehbrian.nobedexplosions.config.ConfigConfig;
 import xyz.tehbrian.nobedexplosions.config.WorldsConfig;
 import xyz.tehbrian.nobedexplosions.util.Util;
@@ -15,24 +16,16 @@ import xyz.tehbrian.nobedexplosions.util.Util;
 /**
  * Listens for bed-related events.
  */
-public class BedListener implements Listener {
+public final class BedListener implements Listener {
 
-    private final BukkitAudiences audiences;
     private final ConfigConfig configConfig;
     private final WorldsConfig worldsConfig;
 
-    /**
-     * @param audiences    injected
-     * @param configConfig injected
-     * @param worldsConfig injected
-     */
     @Inject
     public BedListener(
-            final @NonNull BukkitAudiences audiences,
             final @NonNull ConfigConfig configConfig,
             final @NonNull WorldsConfig worldsConfig
     ) {
-        this.audiences = audiences;
         this.configConfig = configConfig;
         this.worldsConfig = worldsConfig;
     }

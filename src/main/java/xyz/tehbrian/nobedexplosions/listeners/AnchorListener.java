@@ -1,7 +1,6 @@
 package xyz.tehbrian.nobedexplosions.listeners;
 
 import com.google.inject.Inject;
-import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.type.RespawnAnchor;
@@ -19,24 +18,16 @@ import xyz.tehbrian.nobedexplosions.util.Util;
 /**
  * Listens for anchor-related events.
  */
-public class AnchorListener implements Listener {
+public final class AnchorListener implements Listener {
 
-    private final BukkitAudiences audiences;
     private final ConfigConfig configConfig;
     private final WorldsConfig worldsConfig;
 
-    /**
-     * @param audiences    injected
-     * @param configConfig injected
-     * @param worldsConfig injected
-     */
     @Inject
     public AnchorListener(
-            final @NonNull BukkitAudiences audiences,
             final @NonNull ConfigConfig configConfig,
             final @NonNull WorldsConfig worldsConfig
     ) {
-        this.audiences = audiences;
         this.configConfig = configConfig;
         this.worldsConfig = worldsConfig;
     }
@@ -85,7 +76,7 @@ public class AnchorListener implements Listener {
                 }
             }
 
-            Util.sendMessageOrIgnore(this.audiences.player(player), anchorConfig.message());
+            Util.sendMessageOrIgnore(player, anchorConfig.message());
         }
     }
 
