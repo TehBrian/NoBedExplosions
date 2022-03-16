@@ -11,6 +11,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 import xyz.tehbrian.nobedexplosions.config.WorldsConfig;
 import xyz.tehbrian.nobedexplosions.util.Util;
 
@@ -32,12 +33,7 @@ public final class AnchorListener implements Listener {
     @EventHandler
     public void onAnchorInteract(final PlayerInteractEvent event) {
         final Player player = event.getPlayer();
-        final WorldsConfig.World worldConfig = this.worldsConfig.worlds().get(player.getWorld().getName());
-        if (worldConfig == null) {
-            return;
-        }
-
-        final WorldsConfig.World.Anchor anchorConfig = worldConfig.anchor();
+        final WorldsConfig.World.@Nullable Anchor anchorConfig = this.getAnchorConfig(player);
         if (anchorConfig == null) {
             return;
         }
@@ -65,6 +61,15 @@ public final class AnchorListener implements Listener {
 
             Util.sendMessageOrIgnore(player, anchorConfig.message());
         }
+    }
+
+    private WorldsConfig.World.@Nullable Anchor getAnchorConfig(final @NonNull Player player) {
+        final WorldsConfig.World worldConfig = this.worldsConfig.worlds().get(player.getWorld().getName());
+        if (worldConfig == null) {
+            return null;
+        }
+
+        return worldConfig.anchor();
     }
 
 }
