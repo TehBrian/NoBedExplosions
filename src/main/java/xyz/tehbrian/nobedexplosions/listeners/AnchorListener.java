@@ -11,39 +11,26 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.checkerframework.checker.nullness.qual.NonNull;
-import xyz.tehbrian.nobedexplosions.config.ConfigConfig;
 import xyz.tehbrian.nobedexplosions.config.WorldsConfig;
 import xyz.tehbrian.nobedexplosions.util.Util;
 
 /**
- * Listens for anchor-related events.
+ * Modifies anchor functionality according to the plugin configuration
+ * when a player interacts with an anchor.
  */
 public final class AnchorListener implements Listener {
 
-    private final ConfigConfig configConfig;
     private final WorldsConfig worldsConfig;
 
     @Inject
     public AnchorListener(
-            final @NonNull ConfigConfig configConfig,
             final @NonNull WorldsConfig worldsConfig
     ) {
-        this.configConfig = configConfig;
         this.worldsConfig = worldsConfig;
     }
 
-    /**
-     * Modifies anchor functionality according to the plugin configuration
-     * when a player interacts with an anchor.
-     *
-     * @param event the event
-     */
     @EventHandler
     public void onAnchorInteract(final PlayerInteractEvent event) {
-        if (!this.configConfig.enabled()) {
-            return;
-        }
-
         final Player player = event.getPlayer();
         final WorldsConfig.World worldConfig = this.worldsConfig.worlds().get(player.getWorld().getName());
         if (worldConfig == null) {

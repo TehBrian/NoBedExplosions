@@ -1,7 +1,7 @@
 package xyz.tehbrian.nobedexplosions.util;
 
 /**
- * Holds permission constants.
+ * Permission constants.
  */
 public final class Permissions {
 

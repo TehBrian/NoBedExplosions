@@ -12,7 +12,6 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 import org.spongepowered.configurate.ConfigurateException;
 import xyz.tehbrian.nobedexplosions.command.CommandService;
 import xyz.tehbrian.nobedexplosions.command.MainCommand;
-import xyz.tehbrian.nobedexplosions.config.ConfigConfig;
 import xyz.tehbrian.nobedexplosions.config.LangConfig;
 import xyz.tehbrian.nobedexplosions.config.WorldsConfig;
 import xyz.tehbrian.nobedexplosions.inject.PluginModule;
@@ -69,7 +68,6 @@ public final class NoBedExplosions extends TehPlugin {
 
         final List<Config> configsToLoad = List.of(
                 this.injector.getInstance(LangConfig.class),
-                this.injector.getInstance(ConfigConfig.class),
                 this.injector.getInstance(WorldsConfig.class)
         );
 

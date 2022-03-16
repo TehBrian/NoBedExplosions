@@ -7,8 +7,5 @@
 # |                   | |    /-------------------------/
 # +-------------------+ +---/
 
-# Enable/disable all plugin functionality. Useful for testing.
-enabled: true
-
 # World configuration can be found in worlds.yml
 # Language configuration can be found in lang.yml

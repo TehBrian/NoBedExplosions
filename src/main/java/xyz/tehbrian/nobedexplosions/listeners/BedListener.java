@@ -9,38 +9,26 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerBedEnterEvent;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
-import xyz.tehbrian.nobedexplosions.config.ConfigConfig;
 import xyz.tehbrian.nobedexplosions.config.WorldsConfig;
 import xyz.tehbrian.nobedexplosions.util.Util;
 
 /**
- * Listens for bed-related events.
+ * Modifies bed functionality according to the plugin configuration
+ * when a player attempts to enter a bed.
  */
 public final class BedListener implements Listener {
 
-    private final ConfigConfig configConfig;
     private final WorldsConfig worldsConfig;
 
     @Inject
     public BedListener(
-            final @NonNull ConfigConfig configConfig,
             final @NonNull WorldsConfig worldsConfig
     ) {
-        this.configConfig = configConfig;
         this.worldsConfig = worldsConfig;
     }
 
-    /**
-     * Modifies bed functionality according to the plugin configuration
-     * when a player attempts to enter a bed.
-     *
-     * @param event the event
-     */
     @EventHandler
     public void onBedEnter(final PlayerBedEnterEvent event) {
-        if (!this.configConfig.enabled()) {
-            return;
-        }
 
         final Player player = event.getPlayer();
         final WorldsConfig.World worldConfig = this.worldsConfig.worlds().get(player.getWorld().getName());
