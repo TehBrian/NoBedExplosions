@@ -1,29 +1,30 @@
 package xyz.tehbrian.nobedexplosions.command;
 
-import cloud.commandframework.bukkit.BukkitCommandManager;
 import cloud.commandframework.bukkit.BukkitCommandManager.BrigadierFailureException;
 import cloud.commandframework.bukkit.CloudBukkitCapabilities;
 import cloud.commandframework.execution.CommandExecutionCoordinator;
+import cloud.commandframework.paper.PaperCommandManager;
 import com.google.inject.Inject;
-import dev.tehbrian.tehlib.core.cloud.AbstractCloudService;
+import dev.tehbrian.tehlib.paper.cloud.PaperCloudService;
 import org.bukkit.command.CommandSender;
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.slf4j.Logger;
 import xyz.tehbrian.nobedexplosions.NoBedExplosions;
 
 import java.util.function.Function;
 
-public class CommandService extends AbstractCloudService<CommandSender, BukkitCommandManager<CommandSender>> {
+public class CommandService extends PaperCloudService<CommandSender> {
 
     private final NoBedExplosions noBedExplosions;
+    private final Logger logger;
 
-    /**
-     * @param noBedExplosions injected
-     */
     @Inject
     public CommandService(
-            final @NonNull NoBedExplosions noBedExplosions
+            final @NonNull NoBedExplosions noBedExplosions,
+            final @NonNull Logger logger
     ) {
         this.noBedExplosions = noBedExplosions;
+        this.logger = logger;
     }
 
     /**
@@ -38,7 +39,7 @@ public class CommandService extends AbstractCloudService<CommandSender, BukkitCo
             throw new IllegalStateException("The CommandManager is already instantiated.");
         }
 
-        this.commandManager = new BukkitCommandManager<>(
+        this.commandManager = new PaperCommandManager<>(
                 this.noBedExplosions,
                 CommandExecutionCoordinator.simpleCoordinator(),
                 Function.identity(),
@@ -47,7 +48,7 @@ public class CommandService extends AbstractCloudService<CommandSender, BukkitCo
 
         if (this.commandManager.queryCapability(CloudBukkitCapabilities.BRIGADIER)) {
             this.commandManager.registerBrigadier();
-            this.noBedExplosions.getLog4JLogger().info("Successfully initialized Brigadier support.");
+            this.logger.info("Successfully initialized Brigadier support.");
         }
     }
 

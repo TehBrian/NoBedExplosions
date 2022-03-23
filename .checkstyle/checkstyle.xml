@@ -93,10 +93,10 @@
 
     <!-- Checks for Headers                            -->
     <!-- See https://checkstyle.org/config_header.html -->
-    <!--<module name="Header">-->
-    <!--    <property name="headerFile" value="${checkstyle.header.file}"/>-->
-    <!--    <property name="fileExtensions" value="java"/>-->
-    <!--</module>-->
+    <!--    <module name="Header">-->
+    <!--        <property name="headerFile" value="${checkstyle.header.file}"/>-->
+    <!--        <property name="fileExtensions" value="java"/>-->
+    <!--    </module>-->
 
     <module name="TreeWalker">
 
@@ -108,7 +108,7 @@
         <module name="JavadocStyle">
             <property name="checkFirstSentence" value="false"/>
         </module>
-<!--        <module name="MissingJavadocMethod"/>-->
+        <!--        <module name="MissingJavadocMethod"/>-->
 
         <!-- Checks for Naming Conventions.                -->
         <!-- See https://checkstyle.org/config_naming.html -->
@@ -181,7 +181,7 @@
         <!-- See https://checkstyle.org/config_misc.html -->
         <module name="ArrayTypeStyle"/>
         <module name="FinalParameters"/>
-<!--        <module name="TodoComment"/>-->
+        <!--        <module name="TodoComment"/>-->
         <module name="UpperEll"/>
 
         <module name="RequireThis">

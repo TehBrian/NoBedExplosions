@@ -11,7 +11,7 @@ worlds:
       mode: allow
 # example-world:
 #   bed:
-#     mode: allow/deny/default
+#     mode: allow/deny/default/explode
 #     message: "<gray>Nope."
 #   anchor:
 #     mode: deny/default

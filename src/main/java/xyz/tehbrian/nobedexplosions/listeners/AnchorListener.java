@@ -1,7 +1,6 @@
 package xyz.tehbrian.nobedexplosions.listeners;
 
 import com.google.inject.Inject;
-import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.type.RespawnAnchor;
@@ -12,54 +11,29 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.checkerframework.checker.nullness.qual.NonNull;
-import xyz.tehbrian.nobedexplosions.config.ConfigConfig;
+import org.checkerframework.checker.nullness.qual.Nullable;
 import xyz.tehbrian.nobedexplosions.config.WorldsConfig;
 import xyz.tehbrian.nobedexplosions.util.Util;
 
 /**
- * Listens for anchor-related events.
+ * Modifies anchor functionality according to the plugin configuration
+ * when a player interacts with an anchor.
  */
-public class AnchorListener implements Listener {
+public final class AnchorListener implements Listener {
 
-    private final BukkitAudiences audiences;
-    private final ConfigConfig configConfig;
     private final WorldsConfig worldsConfig;
 
-    /**
-     * @param audiences    injected
-     * @param configConfig injected
-     * @param worldsConfig injected
-     */
     @Inject
     public AnchorListener(
-            final @NonNull BukkitAudiences audiences,
-            final @NonNull ConfigConfig configConfig,
             final @NonNull WorldsConfig worldsConfig
     ) {
-        this.audiences = audiences;
-        this.configConfig = configConfig;
         this.worldsConfig = worldsConfig;
     }
 
-    /**
-     * Modifies anchor functionality according to the plugin configuration
-     * when a player interacts with an anchor.
-     *
-     * @param event the event
-     */
     @EventHandler
     public void onAnchorInteract(final PlayerInteractEvent event) {
-        if (!this.configConfig.enabled()) {
-            return;
-        }
-
         final Player player = event.getPlayer();
-        final WorldsConfig.World worldConfig = this.worldsConfig.worlds().get(player.getWorld().getName());
-        if (worldConfig == null) {
-            return;
-        }
-
-        final WorldsConfig.World.Anchor anchorConfig = worldConfig.anchor();
+        final WorldsConfig.World.@Nullable Anchor anchorConfig = this.getAnchorConfig(player);
         if (anchorConfig == null) {
             return;
         }
@@ -68,16 +42,12 @@ public class AnchorListener implements Listener {
         if (event.getAction() != Action.RIGHT_CLICK_BLOCK
                 || event.getHand() != EquipmentSlot.HAND
                 || block == null
-                || block.getType() != Material.RESPAWN_ANCHOR) {
+                || block.getType() != Material.RESPAWN_ANCHOR
+                || !(block.getBlockData() instanceof RespawnAnchor anchor)) {
             return;
         }
 
-        final RespawnAnchor anchor = (RespawnAnchor) block.getBlockData();
-
-        // if the held block is glowstone and at anchor is at max charge
-        // OR if the held block is not glowstone and there is any charge at all
-        if ((event.getMaterial() == Material.GLOWSTONE && anchor.getCharges() >= anchor.getMaximumCharges())
-                || (event.getMaterial() != Material.GLOWSTONE && anchor.getCharges() > 0)) {
+        if (this.willExplode(anchor, event.getMaterial())) {
             switch (anchorConfig.mode()) {
                 case DENY -> event.setCancelled(true);
                 case DEFAULT -> event.setCancelled(false);
@@ -85,8 +55,25 @@ public class AnchorListener implements Listener {
                 }
             }
 
-            Util.sendMessageOrIgnore(this.audiences.player(player), anchorConfig.message());
+            Util.sendMessageOrIgnore(player, anchorConfig.message());
         }
+    }
+
+    private WorldsConfig.World.@Nullable Anchor getAnchorConfig(final @NonNull Player player) {
+        final WorldsConfig.World worldConfig = this.worldsConfig.worlds().get(player.getWorld().getName());
+        if (worldConfig == null) {
+            return null;
+        }
+
+        return worldConfig.anchor();
+    }
+
+    private boolean willExplode(final @NonNull RespawnAnchor anchor, final @NonNull Material heldMaterial) {
+        // if the held block is glowstone and anchor has max charge
+        // OR
+        // if the held block is not glowstone and anchor has any charge at all
+        return (heldMaterial == Material.GLOWSTONE && anchor.getCharges() >= anchor.getMaximumCharges())
+                || (heldMaterial != Material.GLOWSTONE && anchor.getCharges() > 0);
     }
 
 }
