@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "xyz.tehbrian"
-version = "2.1.0"
+version = "2.2.0"
 description = "Control bed and respawn anchor functionality across all of" +
         " your worlds, such as allowing sleep in the nether or the end!"
 
@@ -32,7 +32,7 @@ dependencies {
     implementation("dev.tehbrian:tehlib-paper:0.1.0-SNAPSHOT")
 }
 
-// disable checkstyle in tests
+/* Disable checkstyle in tests. */
 project.gradle.startParameter.excludedTaskNames.add("checkstyleTest")
 
 tasks {
