@@ -1,7 +1,7 @@
 name: NoBedExplosions
 description: ${description}
 authors: [ TehBrian ]
-website: https://spigotmc.org/resources/65808
+website: https://github.com/TehBrian/NoBedExplosions
 
 version: ${version}
 main: xyz.tehbrian.nobedexplosions.NoBedExplosions
