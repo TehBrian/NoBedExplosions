@@ -1,5 +1,36 @@
+# World configuration for NoBedExplosions.
+#
+# Each world has its own configuration section, identified by the world's name.
+# Only worlds that you want to modify need to be added here.
+#
+# Configuration for a world contains bed config and anchor config.
+# Both sections have two settings: the mode, and optionally
+# a message to be sent to the player.
+#
 # Message formatting syntax is MiniMessage, which you can read up on here:
 # https://docs.adventure.kyori.net/minimessage.html
+#
+# Modes available for beds:
+#   allow   - lets the player sleep in the bed
+#   deny    - prevents the player from entering the bed
+#   default - default functionality
+#   explode - explodes the bed if the player tries to enter it
+#
+# Modes available for anchors:
+#   deny    - prevents the player from using the anchor if it will explode
+#   default - default functionality
+#
+# Example world configurations:
+#   example_world:
+#     bed:
+#       mode: allow
+#     anchor:
+#       mode: deny
+#       message: "<blue>No explosions here!"
+#   example_world_two:
+#     bed:
+#       mode: explode
+#       message: "<red>You fool! You've blown yourself up!"
 
 worlds:
   # Disable bed explosions in the nether and the end by default.
@@ -9,10 +40,3 @@ worlds:
   world_the_end:
     bed:
       mode: allow
-# example-world:
-#   bed:
-#     mode: allow/deny/default/explode
-#     message: "<gray>Nope."
-#   anchor:
-#     mode: deny/default
-#     message: "<blue>No, sorry."
