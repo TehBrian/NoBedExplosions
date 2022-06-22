@@ -9,8 +9,8 @@ api-version: 1.18
 
 permissions:
   nobedexplosions.reload:
-    description: Permission to use /nbe reload.
+    description: Permission to run /nbe reload.
     default: op
   nobedexplosions.info:
-    description: Permission to use /nbe info.
+    description: Permission to run /nbe info.
     default: op
