@@ -2,10 +2,10 @@ package xyz.tehbrian.nobedexplosions.command;
 
 import cloud.commandframework.ArgumentDescription;
 import cloud.commandframework.arguments.standard.StringArgument;
-import cloud.commandframework.bukkit.BukkitCommandManager;
 import cloud.commandframework.meta.CommandMeta;
+import cloud.commandframework.paper.PaperCommandManager;
 import com.google.inject.Inject;
-import dev.tehbrian.tehlib.core.cloud.AbstractCloudCommand;
+import dev.tehbrian.tehlib.paper.cloud.PaperCloudCommand;
 import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
 import org.bukkit.command.CommandSender;
@@ -20,7 +20,7 @@ import xyz.tehbrian.nobedexplosions.util.Permissions;
 
 import java.util.List;
 
-public final class MainCommand extends AbstractCloudCommand<CommandSender, BukkitCommandManager<CommandSender>> {
+public final class MainCommand extends PaperCloudCommand<CommandSender> {
 
     private final NoBedExplosions noBedExplosions;
     private final LangConfig langConfig;
@@ -38,7 +38,7 @@ public final class MainCommand extends AbstractCloudCommand<CommandSender, Bukki
     }
 
     @Override
-    public void register(final @NonNull BukkitCommandManager<CommandSender> commandManager) {
+    public void register(final @NonNull PaperCommandManager<CommandSender> commandManager) {
         final var main = commandManager.commandBuilder("nbe")
                 .meta(CommandMeta.DESCRIPTION, "The main command for NBE.")
                 .handler(c -> c.getSender().sendMessage(this.langConfig.c(
