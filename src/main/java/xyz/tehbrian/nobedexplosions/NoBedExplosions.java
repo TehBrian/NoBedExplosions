@@ -1,6 +1,6 @@
 package xyz.tehbrian.nobedexplosions;
 
-import cloud.commandframework.bukkit.BukkitCommandManager;
+import cloud.commandframework.paper.PaperCommandManager;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import dev.tehbrian.tehlib.core.configurate.Config;
@@ -93,17 +93,13 @@ public final class NoBedExplosions extends TehPlugin {
         final @NonNull CommandService commandService = this.injector.getInstance(CommandService.class);
         try {
             commandService.init();
-        } catch (final BukkitCommandManager.BrigadierFailureException e) {
-            this.getSLF4JLogger().error("Failed to register Brigadier support.");
-            this.getSLF4JLogger().error("Printing stack trace, please send this to the developers:", e);
-            return false;
         } catch (final Exception e) {
             this.getSLF4JLogger().error("Failed to create the CommandManager.");
             this.getSLF4JLogger().error("Printing stack trace, please send this to the developers:", e);
             return false;
         }
 
-        final @Nullable BukkitCommandManager<CommandSender> commandManager = commandService.get();
+        final @Nullable PaperCommandManager<CommandSender> commandManager = commandService.get();
         if (commandManager == null) {
             this.getSLF4JLogger().error("The CommandService was null after initialization!");
             return false;
