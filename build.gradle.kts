@@ -32,9 +32,6 @@ dependencies {
     implementation("dev.tehbrian:tehlib-paper:0.3.0")
 }
 
-/* Disable checkstyle in tests. */
-project.gradle.startParameter.excludedTaskNames.add("checkstyleTest")
-
 tasks {
     assemble {
         dependsOn(shadowJar)
