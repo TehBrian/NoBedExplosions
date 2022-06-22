@@ -24,14 +24,6 @@ public final class PluginModule extends AbstractModule {
     }
 
     /**
-     * @return the plugin's Log4J logger
-     */
-    @Provides
-    public org.apache.logging.log4j.@NonNull Logger provideLog4JLogger() {
-        return this.noBedExplosions.getLog4JLogger();
-    }
-
-    /**
      * @return the plugin's SLF4J logger
      */
     @Provides

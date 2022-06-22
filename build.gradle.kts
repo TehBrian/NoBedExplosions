@@ -19,8 +19,8 @@ repositories {
     maven("https://papermc.io/repo/repository/maven-public/") {
         name = "papermc"
     }
-    maven("https://repo.thbn.me/snapshots/") {
-        name = "thbn-snapshots"
+    maven("https://repo.thbn.me/releases/") {
+        name = "thbn"
     }
 }
 
@@ -29,7 +29,7 @@ dependencies {
 
     implementation("com.google.inject:guice:5.1.0")
     implementation("org.spongepowered:configurate-yaml:4.1.2")
-    implementation("dev.tehbrian:tehlib-paper:0.1.0-SNAPSHOT")
+    implementation("dev.tehbrian:tehlib-paper:0.3.0")
 }
 
 /* Disable checkstyle in tests. */

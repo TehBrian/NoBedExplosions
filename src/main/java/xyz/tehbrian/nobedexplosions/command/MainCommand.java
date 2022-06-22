@@ -37,11 +37,6 @@ public final class MainCommand extends AbstractCloudCommand<CommandSender, Bukki
         this.worldsConfig = worldsConfig;
     }
 
-    /**
-     * Register the command.
-     *
-     * @param commandManager the command manager
-     */
     @Override
     public void register(final @NonNull BukkitCommandManager<CommandSender> commandManager) {
         final var main = commandManager.commandBuilder("nbe")
