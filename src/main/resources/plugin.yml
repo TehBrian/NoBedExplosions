@@ -5,7 +5,7 @@ website: https://github.com/TehBrian/NoBedExplosions
 
 version: ${version}
 main: xyz.tehbrian.nobedexplosions.NoBedExplosions
-api-version: 1.18
+api-version: 1.19
 
 permissions:
   nobedexplosions.reload:
