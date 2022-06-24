@@ -28,8 +28,8 @@ dependencies {
     compileOnly("io.papermc.paper:paper-api:1.19-R0.1-SNAPSHOT")
 
     implementation("com.google.inject:guice:5.1.0")
+    implementation("dev.tehbrian:tehlib-paper:0.3.1")
     implementation("org.spongepowered:configurate-yaml:4.1.2")
-    implementation("dev.tehbrian:tehlib-paper:0.3.0")
 }
 
 tasks {
@@ -46,10 +46,10 @@ tasks {
         archiveClassifier.set("")
 
         val libsPackage = "xyz.tehbrian.nobedexplosions.libs"
-        relocate("com.google.inject", "$libsPackage.guice")
         relocate("cloud.commandframework", "$libsPackage.cloud")
-        relocate("org.spongepowered.configurate", "$libsPackage.configurate")
+        relocate("com.google.inject", "$libsPackage.guice")
         relocate("dev.tehbrian.tehlib", "$libsPackage.tehlib")
+        relocate("org.spongepowered.configurate", "$libsPackage.configurate")
     }
 
     runServer {
