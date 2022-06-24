@@ -45,7 +45,7 @@ tasks {
         archiveBaseName.set("NoBedExplosions")
         archiveClassifier.set("")
 
-        val libsPackage = "xyz.tehbrian.nobedexplosions.libs"
+        val libsPackage = "${project.group}.${project.name}.libs"
         relocate("cloud.commandframework", "$libsPackage.cloud")
         relocate("com.google.inject", "$libsPackage.guice")
         relocate("dev.tehbrian.tehlib", "$libsPackage.tehlib")
