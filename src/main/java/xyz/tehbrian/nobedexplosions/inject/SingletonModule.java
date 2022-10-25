@@ -7,12 +7,12 @@ import xyz.tehbrian.nobedexplosions.config.WorldsConfig;
 
 public final class SingletonModule extends AbstractModule {
 
-    @Override
-    protected void configure() {
-        this.bind(LangConfig.class).asEagerSingleton();
-        this.bind(WorldsConfig.class).asEagerSingleton();
+  @Override
+  protected void configure() {
+    this.bind(LangConfig.class).asEagerSingleton();
+    this.bind(WorldsConfig.class).asEagerSingleton();
 
-        this.bind(CommandService.class).asEagerSingleton();
-    }
+    this.bind(CommandService.class).asEagerSingleton();
+  }
 
 }

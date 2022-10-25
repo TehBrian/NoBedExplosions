@@ -12,32 +12,32 @@ import java.util.function.Function;
 
 public class CommandService extends PaperCloudService<CommandSender> {
 
-    private final NoBedExplosions noBedExplosions;
+  private final NoBedExplosions noBedExplosions;
 
-    @Inject
-    public CommandService(
-            final @NonNull NoBedExplosions noBedExplosions
-    ) {
-        this.noBedExplosions = noBedExplosions;
+  @Inject
+  public CommandService(
+      final @NonNull NoBedExplosions noBedExplosions
+  ) {
+    this.noBedExplosions = noBedExplosions;
+  }
+
+  /**
+   * Instantiates {@link #commandManager}.
+   *
+   * @throws IllegalStateException if {@link #commandManager} is already instantiated
+   * @throws Exception             if something goes wrong during instantiation
+   */
+  public void init() throws Exception {
+    if (this.commandManager != null) {
+      throw new IllegalStateException("The CommandManager is already instantiated.");
     }
 
-    /**
-     * Instantiates {@link #commandManager}.
-     *
-     * @throws IllegalStateException if {@link #commandManager} is already instantiated
-     * @throws Exception             if something goes wrong during instantiation
-     */
-    public void init() throws Exception {
-        if (this.commandManager != null) {
-            throw new IllegalStateException("The CommandManager is already instantiated.");
-        }
-
-        this.commandManager = new PaperCommandManager<>(
-                this.noBedExplosions,
-                CommandExecutionCoordinator.simpleCoordinator(),
-                Function.identity(),
-                Function.identity()
-        );
-    }
+    this.commandManager = new PaperCommandManager<>(
+        this.noBedExplosions,
+        CommandExecutionCoordinator.simpleCoordinator(),
+        Function.identity(),
+        Function.identity()
+    );
+  }
 
 }

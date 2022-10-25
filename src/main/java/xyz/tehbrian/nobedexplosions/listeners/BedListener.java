@@ -18,56 +18,56 @@ import xyz.tehbrian.nobedexplosions.util.Util;
  */
 public final class BedListener implements Listener {
 
-    private final WorldsConfig worldsConfig;
+  private final WorldsConfig worldsConfig;
 
-    @Inject
-    public BedListener(
-            final @NonNull WorldsConfig worldsConfig
-    ) {
-        this.worldsConfig = worldsConfig;
+  @Inject
+  public BedListener(
+      final @NonNull WorldsConfig worldsConfig
+  ) {
+    this.worldsConfig = worldsConfig;
+  }
+
+  @EventHandler
+  public void onBedEnter(final PlayerBedEnterEvent event) {
+    final Player player = event.getPlayer();
+    final WorldsConfig.World.@Nullable Bed bedConfig = this.getBedConfig(player);
+    if (bedConfig == null) {
+      return;
     }
 
-    @EventHandler
-    public void onBedEnter(final PlayerBedEnterEvent event) {
-        final Player player = event.getPlayer();
-        final WorldsConfig.World.@Nullable Bed bedConfig = this.getBedConfig(player);
-        if (bedConfig == null) {
-            return;
-        }
-
-        switch (bedConfig.mode()) {
-            case ALLOW -> event.setUseBed(Event.Result.ALLOW);
-            case DENY, EXPLODE -> event.setUseBed(Event.Result.DENY);
-            case DEFAULT -> event.setUseBed(Event.Result.DEFAULT);
-            default -> {
-            }
-        }
-
-        Util.sendMessageOrIgnore(player, bedConfig.message());
+    switch (bedConfig.mode()) {
+      case ALLOW -> event.setUseBed(Event.Result.ALLOW);
+      case DENY, EXPLODE -> event.setUseBed(Event.Result.DENY);
+      case DEFAULT -> event.setUseBed(Event.Result.DEFAULT);
+      default -> {
+      }
     }
 
-    @EventHandler
-    public void onBedEnterFail(final PlayerBedFailEnterEvent event) {
-        final WorldsConfig.World.@Nullable Bed bedConfig = this.getBedConfig(event.getPlayer());
-        if (bedConfig == null) {
-            return;
-        }
+    Util.sendMessageOrIgnore(player, bedConfig.message());
+  }
 
-        switch (bedConfig.mode()) {
-            case DENY -> event.setWillExplode(false);
-            case EXPLODE -> event.setWillExplode(true);
-            default -> {
-            }
-        }
+  @EventHandler
+  public void onBedEnterFail(final PlayerBedFailEnterEvent event) {
+    final WorldsConfig.World.@Nullable Bed bedConfig = this.getBedConfig(event.getPlayer());
+    if (bedConfig == null) {
+      return;
     }
 
-    private WorldsConfig.World.@Nullable Bed getBedConfig(final @NonNull Player player) {
-        final WorldsConfig.World worldConfig = this.worldsConfig.worlds().get(player.getWorld().getName());
-        if (worldConfig == null) {
-            return null;
-        }
-
-        return worldConfig.bed();
+    switch (bedConfig.mode()) {
+      case DENY -> event.setWillExplode(false);
+      case EXPLODE -> event.setWillExplode(true);
+      default -> {
+      }
     }
+  }
+
+  private WorldsConfig.World.@Nullable Bed getBedConfig(final @NonNull Player player) {
+    final WorldsConfig.World worldConfig = this.worldsConfig.worlds().get(player.getWorld().getName());
+    if (worldConfig == null) {
+      return null;
+    }
+
+    return worldConfig.bed();
+  }
 
 }
