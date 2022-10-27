@@ -7,7 +7,6 @@ import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerBedEnterEvent;
-import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import xyz.tehbrian.nobedexplosions.config.WorldsConfig;
 import xyz.tehbrian.nobedexplosions.util.Util;
@@ -22,7 +21,7 @@ public final class BedListener implements Listener {
 
   @Inject
   public BedListener(
-      final @NonNull WorldsConfig worldsConfig
+      final WorldsConfig worldsConfig
   ) {
     this.worldsConfig = worldsConfig;
   }
@@ -61,7 +60,7 @@ public final class BedListener implements Listener {
     }
   }
 
-  private WorldsConfig.World.@Nullable Bed getBedConfig(final @NonNull Player player) {
+  private WorldsConfig.World.@Nullable Bed getBedConfig(final Player player) {
     final WorldsConfig.World worldConfig = this.worldsConfig.worlds().get(player.getWorld().getName());
     if (worldConfig == null) {
       return null;

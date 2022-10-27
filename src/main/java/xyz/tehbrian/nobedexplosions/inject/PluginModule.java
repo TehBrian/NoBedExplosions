@@ -4,7 +4,6 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.name.Named;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.checkerframework.checker.nullness.qual.NonNull;
 import xyz.tehbrian.nobedexplosions.NoBedExplosions;
 
 import java.nio.file.Path;
@@ -13,7 +12,7 @@ public final class PluginModule extends AbstractModule {
 
   private final NoBedExplosions noBedExplosions;
 
-  public PluginModule(final @NonNull NoBedExplosions noBedExplosions) {
+  public PluginModule(final NoBedExplosions noBedExplosions) {
     this.noBedExplosions = noBedExplosions;
   }
 
@@ -27,7 +26,7 @@ public final class PluginModule extends AbstractModule {
    * @return the plugin's SLF4J logger
    */
   @Provides
-  public org.slf4j.@NonNull Logger provideSLF4JLogger() {
+  public org.slf4j.Logger provideSLF4JLogger() {
     return this.noBedExplosions.getSLF4JLogger();
   }
 
@@ -36,7 +35,7 @@ public final class PluginModule extends AbstractModule {
    */
   @Provides
   @Named("dataFolder")
-  public @NonNull Path provideDataFolder() {
+  public Path provideDataFolder() {
     return this.noBedExplosions.getDataFolder().toPath();
   }
 

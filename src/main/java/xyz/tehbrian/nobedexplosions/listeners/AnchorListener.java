@@ -10,7 +10,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
-import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import xyz.tehbrian.nobedexplosions.config.WorldsConfig;
 import xyz.tehbrian.nobedexplosions.util.Util;
@@ -25,7 +24,7 @@ public final class AnchorListener implements Listener {
 
   @Inject
   public AnchorListener(
-      final @NonNull WorldsConfig worldsConfig
+      final WorldsConfig worldsConfig
   ) {
     this.worldsConfig = worldsConfig;
   }
@@ -59,7 +58,7 @@ public final class AnchorListener implements Listener {
     }
   }
 
-  private WorldsConfig.World.@Nullable Anchor getAnchorConfig(final @NonNull Player player) {
+  private WorldsConfig.World.@Nullable Anchor getAnchorConfig(final Player player) {
     final WorldsConfig.World worldConfig = this.worldsConfig.worlds().get(player.getWorld().getName());
     if (worldConfig == null) {
       return null;
@@ -68,7 +67,7 @@ public final class AnchorListener implements Listener {
     return worldConfig.anchor();
   }
 
-  private boolean willExplode(final @NonNull RespawnAnchor anchor, final @NonNull Material heldMaterial) {
+  private boolean willExplode(final RespawnAnchor anchor, final Material heldMaterial) {
     // if the held block is glowstone and anchor has max charge
     // OR
     // if the held block is not glowstone and anchor has any charge at all

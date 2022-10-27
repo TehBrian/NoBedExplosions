@@ -10,7 +10,6 @@ import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.spongepowered.configurate.NodePath;
 import xyz.tehbrian.nobedexplosions.NoBedExplosions;
@@ -28,9 +27,9 @@ public final class MainCommand extends PaperCloudCommand<CommandSender> {
 
   @Inject
   public MainCommand(
-      final @NonNull NoBedExplosions noBedExplosions,
-      final @NonNull LangConfig langConfig,
-      final @NonNull WorldsConfig worldsConfig
+      final NoBedExplosions noBedExplosions,
+      final LangConfig langConfig,
+      final WorldsConfig worldsConfig
   ) {
     this.noBedExplosions = noBedExplosions;
     this.langConfig = langConfig;
@@ -38,7 +37,7 @@ public final class MainCommand extends PaperCloudCommand<CommandSender> {
   }
 
   @Override
-  public void register(final @NonNull PaperCommandManager<CommandSender> commandManager) {
+  public void register(final PaperCommandManager<CommandSender> commandManager) {
     final var main = commandManager.commandBuilder("nbe")
         .meta(CommandMeta.DESCRIPTION, "The main command for NBE.")
         .handler(c -> c.getSender().sendMessage(this.langConfig.c(
@@ -66,9 +65,9 @@ public final class MainCommand extends PaperCloudCommand<CommandSender> {
             .asOptional()
             .build())
         .handler(c -> {
-          final @NonNull CommandSender sender = c.getSender();
+          final CommandSender sender = c.getSender();
 
-          final @NonNull String worldName;
+          final String worldName;
           if (sender instanceof Player player) {
             worldName = c.<String>getOptional("world").orElse(player.getWorld().getName());
           } else {

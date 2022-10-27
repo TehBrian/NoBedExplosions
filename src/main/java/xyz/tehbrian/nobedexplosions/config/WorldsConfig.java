@@ -3,7 +3,6 @@ package xyz.tehbrian.nobedexplosions.config;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import dev.tehbrian.tehlib.core.configurate.AbstractConfig;
-import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.slf4j.Logger;
 import org.spongepowered.configurate.CommentedConfigurationNode;
@@ -24,10 +23,10 @@ public final class WorldsConfig extends AbstractConfig<YamlConfigurateWrapper> {
 
   private final Logger logger;
 
-  private final @NonNull Map<@NonNull String, @NonNull World> worlds = new HashMap<>();
+  private final Map<String, World> worlds = new HashMap<>();
 
   @Inject
-  public WorldsConfig(final @NonNull @Named("dataFolder") Path dataFolder, final @NonNull Logger logger) {
+  public WorldsConfig(final @Named("dataFolder") Path dataFolder, final Logger logger) {
     super(new YamlConfigurateWrapper(dataFolder.resolve("worlds.yml"), YamlConfigurationLoader.builder()
         .path(dataFolder.resolve("worlds.yml"))
         .defaultOptions(opts -> opts.implicitInitialization(false))
@@ -39,13 +38,13 @@ public final class WorldsConfig extends AbstractConfig<YamlConfigurateWrapper> {
   public void load() throws ConfigurateException {
     this.configurateWrapper.load();
     // will not be null as we called #load()
-    final @NonNull CommentedConfigurationNode rootNode = Objects.requireNonNull(this.configurateWrapper.get());
+    final CommentedConfigurationNode rootNode = Objects.requireNonNull(this.configurateWrapper.get());
     final String fileName = this.configurateWrapper.filePath().getFileName().toString();
 
     this.worlds.clear();
 
     for (final Map.Entry<Object, CommentedConfigurationNode> child : rootNode.node("worlds").childrenMap().entrySet()) {
-      final @NonNull String worldName = child.getKey().toString();
+      final String worldName = child.getKey().toString();
       final CommentedConfigurationNode worldNode = child.getValue();
 
       final @Nullable World world;
@@ -64,7 +63,7 @@ public final class WorldsConfig extends AbstractConfig<YamlConfigurateWrapper> {
         continue;
       }
 
-      // Mode is annotated with @NonNull for API ease-of-use purposes,
+      // Mode is annotated with for API ease-of-use purposes,
       // however still must validate it.
       //noinspection ConstantConditions
       if (world.anchor() != null && world.anchor().mode() == null) {
@@ -88,7 +87,7 @@ public final class WorldsConfig extends AbstractConfig<YamlConfigurateWrapper> {
   /**
    * @return the worlds
    */
-  public @NonNull Map<@NonNull String, @NonNull World> worlds() {
+  public Map<String, World> worlds() {
     return this.worlds;
   }
 
@@ -97,7 +96,7 @@ public final class WorldsConfig extends AbstractConfig<YamlConfigurateWrapper> {
                       @Nullable Anchor anchor) {
 
     @ConfigSerializable
-    public record Anchor(@NonNull Mode mode,
+    public record Anchor(Mode mode,
                          @Nullable String message) {
 
       public enum Mode {
@@ -108,7 +107,7 @@ public final class WorldsConfig extends AbstractConfig<YamlConfigurateWrapper> {
     }
 
     @ConfigSerializable
-    public record Bed(@NonNull Mode mode,
+    public record Bed(Mode mode,
                       @Nullable String message) {
 
       public enum Mode {
