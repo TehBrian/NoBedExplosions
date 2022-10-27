@@ -6,6 +6,8 @@ allowing sleep in the nether or the end!
 * [Discord](https://thbn.me/discord)
 * [Donate](https://github.com/sponsors/TehBrian) <3
 
+---
+
 ## Features
 This is a simple yet customizable plugin that provides per-world configuration
 for beds. With it, you can:
@@ -36,5 +38,5 @@ This project uses Gradle. To build, run `./gradlew build` in the project's root
 directory. The built jar can be found in `build/libs`.
 
 ## Contributing
-Feel free to submit a pull-request or file an issue! All changes are welcome. If
+Feel free to submit a pull request or file an issue! All changes are welcome. If
 you're contributing code, please follow the project's code style.
