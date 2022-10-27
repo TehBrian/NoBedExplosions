@@ -65,14 +65,12 @@ public final class WorldsConfig extends AbstractConfig<YamlConfigurateWrapper> {
 
       // Mode is annotated with for API ease-of-use purposes,
       // however still must validate it.
-      //noinspection ConstantConditions
       if (world.anchor() != null && world.anchor().mode() == null) {
         this.logger.error("For world {}, anchor section exists but mode is null.", worldName);
         this.logger.warn("Skipping this world. Please check your {}", fileName);
         continue;
       }
 
-      //noinspection ConstantConditions
       if (world.bed() != null && world.bed().mode() == null) {
         this.logger.error("For world {}, bed section exists but mode is null.", worldName);
         this.logger.warn("Skipping this world. Please check your {}", fileName);

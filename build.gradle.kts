@@ -37,8 +37,11 @@ tasks {
     expand("version" to project.version, "description" to project.description)
   }
 
+  base {
+    archivesName.set("NoBedExplosions")
+  }
+
   shadowJar {
-    archiveBaseName.set("NoBedExplosions")
     archiveClassifier.set("")
 
     val libsPackage = "${project.group}.${project.name}.libs"
