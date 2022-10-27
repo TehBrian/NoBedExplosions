@@ -2,7 +2,7 @@
 Control bed and respawn anchor functionality across all of your worlds, such as
 allowing sleep in the nether or the end!
 
-* [Download](https://github.com/TehBrian/NoBedExplosions/releases/latest)
+* [Download](https://modrinth.com/plugin/nobedexplosions)
 * [Discord](https://thbn.me/discord)
 * [Donate](https://github.com/sponsors/TehBrian) <3
 
