@@ -59,7 +59,7 @@ public final class MainCommand extends PaperCloudCommand<CommandSender> {
     final var info = main.literal("info", ArgumentDescription.of("Shows info for a world."))
         .permission(Permissions.INFO)
         .argument(StringArgument
-            .<CommandSender>newBuilder("world")
+            .<CommandSender>builder("world")
             .single()
             .withSuggestionsProvider((c, in) -> List.copyOf(this.worldsConfig.worlds().keySet()))
             .asOptional()
