@@ -1,6 +1,6 @@
 package xyz.tehbrian.nobedexplosions.config;
 
-import dev.tehbrian.tehlib.core.configurate.ConfigurateWrapper;
+import dev.tehbrian.tehlib.configurate.ConfigurateWrapper;
 import org.spongepowered.configurate.yaml.YamlConfigurationLoader;
 
 import java.nio.file.Path;

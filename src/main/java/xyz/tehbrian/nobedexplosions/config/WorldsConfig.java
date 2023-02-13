@@ -2,7 +2,7 @@ package xyz.tehbrian.nobedexplosions.config;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
-import dev.tehbrian.tehlib.core.configurate.AbstractConfig;
+import dev.tehbrian.tehlib.configurate.AbstractConfig;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.slf4j.Logger;
 import org.spongepowered.configurate.CommentedConfigurationNode;
