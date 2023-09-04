@@ -1,9 +1,9 @@
 package dev.tehbrian.nobedexplosions;
 
+import cloud.commandframework.execution.CommandExecutionCoordinator;
 import cloud.commandframework.paper.PaperCommandManager;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import dev.tehbrian.nobedexplosions.command.CommandService;
 import dev.tehbrian.nobedexplosions.command.MainCommand;
 import dev.tehbrian.nobedexplosions.config.LangConfig;
 import dev.tehbrian.nobedexplosions.config.WorldsConfig;
@@ -15,16 +15,17 @@ import dev.tehbrian.tehlib.configurate.Config;
 import dev.tehbrian.tehlib.paper.TehPlugin;
 import org.bukkit.command.CommandSender;
 import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
 import org.spongepowered.configurate.ConfigurateException;
 
 import java.util.List;
+import java.util.function.Function;
 
 /**
  * The main class for the NoBedExplosions plugin.
  */
 public final class NoBedExplosions extends TehPlugin {
 
+  private @MonotonicNonNull PaperCommandManager<CommandSender> commandManager;
   private @MonotonicNonNull Injector injector;
 
   @Override
@@ -92,22 +93,24 @@ public final class NoBedExplosions extends TehPlugin {
    * @return whether it was successful
    */
   private boolean setupCommands() {
-    final CommandService commandService = this.injector.getInstance(CommandService.class);
+    if (this.commandManager != null) {
+      throw new IllegalStateException("The CommandManager is already instantiated.");
+    }
+
     try {
-      commandService.init();
+      this.commandManager = new PaperCommandManager<>(
+          this,
+          CommandExecutionCoordinator.simpleCoordinator(),
+          Function.identity(),
+          Function.identity()
+      );
     } catch (final Exception e) {
       this.getSLF4JLogger().error("Failed to create the CommandManager.");
       this.getSLF4JLogger().error("Printing stack trace, please send this to the developers:", e);
       return false;
     }
 
-    final @Nullable PaperCommandManager<CommandSender> commandManager = commandService.get();
-    if (commandManager == null) {
-      this.getSLF4JLogger().error("The CommandService was null after initialization!");
-      return false;
-    }
-
-    this.injector.getInstance(MainCommand.class).register(commandManager);
+    this.injector.getInstance(MainCommand.class).register(this.commandManager);
 
     return true;
   }

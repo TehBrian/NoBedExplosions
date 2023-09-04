@@ -9,7 +9,6 @@ import dev.tehbrian.nobedexplosions.NoBedExplosions;
 import dev.tehbrian.nobedexplosions.config.LangConfig;
 import dev.tehbrian.nobedexplosions.config.WorldsConfig;
 import dev.tehbrian.nobedexplosions.util.Permissions;
-import dev.tehbrian.tehlib.paper.cloud.PaperCloudCommand;
 import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
 import org.bukkit.command.CommandSender;
@@ -19,7 +18,7 @@ import org.spongepowered.configurate.NodePath;
 
 import java.util.List;
 
-public final class MainCommand extends PaperCloudCommand<CommandSender> {
+public final class MainCommand {
 
   private final NoBedExplosions noBedExplosions;
   private final LangConfig langConfig;
@@ -36,7 +35,6 @@ public final class MainCommand extends PaperCloudCommand<CommandSender> {
     this.worldsConfig = worldsConfig;
   }
 
-  @Override
   public void register(final PaperCommandManager<CommandSender> commandManager) {
     final var main = commandManager.commandBuilder("nbe")
         .meta(CommandMeta.DESCRIPTION, "The main command for NBE.")
