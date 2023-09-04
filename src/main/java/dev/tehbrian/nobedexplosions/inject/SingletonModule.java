@@ -1,9 +1,9 @@
-package xyz.tehbrian.nobedexplosions.inject;
+package dev.tehbrian.nobedexplosions.inject;
 
 import com.google.inject.AbstractModule;
-import xyz.tehbrian.nobedexplosions.command.CommandService;
-import xyz.tehbrian.nobedexplosions.config.LangConfig;
-import xyz.tehbrian.nobedexplosions.config.WorldsConfig;
+import dev.tehbrian.nobedexplosions.command.CommandService;
+import dev.tehbrian.nobedexplosions.config.LangConfig;
+import dev.tehbrian.nobedexplosions.config.WorldsConfig;
 
 public final class SingletonModule extends AbstractModule {
 

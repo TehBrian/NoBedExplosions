@@ -1,4 +1,4 @@
-package xyz.tehbrian.nobedexplosions.config;
+package dev.tehbrian.nobedexplosions.config;
 
 import dev.tehbrian.tehlib.configurate.ConfigurateWrapper;
 import org.spongepowered.configurate.yaml.YamlConfigurationLoader;

@@ -1,4 +1,4 @@
-package xyz.tehbrian.nobedexplosions.config;
+package dev.tehbrian.nobedexplosions.config;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;

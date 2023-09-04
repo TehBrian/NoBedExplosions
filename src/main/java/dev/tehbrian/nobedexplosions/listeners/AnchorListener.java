@@ -1,6 +1,8 @@
-package xyz.tehbrian.nobedexplosions.listeners;
+package dev.tehbrian.nobedexplosions.listeners;
 
 import com.google.inject.Inject;
+import dev.tehbrian.nobedexplosions.config.WorldsConfig;
+import dev.tehbrian.nobedexplosions.util.Util;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.type.RespawnAnchor;
@@ -11,8 +13,6 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.checkerframework.checker.nullness.qual.Nullable;
-import xyz.tehbrian.nobedexplosions.config.WorldsConfig;
-import xyz.tehbrian.nobedexplosions.util.Util;
 
 /**
  * Modifies anchor functionality according to the plugin configuration

@@ -1,6 +1,8 @@
-package xyz.tehbrian.nobedexplosions.listeners;
+package dev.tehbrian.nobedexplosions.listeners;
 
 import com.google.inject.Inject;
+import dev.tehbrian.nobedexplosions.config.WorldsConfig;
+import dev.tehbrian.nobedexplosions.util.Util;
 import io.papermc.paper.event.player.PlayerBedFailEnterEvent;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
@@ -8,8 +10,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerBedEnterEvent;
 import org.checkerframework.checker.nullness.qual.Nullable;
-import xyz.tehbrian.nobedexplosions.config.WorldsConfig;
-import xyz.tehbrian.nobedexplosions.util.Util;
 
 /**
  * Modifies bed functionality according to the plugin configuration

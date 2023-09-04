@@ -1,10 +1,10 @@
-package xyz.tehbrian.nobedexplosions.inject;
+package dev.tehbrian.nobedexplosions.inject;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.name.Named;
+import dev.tehbrian.nobedexplosions.NoBedExplosions;
 import org.bukkit.plugin.java.JavaPlugin;
-import xyz.tehbrian.nobedexplosions.NoBedExplosions;
 
 import java.nio.file.Path;
 

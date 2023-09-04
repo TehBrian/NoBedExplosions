@@ -1,4 +1,4 @@
 /**
  * Top-level package for NoBedExplosions.
  */
-package xyz.tehbrian.nobedexplosions;
+package dev.tehbrian.nobedexplosions;

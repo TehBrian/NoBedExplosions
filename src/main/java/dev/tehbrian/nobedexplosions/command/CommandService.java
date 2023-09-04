@@ -1,11 +1,11 @@
-package xyz.tehbrian.nobedexplosions.command;
+package dev.tehbrian.nobedexplosions.command;
 
 import cloud.commandframework.execution.CommandExecutionCoordinator;
 import cloud.commandframework.paper.PaperCommandManager;
 import com.google.inject.Inject;
+import dev.tehbrian.nobedexplosions.NoBedExplosions;
 import dev.tehbrian.tehlib.paper.cloud.PaperCloudService;
 import org.bukkit.command.CommandSender;
-import xyz.tehbrian.nobedexplosions.NoBedExplosions;
 
 import java.util.function.Function;
 

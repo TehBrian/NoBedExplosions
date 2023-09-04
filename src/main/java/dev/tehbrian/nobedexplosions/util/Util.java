@@ -1,4 +1,4 @@
-package xyz.tehbrian.nobedexplosions.util;
+package dev.tehbrian.nobedexplosions.util;
 
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.Component;

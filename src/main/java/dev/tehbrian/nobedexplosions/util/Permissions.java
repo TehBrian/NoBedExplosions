@@ -1,4 +1,4 @@
-package xyz.tehbrian.nobedexplosions.util;
+package dev.tehbrian.nobedexplosions.util;
 
 /**
  * Permission constants.

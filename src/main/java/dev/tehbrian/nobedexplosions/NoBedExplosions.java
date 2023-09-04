@@ -1,22 +1,22 @@
-package xyz.tehbrian.nobedexplosions;
+package dev.tehbrian.nobedexplosions;
 
 import cloud.commandframework.paper.PaperCommandManager;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import dev.tehbrian.nobedexplosions.command.CommandService;
+import dev.tehbrian.nobedexplosions.command.MainCommand;
+import dev.tehbrian.nobedexplosions.config.LangConfig;
+import dev.tehbrian.nobedexplosions.config.WorldsConfig;
+import dev.tehbrian.nobedexplosions.inject.PluginModule;
+import dev.tehbrian.nobedexplosions.inject.SingletonModule;
+import dev.tehbrian.nobedexplosions.listeners.AnchorListener;
+import dev.tehbrian.nobedexplosions.listeners.BedListener;
 import dev.tehbrian.tehlib.configurate.Config;
 import dev.tehbrian.tehlib.paper.TehPlugin;
 import org.bukkit.command.CommandSender;
 import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.spongepowered.configurate.ConfigurateException;
-import xyz.tehbrian.nobedexplosions.command.CommandService;
-import xyz.tehbrian.nobedexplosions.command.MainCommand;
-import xyz.tehbrian.nobedexplosions.config.LangConfig;
-import xyz.tehbrian.nobedexplosions.config.WorldsConfig;
-import xyz.tehbrian.nobedexplosions.inject.PluginModule;
-import xyz.tehbrian.nobedexplosions.inject.SingletonModule;
-import xyz.tehbrian.nobedexplosions.listeners.AnchorListener;
-import xyz.tehbrian.nobedexplosions.listeners.BedListener;
 
 import java.util.List;
 

@@ -1,10 +1,14 @@
-package xyz.tehbrian.nobedexplosions.command;
+package dev.tehbrian.nobedexplosions.command;
 
 import cloud.commandframework.ArgumentDescription;
 import cloud.commandframework.arguments.standard.StringArgument;
 import cloud.commandframework.meta.CommandMeta;
 import cloud.commandframework.paper.PaperCommandManager;
 import com.google.inject.Inject;
+import dev.tehbrian.nobedexplosions.NoBedExplosions;
+import dev.tehbrian.nobedexplosions.config.LangConfig;
+import dev.tehbrian.nobedexplosions.config.WorldsConfig;
+import dev.tehbrian.nobedexplosions.util.Permissions;
 import dev.tehbrian.tehlib.paper.cloud.PaperCloudCommand;
 import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
@@ -12,10 +16,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.spongepowered.configurate.NodePath;
-import xyz.tehbrian.nobedexplosions.NoBedExplosions;
-import xyz.tehbrian.nobedexplosions.config.LangConfig;
-import xyz.tehbrian.nobedexplosions.config.WorldsConfig;
-import xyz.tehbrian.nobedexplosions.util.Permissions;
 
 import java.util.List;
 
