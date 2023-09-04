@@ -1,14 +1,12 @@
-package dev.tehbrian.nobedexplosions.command;
+package dev.tehbrian.nobedexplosions;
 
 import cloud.commandframework.ArgumentDescription;
 import cloud.commandframework.arguments.standard.StringArgument;
 import cloud.commandframework.meta.CommandMeta;
 import cloud.commandframework.paper.PaperCommandManager;
 import com.google.inject.Inject;
-import dev.tehbrian.nobedexplosions.NoBedExplosions;
 import dev.tehbrian.nobedexplosions.config.LangConfig;
 import dev.tehbrian.nobedexplosions.config.WorldsConfig;
-import dev.tehbrian.nobedexplosions.util.Permissions;
 import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
 import org.bukkit.command.CommandSender;
@@ -45,7 +43,7 @@ public final class MainCommand {
         );
 
     final var reload = main.literal("reload", ArgumentDescription.of("Reloads the plugin's config."))
-        .permission(Permissions.RELOAD)
+        .permission(Permission.RELOAD)
         .handler(c -> {
           if (this.noBedExplosions.loadConfiguration()) {
             c.getSender().sendMessage(this.langConfig.c(NodePath.path("nbe-reload", "successful")));
@@ -55,7 +53,7 @@ public final class MainCommand {
         });
 
     final var info = main.literal("info", ArgumentDescription.of("Shows info for a world."))
-        .permission(Permissions.INFO)
+        .permission(Permission.INFO)
         .argument(StringArgument
             .<CommandSender>builder("world")
             .single()

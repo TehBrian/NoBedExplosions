@@ -1,8 +1,8 @@
-package dev.tehbrian.nobedexplosions.listeners;
+package dev.tehbrian.nobedexplosions.listener;
 
 import com.google.inject.Inject;
 import dev.tehbrian.nobedexplosions.config.WorldsConfig;
-import dev.tehbrian.nobedexplosions.util.Util;
+import dev.tehbrian.nobedexplosions.MessageHelper;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.type.RespawnAnchor;
@@ -54,7 +54,7 @@ public final class AnchorListener implements Listener {
         }
       }
 
-      Util.sendMessageOrIgnore(player, anchorConfig.message());
+      MessageHelper.sendMessageOrIgnore(player, anchorConfig.message());
     }
   }
 

@@ -1,8 +1,8 @@
-package dev.tehbrian.nobedexplosions.listeners;
+package dev.tehbrian.nobedexplosions.listener;
 
 import com.google.inject.Inject;
 import dev.tehbrian.nobedexplosions.config.WorldsConfig;
-import dev.tehbrian.nobedexplosions.util.Util;
+import dev.tehbrian.nobedexplosions.MessageHelper;
 import io.papermc.paper.event.player.PlayerBedFailEnterEvent;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
@@ -42,7 +42,7 @@ public final class BedListener implements Listener {
       }
     }
 
-    Util.sendMessageOrIgnore(player, bedConfig.message());
+    MessageHelper.sendMessageOrIgnore(player, bedConfig.message());
   }
 
   @EventHandler
