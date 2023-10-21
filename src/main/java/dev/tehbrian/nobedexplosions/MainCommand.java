@@ -38,7 +38,7 @@ public final class MainCommand {
         .meta(CommandMeta.DESCRIPTION, "The main command for NBE.")
         .handler(c -> c.getSender().sendMessage(this.langConfig.c(
                 NodePath.path("nbe"),
-                Placeholder.unparsed("version", this.noBedExplosions.getDescription().getVersion())
+                Placeholder.unparsed("version", this.noBedExplosions.getPluginMeta().getVersion())
             ))
         );
 
@@ -64,7 +64,7 @@ public final class MainCommand {
           final CommandSender sender = c.getSender();
 
           final String worldName;
-          if (sender instanceof Player player) {
+          if (sender instanceof final Player player) {
             worldName = c.<String>getOptional("world").orElse(player.getWorld().getName());
           } else {
             // I am aware that there's a chance of NPE here, but let's just hope to heck that people have at least *one* world.
