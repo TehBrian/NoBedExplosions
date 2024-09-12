@@ -76,7 +76,7 @@ public final class NoBedExplosions extends TehPlugin {
       } catch (final ConfigurateException e) {
         this.getSLF4JLogger().error(
             "Exception caught during config load for {}",
-            config.configurateWrapper().filePath()
+            config.wrapper().path()
         );
         this.getSLF4JLogger().error("Please check your config.");
         this.getSLF4JLogger().error("Printing stack trace:", e);

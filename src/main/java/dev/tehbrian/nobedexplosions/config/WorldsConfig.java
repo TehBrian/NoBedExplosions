@@ -14,7 +14,6 @@ import org.spongepowered.configurate.yaml.YamlConfigurationLoader;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * Loads and holds values for {@code worlds.yml}.
@@ -36,10 +35,9 @@ public final class WorldsConfig extends AbstractConfig<YamlConfigurateWrapper> {
 
   @Override
   public void load() throws ConfigurateException {
-    this.configurateWrapper.load();
-    // will not be null as we called #load()
-    final CommentedConfigurationNode rootNode = Objects.requireNonNull(this.configurateWrapper.get());
-    final String fileName = this.configurateWrapper.filePath().getFileName().toString();
+    this.wrapper.load();
+    final CommentedConfigurationNode rootNode = this.wrapper.rootNode();
+    final String fileName = this.wrapper.path().getFileName().toString();
 
     this.worlds.clear();
 
