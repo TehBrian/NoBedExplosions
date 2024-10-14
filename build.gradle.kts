@@ -36,7 +36,12 @@ tasks {
   }
 
   processResources {
-    expand("version" to project.version, "description" to project.description)
+    filesMatching("plugin.yml") {
+      expand(
+        "version" to project.version,
+        "description" to project.description
+      )
+    }
   }
 
   base {
