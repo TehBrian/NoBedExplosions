@@ -1,9 +1,9 @@
 plugins {
   id("java")
-  id("com.gradleup.shadow") version "8.3.0"
-  id("xyz.jpenilla.run-paper") version "2.3.1"
-  id("net.kyori.indra.checkstyle") version "3.1.3"
-  id("com.github.ben-manes.versions") version "0.51.0"
+  id("com.gradleup.shadow") version "9.1.0"
+  id("xyz.jpenilla.run-paper") version "3.0.0"
+  id("net.kyori.indra.checkstyle") version "3.2.0"
+  id("com.github.ben-manes.versions") version "0.52.0"
 }
 
 group = "dev.tehbrian"
@@ -17,17 +17,17 @@ java {
 
 repositories {
   mavenCentral()
-  maven("https://papermc.io/repo/repository/maven-public/")
+  maven("https://repo.papermc.io/repository/maven-public/")
   maven("https://repo.thbn.me/releases/")
 }
 
 dependencies {
-  compileOnly("io.papermc.paper:paper-api:1.21.1-R0.1-SNAPSHOT")
+  compileOnly("io.papermc.paper:paper-api:1.21.8-R0.1-SNAPSHOT")
 
   implementation("com.google.inject:guice:7.0.0")
   implementation("dev.tehbrian:tehlib-paper:0.6.0")
   implementation("cloud.commandframework:cloud-paper:1.8.4")
-  implementation("org.spongepowered:configurate-yaml:4.1.2")
+  implementation("org.spongepowered:configurate-yaml:4.2.0")
 }
 
 tasks {
