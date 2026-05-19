@@ -33,10 +33,11 @@
 #       message: "<red>You fool! You've blown yourself up!"
 
 worlds:
-  # Disable bed explosions in the nether and the end by default.
+  # Disable bed explosions in the nether.
   world_nether:
     bed:
       mode: allow
+  # Disable bed explosions in the end.
   world_the_end:
     bed:
       mode: allow
