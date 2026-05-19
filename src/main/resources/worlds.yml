@@ -8,7 +8,7 @@
 # a message to be sent to the player.
 #
 # Message formatting syntax is MiniMessage, which you can read up on here:
-# https://docs.adventure.kyori.net/minimessage.html
+# https://docs.papermc.io/adventure/minimessage/
 #
 # Modes available for beds:
 #   allow   - lets the player sleep in the bed
