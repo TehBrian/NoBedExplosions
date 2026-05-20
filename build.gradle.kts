@@ -75,6 +75,6 @@ tasks {
   }
 
   runServer {
-    minecraftVersion("1.21.1")
+    minecraftVersion("26.1.2")
   }
 }
