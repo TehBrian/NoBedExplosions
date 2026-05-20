@@ -1,9 +1,9 @@
 plugins {
   id("java")
-  id("com.gradleup.shadow") version "9.1.0"
-  id("xyz.jpenilla.run-paper") version "3.0.0"
-  id("net.kyori.indra.checkstyle") version "3.2.0"
-  id("com.github.ben-manes.versions") version "0.52.0"
+  id("com.gradleup.shadow") version "9.4.1"
+  id("xyz.jpenilla.run-paper") version "3.0.2"
+  id("net.kyori.indra.checkstyle") version "4.0.0"
+  id("com.github.ben-manes.versions") version "0.54.0"
 }
 
 group = "dev.tehbrian"
@@ -12,21 +12,21 @@ description = "Control bed and respawn anchor functionality across all of" +
     " your worlds, such as allowing sleep in the nether or the end!"
 
 java {
-  toolchain.languageVersion.set(JavaLanguageVersion.of(21))
+  toolchain.languageVersion.set(JavaLanguageVersion.of(25))
 }
 
 repositories {
   mavenCentral()
   maven("https://repo.papermc.io/repository/maven-public/")
-  maven("https://repo.thbn.me/releases/")
+  maven("https://repo.tehbrian.dev/releases/")
 }
 
 dependencies {
-  compileOnly("io.papermc.paper:paper-api:1.21.8-R0.1-SNAPSHOT")
+  compileOnly("io.papermc.paper:paper-api:26.1.2.build.64-stable")
 
   implementation("com.google.inject:guice:7.0.0")
-  implementation("dev.tehbrian:tehlib-paper:0.6.0")
-  implementation("cloud.commandframework:cloud-paper:1.8.4")
+  implementation("dev.tehbrian:agna-paper:0.9.0")
+  implementation("org.incendo:cloud-paper:2.0.0-beta.15")
   implementation("org.spongepowered:configurate-yaml:4.2.0")
 }
 
