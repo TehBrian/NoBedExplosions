@@ -32,6 +32,9 @@
 #       mode: explode
 #       message: "<red>You fool! You've blown yourself up!"
 
+# No touch!
+version: 1
+
 worlds:
   # Disable bed explosions in the nether.
   world_nether:

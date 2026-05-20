@@ -3,6 +3,9 @@
 # Message formatting syntax is MiniMessage, which you can read up on here:
 # https://docs.papermc.io/adventure/minimessage/
 
+# No touch!
+version: 1
+
 # /nbe
 nbe: |-
 
