@@ -41,8 +41,6 @@ public final class BedListener implements Listener {
       default -> {
       }
     }
-
-    MessageHelper.sendMessageOrIgnore(player, bedConfig.message());
   }
 
   @EventHandler
@@ -58,6 +56,8 @@ public final class BedListener implements Listener {
       default -> {
       }
     }
+
+    event.setMessage(MessageHelper.miniMessageElseNull(bedConfig.message()));
   }
 
   private WorldsConfig.World.@Nullable Bed getBedConfig(final Player player) {
