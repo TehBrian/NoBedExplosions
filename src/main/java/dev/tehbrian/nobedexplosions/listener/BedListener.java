@@ -61,7 +61,7 @@ public final class BedListener implements Listener {
   }
 
   private WorldsConfig.World.@Nullable Bed getBedConfig(final Player player) {
-    final WorldsConfig.World worldConfig = this.worldsConfig.worlds().get(player.getWorld().getName());
+    final WorldsConfig.World worldConfig = this.worldsConfig.worlds().get(player.getWorld().getKey());
     if (worldConfig == null) {
       return null;
     }

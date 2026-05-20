@@ -59,7 +59,7 @@ public final class AnchorListener implements Listener {
   }
 
   private WorldsConfig.World.@Nullable Anchor getAnchorConfig(final Player player) {
-    final WorldsConfig.World worldConfig = this.worldsConfig.worlds().get(player.getWorld().getName());
+    final WorldsConfig.World worldConfig = this.worldsConfig.worlds().get(player.getWorld().getKey());
     if (worldConfig == null) {
       return null;
     }

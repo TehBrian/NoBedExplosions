@@ -37,10 +37,10 @@ version: 1
 
 worlds:
   # Disable bed explosions in the nether.
-  world_nether:
+  the_nether:
     bed:
       mode: allow
   # Disable bed explosions in the end.
-  world_the_end:
+  the_end:
     bed:
       mode: allow

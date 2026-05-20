@@ -1,6 +1,7 @@
 package dev.tehbrian.nobedexplosions;
 
 import io.papermc.paper.command.brigadier.CommandSourceStack;
+import org.bukkit.NamespacedKey;
 import org.incendo.cloud.component.CommandComponent;
 import org.incendo.cloud.paper.PaperCommandManager;
 import com.google.inject.Inject;
@@ -13,8 +14,8 @@ import org.bukkit.entity.Player;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.spongepowered.configurate.NodePath;
 
+import static org.incendo.cloud.bukkit.parser.NamespacedKeyParser.namespacedKeyParser;
 import static org.incendo.cloud.description.Description.description;
-import static org.incendo.cloud.parser.standard.StringParser.stringParser;
 import static org.incendo.cloud.suggestion.SuggestionProvider.blockingStrings;
 
 public final class MainCommand {
@@ -56,34 +57,39 @@ public final class MainCommand {
     final var info = main.literal("info", description("Shows info for a world."))
         .permission(Permission.INFO)
         .argument(CommandComponent
-            .builder("world", stringParser())
-            .suggestionProvider(blockingStrings((_, _) -> this.worldsConfig.worlds().keySet()))
+            .builder("world", namespacedKeyParser())
+            .suggestionProvider(blockingStrings((_, _) -> this.worldsConfig
+                .worlds()
+                .keySet()
+                .stream()
+                .map(NamespacedKey::toString)
+                .toList()))
             .optional()
         )
         .handler(c -> {
           final CommandSender sender = c.sender().getSender();
 
-          final String worldName;
+          final NamespacedKey worldKey;
           if (sender instanceof final Player player) {
-            worldName = c.<String>optional("world").orElse(player.getWorld().getName());
+            worldKey = c.<NamespacedKey>optional("world").orElse(player.getWorld().getKey());
           } else {
-            // I am aware that there's a chance of NPE here, but let's just hope to heck that people have at least *one* world.
-            worldName = c.<String>optional("world").orElse(sender.getServer().getWorlds().getFirst().getName());
+            // If there somehow isn't a single world loaded, they deserve an NSEE.
+            worldKey = c.<NamespacedKey>optional("world").orElse(sender.getServer().getWorlds().getFirst().getKey());
           }
 
-          final WorldsConfig.@Nullable World worldConfig = this.worldsConfig.worlds().get(worldName);
+          final WorldsConfig.@Nullable World worldConfig = this.worldsConfig.worlds().get(worldKey);
 
           if (worldConfig == null) {
             sender.sendMessage(this.langConfig.c(
                 NodePath.path("nbe-info", "no-world-config"),
-                Placeholder.unparsed("world", worldName)
+                Placeholder.unparsed("world", worldKey.toString())
             ));
             return;
           }
 
           sender.sendMessage(this.langConfig.c(
               NodePath.path("nbe-info", "header"),
-              Placeholder.unparsed("world", worldName)
+              Placeholder.unparsed("world", worldKey.toString())
           ));
 
           final WorldsConfig.World.Bed bed = worldConfig.bed();
