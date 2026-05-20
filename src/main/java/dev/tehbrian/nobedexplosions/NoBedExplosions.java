@@ -68,12 +68,12 @@ public final class NoBedExplosions extends JavaPlugin {
     saveResourceSilently(this, "config.yml");
     saveResourceSilently(this, "worlds.yml");
 
-    final List<Config> configsToLoad = List.of(
+    final List<Config<?>> configsToLoad = List.of(
         this.injector.getInstance(LangConfig.class),
         this.injector.getInstance(WorldsConfig.class)
     );
 
-    for (final Config config : configsToLoad) {
+    for (final Config<?> config : configsToLoad) {
       try {
         config.load();
       } catch (final ConfigurateException e) {

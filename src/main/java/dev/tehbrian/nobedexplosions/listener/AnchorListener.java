@@ -42,7 +42,7 @@ public final class AnchorListener implements Listener {
         || event.getHand() != EquipmentSlot.HAND
         || block == null
         || block.getType() != Material.RESPAWN_ANCHOR
-        || !(block.getBlockData() instanceof RespawnAnchor anchor)) {
+        || !(block.getBlockData() instanceof final RespawnAnchor anchor)) {
       return;
     }
 
