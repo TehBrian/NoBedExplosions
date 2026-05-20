@@ -50,8 +50,6 @@ public final class AnchorListener implements Listener {
       switch (anchorConfig.mode()) {
         case DENY -> event.setCancelled(true);
         case DEFAULT -> event.setCancelled(false);
-        default -> {
-        }
       }
 
       MessageHelper.sendMessageOrIgnore(player, anchorConfig.message());
