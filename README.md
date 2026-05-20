@@ -4,7 +4,7 @@ Control bed and respawn anchor functionality across all of your worlds, such as
 allowing sleep in the nether or the end!
 
 * [Download](https://modrinth.com/plugin/nobedexplosions)
-* [Discord](https://thbn.me/discord)
+* [Discord](https://tehbrian.dev/discord)
 * [Donate](https://github.com/sponsors/TehBrian) <3
 
 ---
@@ -41,8 +41,3 @@ It can also prevent respawn anchor explosions too.
 
 This project uses Gradle. To build, run `./gradlew build` in the project's root
 directory. The built jar can be found in `build/libs`.
-
-## Contributing
-
-Feel free to submit a pull request or file an issue! All changes are welcome. If
-you're contributing code, please follow the project's code style.
