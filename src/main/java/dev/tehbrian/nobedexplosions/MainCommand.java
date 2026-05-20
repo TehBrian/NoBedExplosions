@@ -1,9 +1,8 @@
 package dev.tehbrian.nobedexplosions;
 
-import cloud.commandframework.ArgumentDescription;
-import cloud.commandframework.arguments.standard.StringArgument;
-import cloud.commandframework.meta.CommandMeta;
-import cloud.commandframework.paper.PaperCommandManager;
+import io.papermc.paper.command.brigadier.CommandSourceStack;
+import org.incendo.cloud.component.CommandComponent;
+import org.incendo.cloud.paper.PaperCommandManager;
 import com.google.inject.Inject;
 import dev.tehbrian.nobedexplosions.config.LangConfig;
 import dev.tehbrian.nobedexplosions.config.WorldsConfig;
@@ -14,7 +13,9 @@ import org.bukkit.entity.Player;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.spongepowered.configurate.NodePath;
 
-import java.util.List;
+import static org.incendo.cloud.description.Description.description;
+import static org.incendo.cloud.parser.standard.StringParser.stringParser;
+import static org.incendo.cloud.suggestion.SuggestionProvider.blockingStrings;
 
 public final class MainCommand {
 
@@ -33,42 +34,41 @@ public final class MainCommand {
     this.worldsConfig = worldsConfig;
   }
 
-  public void register(final PaperCommandManager<CommandSender> commandManager) {
+  public void register(final PaperCommandManager<CommandSourceStack> commandManager) {
     final var main = commandManager.commandBuilder("nbe")
-        .meta(CommandMeta.DESCRIPTION, "The main command for NBE.")
-        .handler(c -> c.getSender().sendMessage(this.langConfig.c(
+        .commandDescription(description("The main command for NBE."))
+        .handler(c -> c.sender().getSender().sendMessage(this.langConfig.c(
                 NodePath.path("nbe"),
                 Placeholder.unparsed("version", this.noBedExplosions.getPluginMeta().getVersion())
             ))
         );
 
-    final var reload = main.literal("reload", ArgumentDescription.of("Reloads the plugin's config."))
+    final var reload = main.literal("reload", description("Reloads the plugin's config."))
         .permission(Permission.RELOAD)
         .handler(c -> {
           if (this.noBedExplosions.loadConfiguration()) {
-            c.getSender().sendMessage(this.langConfig.c(NodePath.path("nbe-reload", "successful")));
+            c.sender().getSender().sendMessage(this.langConfig.c(NodePath.path("nbe-reload", "successful")));
           } else {
-            c.getSender().sendMessage(this.langConfig.c(NodePath.path("nbe-reload", "unsuccessful")));
+            c.sender().getSender().sendMessage(this.langConfig.c(NodePath.path("nbe-reload", "unsuccessful")));
           }
         });
 
-    final var info = main.literal("info", ArgumentDescription.of("Shows info for a world."))
+    final var info = main.literal("info", description("Shows info for a world."))
         .permission(Permission.INFO)
-        .argument(StringArgument
-            .<CommandSender>builder("world")
-            .single()
-            .withSuggestionsProvider((c, in) -> List.copyOf(this.worldsConfig.worlds().keySet()))
-            .asOptional()
-            .build())
+        .argument(CommandComponent
+            .builder("world", stringParser())
+            .suggestionProvider(blockingStrings((_, _) -> this.worldsConfig.worlds().keySet()))
+            .optional()
+        )
         .handler(c -> {
-          final CommandSender sender = c.getSender();
+          final CommandSender sender = c.sender().getSender();
 
           final String worldName;
           if (sender instanceof final Player player) {
-            worldName = c.<String>getOptional("world").orElse(player.getWorld().getName());
+            worldName = c.<String>optional("world").orElse(player.getWorld().getName());
           } else {
             // I am aware that there's a chance of NPE here, but let's just hope to heck that people have at least *one* world.
-            worldName = c.<String>getOptional("world").orElse(sender.getServer().getWorlds().get(0).getName());
+            worldName = c.<String>optional("world").orElse(sender.getServer().getWorlds().getFirst().getName());
           }
 
           final WorldsConfig.@Nullable World worldConfig = this.worldsConfig.worlds().get(worldName);

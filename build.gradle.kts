@@ -25,7 +25,7 @@ dependencies {
   compileOnly("io.papermc.paper:paper-api:26.1.2.build.64-stable")
 
   implementation("com.google.inject:guice:7.0.0")
-  implementation("dev.tehbrian:agna-paper:0.9.0")
+  implementation("dev.tehbrian:agna-paper:0.10.0")
   implementation("org.incendo:cloud-paper:2.0.0-beta.15")
   implementation("org.spongepowered:configurate-yaml:4.2.0")
 }
@@ -61,9 +61,9 @@ tasks {
     }
 
     moveToLibs(
-      "cloud.commandframework",
+      "org.incendo.cloud",
       "com.google",
-      "dev.tehbrian.tehlib",
+      "dev.tehbrian.agna",
       "io.leangen",
       "jakarta.inject",
       "javax.annotation",

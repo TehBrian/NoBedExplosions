@@ -1,7 +1,9 @@
 package dev.tehbrian.nobedexplosions;
 
-import cloud.commandframework.execution.CommandExecutionCoordinator;
-import cloud.commandframework.paper.PaperCommandManager;
+import io.papermc.paper.command.brigadier.CommandSourceStack;
+import org.bukkit.plugin.java.JavaPlugin;
+import org.incendo.cloud.execution.ExecutionCoordinator;
+import org.incendo.cloud.paper.PaperCommandManager;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import dev.tehbrian.nobedexplosions.config.LangConfig;
@@ -10,21 +12,22 @@ import dev.tehbrian.nobedexplosions.inject.PluginModule;
 import dev.tehbrian.nobedexplosions.inject.SingletonModule;
 import dev.tehbrian.nobedexplosions.listener.AnchorListener;
 import dev.tehbrian.nobedexplosions.listener.BedListener;
-import dev.tehbrian.tehlib.configurate.Config;
-import dev.tehbrian.tehlib.paper.TehPlugin;
-import org.bukkit.command.CommandSender;
+import dev.tehbrian.agna.configurate.Config;
 import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
 import org.spongepowered.configurate.ConfigurateException;
 
 import java.util.List;
-import java.util.function.Function;
+
+import static dev.tehbrian.agna.paper.PluginUtils.disableSelf;
+import static dev.tehbrian.agna.paper.PluginUtils.registerListeners;
+import static dev.tehbrian.agna.paper.PluginUtils.saveResourceSilently;
 
 /**
  * The main class for the NoBedExplosions plugin.
  */
-public final class NoBedExplosions extends TehPlugin {
+public final class NoBedExplosions extends JavaPlugin {
 
-  private @MonotonicNonNull PaperCommandManager<CommandSender> commandManager;
+  private @MonotonicNonNull PaperCommandManager<CommandSourceStack> commandManager;
   private @MonotonicNonNull Injector injector;
 
   @Override
@@ -37,17 +40,17 @@ public final class NoBedExplosions extends TehPlugin {
     } catch (final Exception e) {
       this.getSLF4JLogger().error("Something went wrong while creating the Guice injector.");
       this.getSLF4JLogger().error("Disabling plugin.");
-      this.disableSelf();
+      disableSelf(this);
       this.getSLF4JLogger().error("Printing stack trace, please send this to the developers:", e);
       return;
     }
 
     if (!this.loadConfiguration()) {
-      this.disableSelf();
+      disableSelf(this);
       return;
     }
     if (!this.setupCommands()) {
-      this.disableSelf();
+      disableSelf(this);
       return;
     }
 
@@ -61,9 +64,9 @@ public final class NoBedExplosions extends TehPlugin {
    * @return whether it was successful
    */
   public boolean loadConfiguration() {
-    this.saveResourceSilently("lang.yml");
-    this.saveResourceSilently("config.yml");
-    this.saveResourceSilently("worlds.yml");
+    saveResourceSilently(this, "lang.yml");
+    saveResourceSilently(this, "config.yml");
+    saveResourceSilently(this, "worlds.yml");
 
     final List<Config> configsToLoad = List.of(
         this.injector.getInstance(LangConfig.class),
@@ -96,13 +99,12 @@ public final class NoBedExplosions extends TehPlugin {
       throw new IllegalStateException("The CommandManager is already instantiated.");
     }
 
+
     try {
-      this.commandManager = new PaperCommandManager<>(
-          this,
-          CommandExecutionCoordinator.simpleCoordinator(),
-          Function.identity(),
-          Function.identity()
-      );
+      this.commandManager = PaperCommandManager
+          .builder()
+          .executionCoordinator(ExecutionCoordinator.simpleCoordinator())
+          .buildOnEnable(this);
     } catch (final Exception e) {
       this.getSLF4JLogger().error("Failed to create the CommandManager.");
       this.getSLF4JLogger().error("Printing stack trace, please send this to the developers:", e);
@@ -115,7 +117,8 @@ public final class NoBedExplosions extends TehPlugin {
   }
 
   private void setupListeners() {
-    this.registerListeners(
+    registerListeners(
+        this,
         this.injector.getInstance(AnchorListener.class),
         this.injector.getInstance(BedListener.class)
     );
