@@ -1,11 +1,12 @@
-# +-------------------+ +-----------------------------------------------+
-# |                   | |                                               |
-# |  NoBedExplosions  | |  https://github.com/TehBrian/NoBedExplosions  |
-# |    by TehBrian    | |  https://forums.papermc.io/threads/221        |
-# |                   | |  https://thbn.me/discord                /-----+
-# | made with love <3 | |                           /------------/
-# |                   | |    /---------------------/
-# +-------------------+ +---/
-
-# World configuration can be found in worlds.yml
-# Language configuration can be found in lang.yml
+# NoBedExplosions
+# made with <3 by TehBrian
+#
+# Control bed and respawn anchor functionality across all of your worlds,
+# such as allowing sleep in the nether or the end!
+#
+# Modrinth: https://modrinth.com/plugin/nobedexplosions
+# Discord:  https://tehbrian.dev/discord
+# GitHub:   https://github.com/TehBrian/NoBedExplosions
+#
+# World configuration:    worlds.yml
+# Language configuration: lang.yml
