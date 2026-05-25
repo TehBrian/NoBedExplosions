@@ -50,6 +50,7 @@ public final class AnchorListener implements Listener {
       switch (anchorConfig.mode()) {
         case DENY -> event.setCancelled(true);
         case DEFAULT -> event.setCancelled(false);
+        default -> throw new IllegalStateException("Invalid anchor mode: " + anchorConfig.mode());
       }
 
       MessageHelper.sendMessageOrIgnore(player, anchorConfig.message());

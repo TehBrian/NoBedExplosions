@@ -38,6 +38,7 @@ public final class BedListener implements Listener {
       case ALLOW -> event.setUseBed(Event.Result.ALLOW);
       case DENY, EXPLODE -> event.setUseBed(Event.Result.DENY);
       case DEFAULT -> event.setUseBed(Event.Result.DEFAULT);
+      default -> throw new IllegalStateException("Invalid bed mode: " + bedConfig.mode());
     }
   }
 
@@ -51,6 +52,7 @@ public final class BedListener implements Listener {
     switch (bedConfig.mode()) {
       case DENY -> event.setWillExplode(false);
       case EXPLODE -> event.setWillExplode(true);
+      default -> throw new IllegalStateException("Invalid bed mode: " + bedConfig.mode());
     }
 
     event.setMessage(MessageHelper.miniMessageElseNull(bedConfig.message()));
