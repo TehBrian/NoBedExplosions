@@ -22,7 +22,7 @@ repositories {
 }
 
 dependencies {
-  compileOnly("io.papermc.paper:paper-api:26.1.2.build.64-stable")
+  compileOnly("io.papermc.paper:paper-api:26.1.2.build.65-stable")
 
   implementation("com.google.inject:guice:7.0.0")
   implementation("dev.tehbrian:agna-paper:0.10.0")

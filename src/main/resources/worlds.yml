@@ -1,6 +1,6 @@
 # World configuration for NoBedExplosions.
 #
-# Each world has its own configuration section, identified by the world's name.
+# Each world has its own configuration section, identified by the world's key.
 # Only worlds that you want to modify need to be added here.
 #
 # Configuration for a world contains bed config and anchor config.
