@@ -1,5 +1,8 @@
 # NoBedExplosions
 
+[![License](https://img.shields.io/github/license/TehBrian/NoBedExplosions)](LICENSE.md)
+[![Chat](https://img.shields.io/discord/791861916314239006)](https://tehbrian.dev/discord)
+
 Control bed and respawn anchor functionality across all of your worlds, such as
 allowing sleep in the nether or the end!
 
@@ -21,13 +24,13 @@ for beds. With it, you can:
 Because it has multi-world support, you can mix and match functionalities and
 worlds to your heart's content!
 
-It can also prevent respawn anchor explosions too.
+It can adjust respawn anchor functionality as well.
 
 ## Commands and Permissions
 
-`/nbe info [world]` permission: `nobedexplosions.info`
+`/nbe info [world]`, permission: `nobedexplosions.info`
 
-`/nbe reload` permission: `nobedexplosions.reload`
+`/nbe reload`, permission: `nobedexplosions.reload`
 
 ## Configs
 
