@@ -1,6 +1,7 @@
 package dev.tehbrian.nobedexplosions;
 
 import io.papermc.paper.command.brigadier.CommandSourceStack;
+import org.bstats.bukkit.Metrics;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.incendo.cloud.execution.ExecutionCoordinator;
 import org.incendo.cloud.paper.PaperCommandManager;
@@ -30,6 +31,8 @@ public final class NoBedExplosions extends JavaPlugin {
   private @MonotonicNonNull PaperCommandManager<CommandSourceStack> commandManager;
   private @MonotonicNonNull Injector injector;
 
+  private static final int BSTATS_PLUGIN_ID = 31554;
+
   @Override
   public void onEnable() {
     try {
@@ -44,6 +47,9 @@ public final class NoBedExplosions extends JavaPlugin {
       this.getSLF4JLogger().error("Printing stack trace, please send this to the developers:", e);
       return;
     }
+
+    // initialize bStats.
+    Metrics _ = new Metrics(this, BSTATS_PLUGIN_ID);
 
     if (!this.loadConfiguration()) {
       disableSelf(this);

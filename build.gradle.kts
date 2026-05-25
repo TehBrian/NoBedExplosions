@@ -23,9 +23,9 @@ repositories {
 
 dependencies {
   compileOnly("io.papermc.paper:paper-api:26.1.2.build.65-stable")
-
+  implementation("org.bstats:bstats-bukkit:3.2.1")
   implementation("com.google.inject:guice:7.0.0")
-  implementation("dev.tehbrian:agna-paper:0.10.0")
+  implementation("dev.tehbrian:agna-paper:0.11.0")
   implementation("org.incendo:cloud-paper:2.0.0-beta.15")
   implementation("org.spongepowered:configurate-yaml:4.2.0")
 }
@@ -61,16 +61,17 @@ tasks {
     }
 
     moveToLibs(
-      "org.incendo.cloud",
       "com.google",
       "dev.tehbrian.agna",
       "io.leangen",
       "jakarta.inject",
       "javax.annotation",
+      "net.kyori.option",
       "org.aopalliance",
+      "org.bstats",
       "org.checkerframework",
+      "org.incendo.cloud",
       "org.spongepowered",
-      "org.yaml",
     )
   }
 
