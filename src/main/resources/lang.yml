@@ -26,7 +26,7 @@ nbe-reload:
 
 # /nbe info
 nbe-info:
-  no-world-config: "<blue>›<gray> No world configuration for <#a5a5f5><world></#a5a5f5> found."
+  no-world-config: "<blue>›<gray> No world configuration for <#a5a5f5><world></#a5a5f5> loaded."
   header: "<blue>›<gray> World configuration for <#a5a5f5><world></#a5a5f5>:"
   bed: |-
     <dark_gray>|<gray>    bed:
