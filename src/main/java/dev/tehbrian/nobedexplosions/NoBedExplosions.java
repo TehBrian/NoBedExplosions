@@ -48,11 +48,6 @@ public final class NoBedExplosions extends JavaPlugin {
 			return;
 		}
 
-		// initialize bStats.
-		Metrics _ = new Metrics(this, BSTATS_PLUGIN_ID);
-
-		new UpdateChecker(this, "nobedexplosions").checkForUpdates();
-
 		if (!this.loadConfiguration()) {
 			disableSelf(this);
 			return;
@@ -64,6 +59,11 @@ public final class NoBedExplosions extends JavaPlugin {
 		}
 
 		this.setupListeners();
+
+		// initialize bStats.
+		Metrics _ = new Metrics(this, BSTATS_PLUGIN_ID);
+
+		new UpdateChecker(this, "nobedexplosions").checkForUpdates();
 	}
 
 	/**
