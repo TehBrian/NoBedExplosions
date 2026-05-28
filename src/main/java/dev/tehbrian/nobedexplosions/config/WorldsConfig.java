@@ -59,7 +59,7 @@ public final class WorldsConfig extends AbstractConfig<YamlConfigurateWrapper> {
       } catch (final SerializationException e) {
         this.logger.warn("Exception caught during deserialization for world {}", worldKey);
         this.logger.warn("Skipping this world. Please check your {}", fileName);
-        this.logger.warn("Printing stack trace:", e);
+        this.logger.warn("Printing stack trace", e);
         continue;
       }
 
