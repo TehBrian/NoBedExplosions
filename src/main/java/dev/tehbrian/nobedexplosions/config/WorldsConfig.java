@@ -46,8 +46,8 @@ public final class WorldsConfig extends AbstractConfig<YamlConfigurateWrapper> {
       final NamespacedKey worldKey = NamespacedKey.fromString(child.getKey().toString());
 
       if (worldKey == null) {
-        this.logger.warn("Could not parse world key from `{}`.", child.getKey());
-        this.logger.warn("Skipping this world. Please check your `{}`.", fileName);
+        this.logger.warn("Could not parse world key from {}", child.getKey());
+        this.logger.warn("Skipping this world. Please check your {}", fileName);
         continue;
       }
 
@@ -57,34 +57,34 @@ public final class WorldsConfig extends AbstractConfig<YamlConfigurateWrapper> {
       try {
         world = worldNode.get(World.class);
       } catch (final SerializationException e) {
-        this.logger.warn("Exception caught during deserialization for world `{}`.", worldKey);
-        this.logger.warn("Skipping this world. Please check your `{}`.", fileName);
+        this.logger.warn("Exception caught during deserialization for world {}", worldKey);
+        this.logger.warn("Skipping this world. Please check your {}", fileName);
         this.logger.warn("Printing stack trace:", e);
         continue;
       }
 
       if (world == null) {
-        this.logger.warn("Deserialized world configuration for `{}` was null.", worldKey);
-        this.logger.warn("Skipping this world. Please check your `{}`.", fileName);
+        this.logger.warn("Deserialized world configuration for {} was null", worldKey);
+        this.logger.warn("Skipping this world. Please check your {}", fileName);
         continue;
       }
 
       //noinspection ConstantValue - NonNull for external use, but we must validate it here.
       if (world.anchor() != null && world.anchor().mode() == null) {
-        this.logger.error("For world `{}`, anchor section exists but mode is null.", worldKey);
-        this.logger.warn("Skipping this world. Please check your `{}`.", fileName);
+        this.logger.error("For world {}, anchor section exists but mode is null", worldKey);
+        this.logger.warn("Skipping this world. Please check your {}", fileName);
         continue;
       }
 
       //noinspection ConstantValue - NonNull for external use, but we must validate it here.
       if (world.bed() != null && world.bed().mode() == null) {
-        this.logger.error("For world `{}`, bed section exists but mode is null.", worldKey);
-        this.logger.warn("Skipping this world. Please check your `{}`.", fileName);
+        this.logger.error("For world {}, bed section exists but mode is null.", worldKey);
+        this.logger.warn("Skipping this world. Please check your {}", fileName);
         continue;
       }
 
       this.worlds.put(worldKey, world);
-      this.logger.info("Successfully loaded world configuration for `{}`.", worldKey);
+      this.logger.info("Successfully loaded world configuration for {}", worldKey);
     }
   }
 
