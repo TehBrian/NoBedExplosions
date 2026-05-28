@@ -1,8 +1,8 @@
 package dev.tehbrian.nobedexplosions.listener;
 
 import com.google.inject.Inject;
-import dev.tehbrian.nobedexplosions.config.WorldsConfig;
 import dev.tehbrian.nobedexplosions.MessageHelper;
+import dev.tehbrian.nobedexplosions.config.WorldsConfig;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.type.RespawnAnchor;
@@ -20,58 +20,58 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  */
 public final class AnchorListener implements Listener {
 
-  private final WorldsConfig worldsConfig;
+	private final WorldsConfig worldsConfig;
 
-  @Inject
-  public AnchorListener(
-      final WorldsConfig worldsConfig
-  ) {
-    this.worldsConfig = worldsConfig;
-  }
+	@Inject
+	public AnchorListener(
+			final WorldsConfig worldsConfig
+	) {
+		this.worldsConfig = worldsConfig;
+	}
 
-  @EventHandler
-  public void onAnchorInteract(final PlayerInteractEvent event) {
-    final Player player = event.getPlayer();
-    final WorldsConfig.World.@Nullable Anchor anchorConfig = this.getAnchorConfig(player);
-    if (anchorConfig == null) {
-      return;
-    }
+	@EventHandler
+	public void onAnchorInteract(final PlayerInteractEvent event) {
+		final Player player = event.getPlayer();
+		final WorldsConfig.World.@Nullable Anchor anchorConfig = this.getAnchorConfig(player);
+		if (anchorConfig == null) {
+			return;
+		}
 
-    final Block block = event.getClickedBlock();
-    if (event.getAction() != Action.RIGHT_CLICK_BLOCK
-        || event.getHand() != EquipmentSlot.HAND
-        || block == null
-        || block.getType() != Material.RESPAWN_ANCHOR
-        || !(block.getBlockData() instanceof final RespawnAnchor anchor)) {
-      return;
-    }
+		final Block block = event.getClickedBlock();
+		if (event.getAction() != Action.RIGHT_CLICK_BLOCK
+				|| event.getHand() != EquipmentSlot.HAND
+				|| block == null
+				|| block.getType() != Material.RESPAWN_ANCHOR
+				|| !(block.getBlockData() instanceof final RespawnAnchor anchor)) {
+			return;
+		}
 
-    if (this.willExplode(anchor, event.getMaterial())) {
-      switch (anchorConfig.mode()) {
-        case DENY -> event.setCancelled(true);
-        case DEFAULT -> event.setCancelled(false);
-        default -> throw new IllegalStateException("Invalid anchor mode: " + anchorConfig.mode());
-      }
+		if (this.willExplode(anchor, event.getMaterial())) {
+			switch (anchorConfig.mode()) {
+				case DENY -> event.setCancelled(true);
+				case DEFAULT -> event.setCancelled(false);
+				default -> throw new IllegalStateException("Invalid anchor mode: " + anchorConfig.mode());
+			}
 
-      MessageHelper.sendMessageOrIgnore(player, anchorConfig.message());
-    }
-  }
+			MessageHelper.sendMessageOrIgnore(player, anchorConfig.message());
+		}
+	}
 
-  private WorldsConfig.World.@Nullable Anchor getAnchorConfig(final Player player) {
-    final WorldsConfig.World worldConfig = this.worldsConfig.worlds().get(player.getWorld().getKey());
-    if (worldConfig == null) {
-      return null;
-    }
+	private WorldsConfig.World.@Nullable Anchor getAnchorConfig(final Player player) {
+		final WorldsConfig.World worldConfig = this.worldsConfig.worlds().get(player.getWorld().getKey());
+		if (worldConfig == null) {
+			return null;
+		}
 
-    return worldConfig.anchor();
-  }
+		return worldConfig.anchor();
+	}
 
-  private boolean willExplode(final RespawnAnchor anchor, final Material heldMaterial) {
-    // if the held block is glowstone and anchor has max charge
-    // OR
-    // if the held block is not glowstone and anchor has any charge at all
-    return (heldMaterial == Material.GLOWSTONE && anchor.getCharges() >= anchor.getMaximumCharges())
-        || (heldMaterial != Material.GLOWSTONE && anchor.getCharges() > 0);
-  }
+	private boolean willExplode(final RespawnAnchor anchor, final Material heldMaterial) {
+		// if the held block is glowstone and anchor has max charge
+		// OR
+		// if the held block is not glowstone and anchor has any charge at all
+		return (heldMaterial == Material.GLOWSTONE && anchor.getCharges() >= anchor.getMaximumCharges())
+				|| (heldMaterial != Material.GLOWSTONE && anchor.getCharges() > 0);
+	}
 
 }

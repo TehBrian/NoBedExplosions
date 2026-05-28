@@ -8,12 +8,12 @@ import java.nio.file.Path;
 
 public class ConfigConfig extends AbstractRawConfig<YamlConfigurateWrapper> {
 
-  /**
-   * @param dataFolder the data folder
-   */
-  @Inject
-  public ConfigConfig(final @Named("dataFolder") Path dataFolder) {
-    super(new YamlConfigurateWrapper(dataFolder.resolve("config.yml")));
-  }
+	/**
+	 * @param dataFolder the data folder
+	 */
+	@Inject
+	public ConfigConfig(final @Named("dataFolder") Path dataFolder) {
+		super(new YamlConfigurateWrapper(dataFolder.resolve("config.yml")));
+	}
 
 }
