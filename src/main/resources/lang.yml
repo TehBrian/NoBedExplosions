@@ -8,13 +8,16 @@ version: 1
 
 # /nbe
 nbe: |-
-
-  <gray>-= Running <gradient:red:#f5a5a5>NoBedExplosions</gradient> <gradient:#a5a5f5:blue><version></gradient> =-
+  <gray>-= <gradient:red:#f5a5a5>NoBedExplosions</gradient> <gradient:#a5a5f5:blue><version></gradient> =-
 
   <gray>Commands:
   <dark_gray>- <#f5a5a5>/nbe reload
-  <dark_gray>- <#a5a5f5>/nbe info
+  <dark_gray>- <#a5a5f5>/nbe info [<world>]
 
+  <gray>Links:
+  <dark_gray>- <#a5f5a5><click:open_url:https://modrinth.com/plugin/nobedexplosions>modrinth.com/plugin/nobedexplosions
+  <dark_gray>- <#a5f5f5><click:open_url:https://tehbrian.dev/discord>tehbrian.dev/discord
+  <dark_gray>- <#f5a5f5><click:open_url:https://github.com/TehBrian/NoBedExplosions>github.com/TehBrian/NoBedExplosions
 
 # /nbe reload
 nbe-reload:
