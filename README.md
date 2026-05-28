@@ -28,7 +28,7 @@ It can adjust respawn anchor functionality as well.
 
 ## Commands and Permissions
 
-`/nbe info [world]`, permission: `nobedexplosions.info`
+`/nbe info [<world>]`, permission: `nobedexplosions.info`
 
 `/nbe reload`, permission: `nobedexplosions.reload`
 
