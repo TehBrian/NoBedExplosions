@@ -1,5 +1,8 @@
 package dev.tehbrian.nobedexplosions;
 
+import dev.tehbrian.agna.paper.configurate.ConfigLoader;
+import dev.tehbrian.agna.paper.configurate.ConfigLoader.Loadable;
+import dev.tehbrian.nobedexplosions.config.ConfigConfig;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -55,6 +58,7 @@ public final class NoBedExplosions extends JavaPlugin {
       disableSelf(this);
       return;
     }
+
     if (!this.setupCommands()) {
       disableSelf(this);
       return;
@@ -70,31 +74,11 @@ public final class NoBedExplosions extends JavaPlugin {
    * @return whether it was successful
    */
   public boolean loadConfiguration() {
-    saveResourceSilently(this, "lang.yml");
-    saveResourceSilently(this, "config.yml");
-    saveResourceSilently(this, "worlds.yml");
-
-    final List<Config<?>> configsToLoad = List.of(
-        this.injector.getInstance(LangConfig.class),
-        this.injector.getInstance(WorldsConfig.class)
-    );
-
-    for (final Config<?> config : configsToLoad) {
-      try {
-        config.load();
-      } catch (final ConfigurateException e) {
-        this.getSLF4JLogger().error(
-            "Exception caught during config load for {}",
-            config.wrapper().path()
-        );
-        this.getSLF4JLogger().error("Please check your config.");
-        this.getSLF4JLogger().error("Printing stack trace:", e);
-        return false;
-      }
-    }
-
-    this.getSLF4JLogger().info("Successfully loaded configuration.");
-    return true;
+    return new ConfigLoader(this).load(List.of(
+        Loadable.ofVersioned("config.yml", this.injector.getInstance(ConfigConfig.class), 1),
+        Loadable.ofVersioned("lang.yml", this.injector.getInstance(LangConfig.class), 1),
+        Loadable.ofVersioned("worlds.yml", this.injector.getInstance(WorldsConfig.class), 1)
+    ));
   }
 
   /**
@@ -104,7 +88,6 @@ public final class NoBedExplosions extends JavaPlugin {
     if (this.commandManager != null) {
       throw new IllegalStateException("The CommandManager is already instantiated.");
     }
-
 
     try {
       this.commandManager = PaperCommandManager
