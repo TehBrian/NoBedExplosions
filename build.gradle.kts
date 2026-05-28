@@ -1,6 +1,6 @@
 plugins {
 	id("java")
-	id("com.gradleup.shadow") version "9.4.1"
+	id("com.gradleup.shadow") version "9.4.2"
 	id("xyz.jpenilla.run-paper") version "3.0.2"
 	id("net.kyori.indra.checkstyle") version "4.0.0"
 	id("com.github.ben-manes.versions") version "0.54.0"
@@ -22,10 +22,10 @@ repositories {
 }
 
 dependencies {
-	compileOnly("io.papermc.paper:paper-api:26.1.2.build.65-stable")
+	compileOnly("io.papermc.paper:paper-api:26.1.2.build.66-stable")
 	implementation("org.bstats:bstats-bukkit:3.2.1")
 	implementation("com.google.inject:guice:7.0.0")
-	implementation("dev.tehbrian:agna-paper:0.12.0")
+	implementation("dev.tehbrian:agna-paper:1.0.0")
 	implementation("org.incendo:cloud-paper:2.0.0-beta.15")
 	implementation("org.spongepowered:configurate-yaml:4.2.0")
 }
