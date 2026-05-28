@@ -1,5 +1,6 @@
 package dev.tehbrian.nobedexplosions;
 
+import dev.tehbrian.agna.paper.UpdateChecker;
 import dev.tehbrian.agna.paper.configurate.ConfigLoader;
 import dev.tehbrian.agna.paper.configurate.ConfigLoader.Loadable;
 import dev.tehbrian.nobedexplosions.config.ConfigConfig;
@@ -53,6 +54,8 @@ public final class NoBedExplosions extends JavaPlugin {
 
     // initialize bStats.
     Metrics _ = new Metrics(this, BSTATS_PLUGIN_ID);
+
+    new UpdateChecker(this, "nobedexplosions").checkForUpdates();
 
     if (!this.loadConfiguration()) {
       disableSelf(this);
