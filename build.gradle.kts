@@ -61,7 +61,11 @@ tasks {
 		}
 
 		moveToLibs(
-				"com.google.guice",
+				"com.google.common",
+				"com.google.errorprone",
+				"com.google.inject",
+				"com.google.j2objc",
+				"com.google.thirdparty",
 				"dev.tehbrian.agna",
 				"io.leangen",
 				"jakarta.inject",
