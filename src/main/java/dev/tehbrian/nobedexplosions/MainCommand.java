@@ -3,7 +3,6 @@ package dev.tehbrian.nobedexplosions;
 import com.google.inject.Inject;
 import dev.tehbrian.nobedexplosions.config.LangConfig;
 import dev.tehbrian.nobedexplosions.config.WorldsConfig;
-import io.papermc.paper.command.brigadier.CommandSourceStack;
 import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
 import org.bukkit.NamespacedKey;
@@ -12,6 +11,7 @@ import org.bukkit.entity.Player;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.incendo.cloud.component.CommandComponent;
 import org.incendo.cloud.paper.PaperCommandManager;
+import org.incendo.cloud.paper.util.sender.Source;
 import org.spongepowered.configurate.NodePath;
 
 import static org.incendo.cloud.bukkit.parser.NamespacedKeyParser.namespacedKeyParser;
@@ -35,10 +35,10 @@ public final class MainCommand {
 		this.worldsConfig = worldsConfig;
 	}
 
-	public void register(final PaperCommandManager<CommandSourceStack> commandManager) {
+	public void register(final PaperCommandManager<Source> commandManager) {
 		final var main = commandManager.commandBuilder("nbe")
 				.commandDescription(description("The main command for NBE."))
-				.handler(c -> c.sender().getSender().sendMessage(this.langConfig.c(
+				.handler(c -> c.sender().source().sendMessage(this.langConfig.c(
 								NodePath.path("nbe"),
 								Placeholder.unparsed("version", this.noBedExplosions.getPluginMeta().getVersion())
 						))
@@ -48,9 +48,9 @@ public final class MainCommand {
 				.permission(Permission.RELOAD)
 				.handler(c -> {
 					if (this.noBedExplosions.loadConfiguration()) {
-						c.sender().getSender().sendMessage(this.langConfig.c(NodePath.path("nbe-reload", "successful")));
+						c.sender().source().sendMessage(this.langConfig.c(NodePath.path("nbe-reload", "successful")));
 					} else {
-						c.sender().getSender().sendMessage(this.langConfig.c(NodePath.path("nbe-reload", "unsuccessful")));
+						c.sender().source().sendMessage(this.langConfig.c(NodePath.path("nbe-reload", "unsuccessful")));
 					}
 				});
 
@@ -67,7 +67,7 @@ public final class MainCommand {
 						.optional()
 				)
 				.handler(c -> {
-					final CommandSender sender = c.sender().getSender();
+					final CommandSender sender = c.sender().source();
 
 					final NamespacedKey worldKey;
 					if (sender instanceof final Player player) {

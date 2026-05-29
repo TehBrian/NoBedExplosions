@@ -12,17 +12,18 @@ import dev.tehbrian.nobedexplosions.inject.PluginModule;
 import dev.tehbrian.nobedexplosions.inject.SingletonModule;
 import dev.tehbrian.nobedexplosions.listener.AnchorListener;
 import dev.tehbrian.nobedexplosions.listener.BedListener;
-import io.papermc.paper.command.brigadier.CommandSourceStack;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
-import org.incendo.cloud.execution.ExecutionCoordinator;
 import org.incendo.cloud.paper.PaperCommandManager;
+import org.incendo.cloud.paper.util.sender.Source;
 
 import java.util.List;
 
 import static dev.tehbrian.agna.paper.PluginUtils.disableSelf;
 import static dev.tehbrian.agna.paper.PluginUtils.registerListeners;
+import static org.incendo.cloud.execution.ExecutionCoordinator.simpleCoordinator;
+import static org.incendo.cloud.paper.util.sender.PaperSimpleSenderMapper.simpleSenderMapper;
 
 /**
  * The main class for the NoBedExplosions plugin.
@@ -31,7 +32,7 @@ public final class NoBedExplosions extends JavaPlugin {
 
 	private static final int BSTATS_PLUGIN_ID = 31554;
 
-	private @MonotonicNonNull PaperCommandManager<CommandSourceStack> commandManager;
+	private @MonotonicNonNull PaperCommandManager<Source> commandManager;
 	private @MonotonicNonNull Injector injector;
 
 	@Override
@@ -90,8 +91,8 @@ public final class NoBedExplosions extends JavaPlugin {
 
 		try {
 			this.commandManager = PaperCommandManager
-					.builder()
-					.executionCoordinator(ExecutionCoordinator.simpleCoordinator())
+					.builder(simpleSenderMapper())
+					.executionCoordinator(simpleCoordinator())
 					.buildOnEnable(this);
 		} catch (final Exception e) {
 			this.getSLF4JLogger().error("Failed to create the CommandManager");
