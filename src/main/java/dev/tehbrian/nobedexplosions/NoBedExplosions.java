@@ -45,7 +45,7 @@ public final class NoBedExplosions extends JavaPlugin {
 		} catch (final Exception e) {
 			this.getSLF4JLogger().error("Something went wrong while creating the injector. Disabling plugin");
 			disableSelf(this);
-			this.getSLF4JLogger().error("Printing stack trace, please send this to the developers", e);
+			this.getSLF4JLogger().error("Printing stack trace. Please send this to the developers", e);
 			return;
 		}
 
@@ -54,12 +54,12 @@ public final class NoBedExplosions extends JavaPlugin {
 			return;
 		}
 
-		if (!this.setupCommands()) {
+		if (!this.initCommands()) {
 			disableSelf(this);
 			return;
 		}
 
-		this.setupListeners();
+		this.initListeners();
 
 		// initialize bStats.
 		Metrics _ = new Metrics(this, BSTATS_PLUGIN_ID);
@@ -84,7 +84,7 @@ public final class NoBedExplosions extends JavaPlugin {
 	/**
 	 * @return whether it was successful
 	 */
-	private boolean setupCommands() {
+	private boolean initCommands() {
 		if (this.commandManager != null) {
 			throw new IllegalStateException("The CommandManager is already instantiated.");
 		}
@@ -105,7 +105,7 @@ public final class NoBedExplosions extends JavaPlugin {
 		return true;
 	}
 
-	private void setupListeners() {
+	private void initListeners() {
 		registerListeners(
 				this,
 				this.injector.getInstance(AnchorListener.class),
