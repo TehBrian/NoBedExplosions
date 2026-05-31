@@ -89,16 +89,10 @@ public final class NoBedExplosions extends JavaPlugin {
 			throw new IllegalStateException("The CommandManager is already instantiated.");
 		}
 
-		try {
-			this.commandManager = PaperCommandManager
-					.builder(simpleSenderMapper())
-					.executionCoordinator(simpleCoordinator())
-					.buildOnEnable(this);
-		} catch (final Exception e) {
-			this.getSLF4JLogger().error("Failed to create the CommandManager");
-			this.getSLF4JLogger().error("Printing stack trace, please send this to the developers", e);
-			return false;
-		}
+		this.commandManager = PaperCommandManager
+				.builder(simpleSenderMapper())
+				.executionCoordinator(simpleCoordinator())
+				.buildOnEnable(this);
 
 		this.injector.getInstance(MainCommand.class).register(this.commandManager);
 
