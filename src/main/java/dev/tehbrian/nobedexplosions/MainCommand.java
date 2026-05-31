@@ -9,7 +9,6 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.checkerframework.checker.nullness.qual.Nullable;
-import org.incendo.cloud.component.CommandComponent;
 import org.incendo.cloud.paper.PaperCommandManager;
 import org.incendo.cloud.paper.util.sender.Source;
 import org.spongepowered.configurate.NodePath;
@@ -56,15 +55,11 @@ public final class MainCommand {
 
 		final var info = main.literal("info", description("Shows info for a world."))
 				.permission(Permission.INFO)
-				.argument(CommandComponent
-						.builder("world", namespacedKeyParser())
-						.suggestionProvider(blockingStrings((_, _) -> this.worldsConfig
-								.worlds()
-								.keySet()
-								.stream()
-								.map(NamespacedKey::toString)
-								.toList()))
-						.optional()
+				.optional(
+						"world",
+						namespacedKeyParser(),
+						blockingStrings((_, _) ->
+								this.worldsConfig.worlds().keySet().stream().map(NamespacedKey::toString).toList())
 				)
 				.handler(c -> {
 					final CommandSender sender = c.sender().source();
