@@ -80,7 +80,7 @@ public final class WorldsConfig extends AbstractConfig<YamlConfigurateWrapper> {
 
 			//noinspection ConstantValue - NonNull for external use, but we must validate it here.
 			if (world.bed() != null && world.bed().mode() == null) {
-				this.logger.error("For world {}, bed section exists but mode is null.", worldKey);
+				this.logger.error("For world {}, bed section exists but mode is null", worldKey);
 				this.logger.warn("Skipping this world. Please check your {}", fileName);
 				continue;
 			}
