@@ -5,7 +5,7 @@ website: https://github.com/TehBrian/NoBedExplosions
 
 version: ${version}
 main: dev.tehbrian.nobedexplosions.NoBedExplosions
-api-version: '26.1.2'
+api-version: '26.2'
 folia-supported: true
 
 permissions:
