@@ -21,13 +21,13 @@
 #   default - default functionality
 #
 # Example world configurations:
-#   example_world:
+#   minecraft:overworld:
 #     bed:
 #       mode: allow
 #     anchor:
 #       mode: deny
 #       message: "<blue>No explosions here!"
-#   example_world_two:
+#   custom:example_world:
 #     bed:
 #       mode: explode
 #       message: "<red>You fool! You've blown yourself up!"
