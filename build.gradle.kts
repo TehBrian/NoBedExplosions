@@ -22,10 +22,11 @@ repositories {
 }
 
 dependencies {
-	compileOnly("io.papermc.paper:paper-api:26.2.build.+")
+	compileOnly("io.papermc.paper:paper-api:26.3.build.+")
 	implementation("org.bstats:bstats-bukkit:3.2.1")
 	implementation("com.google.inject:guice:7.0.0")
 	implementation("dev.tehbrian:agna-paper:1.2.4")
+	implementation("dev.tehbrian:agna-configurate:1.2.4")
 	implementation("org.incendo:cloud-paper:2.0.1")
 	implementation("org.spongepowered:configurate-yaml:4.2.0")
 }
@@ -80,6 +81,6 @@ tasks {
 	}
 
 	runServer {
-		minecraftVersion("26.2")
+		minecraftVersion("26.3")
 	}
 }
