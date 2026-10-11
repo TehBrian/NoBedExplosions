@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "dev.tehbrian"
-version = "2.3.1"
+version = "2.3.2"
 description = "Control bed and respawn anchor functionality across all of" +
 		" your worlds, such as allowing sleep in the nether or the end!"
 
